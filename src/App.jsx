@@ -791,6 +791,7 @@ function Forge() {
   const [patternLoading, setPatternLoading] = useState(false);
   const [forgingQuoteIdx, setForgingQuoteIdx] = useState(0);
   const [hookSlide, setHookSlide] = useState(0);
+  const [splashDest, setSplashDest] = useState("hook"); // where splash routes: hook (new) | dashboard | drift
   const [voteFlash, setVoteFlash] = useState(null); // { weight, tier, sweep } transient celebration
   const [sealDone, setSealDone] = useState(false);
   const [pickedFoundations, setPickedFoundations] = useState([]);
@@ -860,11 +861,13 @@ function Forge() {
         const drift = detectDrift(saved);
         if (drift) {
           setDriftAlert({ type: drift, loading: true, message: "" });
-          setScreen("drift");
+          setSplashDest("drift");
+          setScreen("splash");
           const msg = await generateDriftMessage(saved, drift);
           setDriftAlert({ type: drift, loading: false, message: msg });
         } else {
-          setScreen("dashboard");
+          setSplashDest("dashboard");
+          setScreen("splash");
         }
       } else if (saved?.onboardingInProgress) {
         // Resume interrupted onboarding
@@ -879,7 +882,12 @@ function Forge() {
     })();
   }, []);
 
-  useEffect(() => { if (screen==="splash") { const t=setTimeout(()=>setScreen("hook"),7950); return ()=>clearTimeout(t); } }, [screen]);
+  useEffect(() => {
+    if (screen !== "splash") return;
+    const returning = splashDest !== "hook";
+    const t = setTimeout(()=>setScreen(splashDest), returning ? 4600 : 7950);
+    return ()=>clearTimeout(t);
+  }, [screen, splashDest]);
   useEffect(() => { chatEndRef.current?.scrollIntoView({behavior:"smooth"}); }, [chatHistory, aiTyping]);
   useEffect(() => {
     if (screen==="dashboard") {
@@ -1745,11 +1753,11 @@ Write the script.`;
           </div>
         </div>
       )}
-      <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"14px",animation:"fadeIn 1.2s ease, dreamFade 1.2s 6.75s ease both"}}>
+      <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"14px",animation:splashDest==="hook"?"fadeIn 1.2s ease, dreamFade 1.2s 6.75s ease both":"fadeIn 0.8s ease, dreamFade 1.0s 3.6s ease both"}}>
         <div style={{fontSize:"10px",letterSpacing:"0.4em",color:"#5a5a6e",textTransform:"uppercase"}}>Identity Engine</div>
         <div style={{fontSize:"56px",fontWeight:"700",letterSpacing:"-0.03em",color:"#e8e4dc",lineHeight:1}}>FORGE</div>
-        <div style={{fontSize:"12px",letterSpacing:"0.18em",textTransform:"uppercase",animation:"emphasize 2.6s 3.0s ease both"}}>Become who you choose to be</div>
-        <div style={{fontSize:"12px",letterSpacing:"0.14em",marginTop:"4px",animation:"fadeIn 1s 0.9s ease both, emphasizeGold 2.2s 4.0s ease both"}}>Decide who you are. Prove it daily.</div>
+        <div style={{fontSize:"12px",letterSpacing:"0.18em",textTransform:"uppercase",animation:splashDest==="hook"?"emphasize 2.6s 3.0s ease both":"emphasize 1.6s 1.2s ease both"}}>Become who you choose to be</div>
+        <div style={{fontSize:"12px",letterSpacing:"0.14em",marginTop:"4px",animation:splashDest==="hook"?"fadeIn 1s 0.9s ease both, emphasizeGold 2.2s 4.0s ease both":"fadeIn 0.7s 0.5s ease both, emphasizeGold 1.5s 1.9s ease both"}}>Decide who you are. Prove it daily.</div>
         <div style={{marginTop:"28px",display:"flex",gap:"7px"}}>{[0,1,2].map(i=><div key={i} style={{width:"7px",height:"7px",borderRadius:"50%",background:"#c8a96e",animation:`pulse 1.4s ${i*0.22}s infinite`}}/>)}</div>
       </div>
     </div>
@@ -2338,7 +2346,7 @@ Write the script.`;
         </div>
       )}
 
-      <div style={{width:"100%",maxWidth:"480px",display:"flex",flexDirection:"column",gap:"14px"}}>
+      <div style={{width:"100%",maxWidth:"480px",display:"flex",flexDirection:"column",gap:"14px",animation:"dreamIn 0.9s ease both"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
           <div>
             <div style={S.eyebrow}>Day {currentDay()} — Mission Brief</div>
