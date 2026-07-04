@@ -667,7 +667,8 @@ Structure your response in 3 short paragraphs:
 CRITICAL SAFETY RULE — READ CAREFULLY:
 If the Relationships or Family domain scores are 3 or below, OR if their "what I missed" notes mention feeling like a failure, being a burden, hopelessness, wanting to disappear, family falling apart, or anything suggesting they are in real personal crisis (not just a bad week) — STOP the normal review format. Instead, respond with genuine concern, do not give performance feedback on relationships/family in that case, and gently suggest they talk to a person — a partner, friend, or professional — rather than process this alone through an app. Do not diagnose. Do not be clinical. Be human and direct. This rule overrides the normal review structure completely.
 
-Otherwise: be direct, no filler, no excessive praise. This is a performance review, not a hug — but never reduce a person's worth to a number.`;
+Otherwise: be direct, no filler, no excessive praise. This is a performance review, not a hug — but never reduce a person's worth to a number.
+End with exactly ONE environment change for the coming week — something physical to add, remove, or stage (gear laid out the night before, the app deleted, the food not in the house) so their standard needs less willpower. Behavior follows environment; make next week's right action the easy one.`;
 
 const TRIGGER_IDENTIFY_SYSTEM = `You are the trigger identification voice for FORGE. Based on a user's identity profile (their stated identity, what they're sacrificing, what's blocked them before, and their vision), identify the THREE highest-risk situations where this specific person is most likely to act against their stated identity — not generic stress triggers, but the ones their own words point to.
 
@@ -680,7 +681,7 @@ const SCRIPT_WRITE_SYSTEM = `You are the script-writing voice for FORGE, helping
 
 Given their identity, the specific trigger situation, and their own rough description of how they currently respond (often badly), write ONE short script: 2-3 sentences, first person, present tense, calm and specific. It should describe exactly what the identity they're building does in this moment — not vague advice, an actual decided response they can recall in the heat of it.
 
-Output ONLY the script itself — no preamble, no quotation marks, no explanation. It should read like something they'd actually say to themselves in that moment.`;
+Output ONLY the script itself — no preamble, no quotation marks, no explanation. It should read like something they'd actually say to themselves in that moment. Where the trigger has a physical component, the script may include one environment move — removing, adding, or staging something so the trigger loses power before willpower is needed.`;
 
 // ── Status parsing helper ──────────────────────────────────────────────────────
 function parseOnboardingStatus(text) {
@@ -792,6 +793,7 @@ function Forge() {
   const [forgingQuoteIdx, setForgingQuoteIdx] = useState(0);
   const [hookSlide, setHookSlide] = useState(0);
   const [splashDest, setSplashDest] = useState("hook"); // where splash routes: hook (new) | dashboard | drift
+  const [reminderTime, setReminderTime] = useState("21:00");
   const [voteFlash, setVoteFlash] = useState(null); // { weight, tier, sweep } transient celebration
   const [sealDone, setSealDone] = useState(false);
   const [pickedFoundations, setPickedFoundations] = useState([]);
@@ -1236,6 +1238,31 @@ Rewrite their inner voice.`;
       setInnerVoiceInput("");
     } catch {}
     setInnerVoiceLoading(false);
+  }
+
+  // ── Nightly reminder — one-tap daily calendar alert ───────────────────────
+  function downloadReminder() {
+    const [h, m] = reminderTime.split(":");
+    const now = new Date();
+    const dt = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}T${h}${m}00`;
+    const ics = [
+      "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//FORGE//Debrief//EN",
+      "BEGIN:VEVENT",
+      `UID:forge-debrief-${Date.now()}@forgeyourself.app`,
+      `DTSTART:${dt}`,
+      "DURATION:PT15M",
+      "RRULE:FREQ=DAILY",
+      "SUMMARY:FORGE — Nightly Debrief",
+      "DESCRIPTION:Close the day. Score it against the standard. forgeyourself.app",
+      "BEGIN:VALARM","TRIGGER:PT0M","ACTION:DISPLAY","DESCRIPTION:FORGE — close the day","END:VALARM",
+      "END:VEVENT","END:VCALENDAR"
+    ].join("\r\n");
+    const blob = new Blob([ics], { type: "text/calendar" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "forge-debrief.ics";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 5000);
   }
 
   // ── The Oath — spoken pledge at the seal ──────────────────────────────────
@@ -2017,6 +2044,7 @@ Write the script.`;
               {[1,2,3].map(s=><div key={s} style={{height:"2px",flex:1,borderRadius:"1px",background:s<=reforgeStep?"#c8a96e":"#2a2a3e"}}/>)}
             </div>
             <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.2em",textTransform:"uppercase",textAlign:"center"}}>Step 1 of 3 — Acknowledge</div>
+            <div style={{fontSize:"11px",color:"#7a7a8e",lineHeight:1.65,fontStyle:"italic",textAlign:"center"}}>Everyone drifts. The research is blunt: people with a recovery ritual rebuild — people with shame quit. This is the ritual.</div>
             <div style={{display:"flex",flexDirection:"column",gap:"10px",marginTop:"4px"}}>
               <button style={{...S.btn,background:"#c8a96e"}} onClick={()=>{setReforgeStep(2);startReforge();}} disabled={driftAlert?.loading}>
                 I acknowledge what happened. I'm back.
@@ -2369,6 +2397,19 @@ Write the script.`;
           </div>
         </div>
         <div style={S.progressBar}><div style={S.progressFill(pct)}/></div>
+        {/* Nightly reminder — the cue the habit loop needs */}
+        {!userData?.reminderHandled && (
+          <div style={{...S.disruptor,borderColor:"#c8a96e55"}}>
+            <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>⏰ The Cue</div>
+            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.65,marginBottom:"10px"}}>Habits need a trigger — willpower won't remember the debrief on a hard Tuesday. Pick your hour and add a nightly reminder to your phone in one tap.</div>
+            <div style={{display:"flex",gap:"10px",alignItems:"center"}}>
+              <input type="time" value={reminderTime} onChange={e=>setReminderTime(e.target.value)} style={{background:"#0a0a0f",border:"1px solid #2a2a3e",borderRadius:"8px",color:"#e8e4dc",fontSize:"16px",fontFamily:"'Georgia',serif",padding:"8px 10px",outline:"none"}}/>
+              <button style={{...S.btn,flex:1,padding:"10px 0"}} onClick={async()=>{downloadReminder();await persist({...userData,reminderHandled:true});}}>Add Nightly Reminder</button>
+            </div>
+            <button style={{background:"none",border:"none",color:"#3a3a5e",fontSize:"10px",cursor:"pointer",fontFamily:"'Georgia',serif",marginTop:"8px",padding:0}} onClick={async()=>{await persist({...userData,reminderHandled:true});}}>I'll set my own alarm</button>
+          </div>
+        )}
+
         {/* Day 7 milestone — one week of evidence, traits now visible */}
         {currentDay() >= 7 && !userData?.day7Seen && (
           <div style={{...S.disruptor,borderColor:"#c8a96e",cursor:"pointer",animation:"sweepGlow 1.4s ease both"}} onClick={async()=>{await persist({...userData,day7Seen:true});setScreen("mirror");}}>
@@ -2496,8 +2537,10 @@ Write the script.`;
 
                       {/* Implementation intention — mandatory: when does/did this happen */}
                       <div>
-                        <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:"6px"}}>When? <span style={{color:"#c8a96e"}}>*</span></div>
+                        <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:"3px"}}>When? <span style={{color:"#c8a96e"}}>*</span></div>
+                        <div style={{fontSize:"10px",color:"#3a3a5e",fontStyle:"italic",marginBottom:"6px"}}>Deciding when doubles the odds it happens — a plan beats willpower.</div>
                         <div style={{display:"flex",gap:"6px"}}>
+                          {/* why: implementation intentions */}
                           {[["morning","Morning"],["midday","Midday"],["evening","Evening"],["done","Already done"]].map(([k,l])=>(
                             <button key={k} onClick={()=>setActionTiming(p=>({...p,[action.id]:k}))} style={{flex:1,padding:"8px 0",borderRadius:"7px",border:`1px solid ${actionTiming[action.id]===k?"#c8a96e":"#1e1e2e"}`,background:actionTiming[action.id]===k?"#c8a96e":"transparent",color:actionTiming[action.id]===k?"#0a0a0f":"#5a5a6e",fontSize:"10px",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{l}</button>
                           ))}
