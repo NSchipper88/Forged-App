@@ -463,31 +463,36 @@ const PILLARS = [
   { key: "domains", label: "Your life domains" },
 ];
 
-const ONBOARDING_SYSTEM = `You are the onboarding voice for FORGE — an identity transformation engine. Your job is to extract five specific, non-negotiable pieces of information from the user before anything else happens. Without these, the app cannot build their identity or daily plan — so you do not move forward until each one is real.
+const ONBOARDING_SYSTEM = `You are the onboarding voice for FORGE — an identity transformation engine. Think of yourself as a master craftsman meeting someone who walked into the forge for the first time: genuinely curious about who they are, respectful of what it took to show up, and serious about the work ahead. You are NOT an interrogator. You are someone worth trusting, having a real conversation.
 
-THE FIVE PILLARS (you must get a substantive answer to all five before finishing):
-1. IDENTITY — Who they are choosing to become. Not a goal — an identity. Push past vague answers until they name the specific person they're becoming. ("The greatest natural bodybuilder alive," "A world-class ballerina," "A Nobel-level physicist," "A present and unshakeable father")
-2. SACRIFICE — What they are specifically willing to give up. Not "distractions" — what specifically. Press for the real answer.
-3. BLOCKER — What has actually stopped them before. The real mechanism, not "motivation." What specifically derails them.
-4. VISION — A vivid, specific picture of their life when they've become this person. Not abstract — sensory and concrete. What does a normal Tuesday look like?
-5. DOMAINS — What areas of their life actually need to change or be built to become this person. This is critical for building their daily mission system. Ask: "To become [their identity], what are the 3-4 areas of your life that matter most right now — the ones where daily action will actually get you there?" Push back if they list generic things. A ballerina's domains might be: technique, physical conditioning, artistry, and auditions/career. A physicist's might be: deep research, technical skills, academic standing, and mental health. Someone whose sole focus is a craft might only have 2-3 domains that genuinely matter. Accept what's true for them.
+Your job is to draw out five specific pieces of information. Without them, the system can't be built — but HOW you get them matters as much as getting them.
 
-QUALITY GATE — THIS IS CRITICAL:
-If an answer is vague, generic, one-word, or a deflection, do NOT accept it. Call it out and ask a sharper follow-up on the SAME pillar. Examples:
-- "That's a goal, not an identity. Who would have to be the kind of person who does that automatically?"
-- "'Everything' isn't an answer. Pick the one thing that's actually stopped you the most."
-- "Be more specific — what does that life actually look like at 7am on a Tuesday?"
-- "Generic domains won't build a real system. What are the 3-4 areas where YOUR daily actions actually determine if you become this person?"
+THE FIVE PILLARS:
+1. IDENTITY — Who they are choosing to become. Not a goal — an identity. ("The greatest natural bodybuilder alive," "A world-class ballerina," "An unshakeable, present mother," "A Nobel-level physicist")
+2. SACRIFICE — What they're specifically willing to give up to become that person.
+3. BLOCKER — What has actually stopped them before. The real mechanism, not "motivation."
+4. VISION — A vivid, concrete picture of their life once they've become this person. What does an ordinary Tuesday look like?
+5. DOMAINS — The 3-4 areas of their life where daily action actually determines whether they become this person. Some people have one consuming craft plus support areas; some have four balanced fronts. Accept what's true for THEM.
 
-You ask ONE question at a time, 2-4 sentences, direct and unflinching, no flattery.
+QUESTION ZERO — BEFORE ANY PILLAR:
+Your FIRST question is always about who they are RIGHT NOW — their life as it stands: what fills their days, what they do, what they carry. This is rapport and context, NOT a gated pillar: accept whatever they give warmly, reflect one specific thing back in a few words so they know they were heard, and do not sharpen or push. People must feel known before they'll be forged. Their answer becomes raw material for everything after — the gap between who they are and who they declare is the engine of this entire system.
+
+TONE AND CONDUCT:
+- Warm on arrival, serious throughout. Your first message should feel like an invitation into important work, not a form. One question at a time, 2-4 sentences.
+- When you ask something hard, say WHY in half a sentence ("I ask because the daily system gets built from this").
+- NEVER flatter. NEVER validate emptily. Warmth is respect and attention — not praise.
+- NEUTRALITY: Make zero assumptions about gender, family structure, relationships, career, or age. Mirror the user's own words — if they say "my kids," you may say "your kids"; until they reveal something, keep every example and pronoun neutral. Their identity can be anything: athlete, parent, artist, scientist, soldier, founder, monk.
+
+THE QUALITY GATE — sharpen, don't punish:
+- If an answer is vague or deflected, do NOT accept it — but push back as a collaborator, not a judge. "Let's sharpen that — 'be better' can't be built into a system. What specifically would the better version of you be doing on a random Wednesday?" 
+- MAXIMUM two follow-ups per pillar. If after two sharpening attempts you have something workable, take the best version of what they gave you, mark the pillar done, and move forward. A completed honest onboarding beats a perfect abandoned one.
+- If someone shares something raw or painful, acknowledge it like a human before moving on. One sentence. Then continue the work — continuing IS the respect.
 
 After EVERY response, end your message with a status line in this EXACT format on its own line:
 [STATUS: identity=X, sacrifice=X, blocker=X, vision=X, domains=X]
-Where each value is "done" if you have a real specific answer, or "pending" if not.
+Where each value is "done" if you have a real, specific answer, or "pending" if not.
 
-Only when ALL FIVE are "done" add this exact line after the status: [READY_TO_FORGE]
-
-Never mark a pillar "done" on a vague or deflected answer.`;
+Only when ALL FIVE are "done" add this exact line after the status: [READY_TO_FORGE]`;
 
 const IDENTITY_SYSTEM = `You are the identity and domain architect for FORGE. Based on a user's onboarding conversation, generate their complete identity profile AND their custom life domains in a single JSON object.
 
@@ -545,21 +550,21 @@ Return the JSON and nothing else. No preamble. No explanation. Just the JSON obj
 
 // ── Forging quotes — shown during the 2-call forge process ───────────────────
 const FORGE_QUOTES = [
-  { text: "The man who moves a mountain begins by carrying away small stones.", author: "Confucius" },
+  { text: "Nothing will work unless you do.", author: "Maya Angelou" },
   { text: "You do not rise to the level of your goals. You fall to the level of your systems.", author: "James Clear" },
   { text: "Identity is not what you say you are. It's what you repeatedly do.", author: "FORGE" },
   { text: "Every action you take is a vote for the type of person you wish to become.", author: "James Clear" },
   { text: "Iron sharpens iron.", author: "Proverbs 27:17" },
   { text: "The cave you fear to enter holds the treasure you seek.", author: "Joseph Campbell" },
   { text: "Do not pray for an easy life. Pray for the strength to endure a difficult one.", author: "Bruce Lee" },
-  { text: "The successful warrior is the average man with laser-like focus.", author: "Bruce Lee" },
+  { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Will Durant" },
   { text: "What you do every day matters more than what you do once in a while.", author: "Gretchen Rubin" },
   { text: "Champions are made in the moments they want to quit.", author: "FORGE" },
   { text: "First forget inspiration. Habit is more dependable. Habit will sustain you whether you're inspired or not.", author: "Octavia Butler" },
   { text: "You can't go back and change the beginning, but you can start where you are and change the ending.", author: "C.S. Lewis" },
   { text: "The body achieves what the mind believes.", author: "FORGE" },
   { text: "Excellence is not a gift, but a skill that takes practice.", author: "Plato" },
-  { text: "He who conquers himself is the mightiest warrior.", author: "Confucius" },
+  { text: "I was taught that the way of progress was neither swift nor easy.", author: "Marie Curie" },
   { text: "Discipline is the bridge between goals and accomplishment.", author: "Jim Rohn" },
   { text: "The forge doesn't destroy the metal. It reveals what it's capable of.", author: "FORGE" },
   { text: "It's not who you are that holds you back. It's who you think you're not.", author: "Denis Waitley" },
@@ -575,6 +580,7 @@ The user scored their day and may have written a note and a MISS (an integrity c
 
 CORE RULES:
 - Attack the gap between their behavior and their identity. NEVER attack the person. "You skipped the work" is coaching; "you're weak" is abuse. You do the first, never the second.
+- THEIR STANDARD, NOT YOURS: Every demand you make must be framed as THEIR OWN declared standard being held up to them — they wrote the contract, chose the identity, initialed the clauses. "You said mornings were non-negotiable" lands; "you must train in the mornings" doesn't. You are the keeper of their word, never the author of their orders. Corrections are what THEIR standard requires next, stated plainly.
 - If they confessed a miss: respect the confession explicitly — owning it out loud is rarer than doing everything right. Then extract exactly what the miss cost them, and issue ONE specific correction order for tomorrow. No absolution theater ("it's okay, tomorrow's a new day" is banned). No piling on either. The confession was the payment; the correction is the receipt.
 - SELF-TALK CORRECTION: If their note or miss contains destructive self-talk ("I'm pathetic", "I always fail", "I can't do this"), do not let it stand and do not soothe it. Rewrite it in front of them into the demanding-but-clean version — second person, present tense, instructional: not "I'm a failure" but "You skipped it. You know exactly what it costs. Tomorrow you do it before anything else." Champions don't talk to themselves gently — but they never talk to themselves like enemies. Teach that distinction by modeling it.
 - Score 1-4: Confront. Name the gap plainly. One hard question that requires honesty to answer.
@@ -598,6 +604,7 @@ Tone: direct, experienced, invested. Like a coach who has watched this person cl
 
 Never use the words "remember", "important", "great", "awesome", "amazing", "journey", or "you've got this."
 Never give generic advice that could apply to anyone. Every word should feel like it was written specifically for this person doing this specific action today.
+Frame every demand as their own declared standard — they authored the identity and the contract; you hold them to their word, you never issue orders of your own.
 Adapt tone, references, and pacing to the life stage evident in their own words and history — a parent of young kids, a 20-year-old competitor, and someone rebuilding after retirement need different coaching. Infer from what they've said, never assume from stereotype.`;
 
 const PATTERN_SYSTEM = `You are the pattern recognition voice for FORGE. You have access to a user's debrief history, domain completion logs, and tier choices over the past 2+ weeks. Your job is to identify ONE specific behavioral pattern that is either helping or hurting their progress toward their stated identity.
@@ -636,7 +643,7 @@ Sentence 1: Acknowledge what the gap cost them — specifically, in terms of the
 Sentence 2: Name the one domain that matters most for them to focus on today to rebuild momentum. Just one — not all of them.
 Sentence 3: A short, direct reactivation statement that feels like a door opening, not a pep talk. It should end with something they can do in the next 60 minutes.
 
-Use their identity label, their vision, and their weakest recent domain. Make it feel written for them specifically, not a template. Adapt tone to the life stage evident in their own words — never assume from stereotype.`;
+Use their identity label, their vision, and their weakest recent domain. Make it feel written for them specifically, not a template. Adapt tone to the life stage evident in their own words — never assume from stereotype. Frame the recommitment as returning to THEIR OWN declared standard — never as obeying yours.`;
 
 const EVOLUTION_SYSTEM = `You are the identity evolution voice for FORGE. The user has completed 30+ days. Your job: assess, from their actual behavioral evidence, whether they have become the identity they declared — and name who they are becoming next.
 
@@ -793,6 +800,24 @@ function Forge() {
   const [innerVoiceInput, setInnerVoiceInput] = useState("");
   const [innerVoiceLoading, setInnerVoiceLoading] = useState(false);
   const [ackClauses, setAckClauses] = useState({ statement:false, sacrifice:false, vision:false });
+  const [whyOpen, setWhyOpen] = useState({}); // { sectionId: bool } — "Why this works" toggles
+
+  // Point-of-use education: a small expandable rationale on major sections
+  function WhyThis({ id, children }) {
+    const open = !!whyOpen[id];
+    return (
+      <div style={{display:"flex",flexDirection:"column",gap:"6px"}}>
+        <button onClick={()=>setWhyOpen(p=>({...p,[id]:!p[id]}))} style={{background:"none",border:"none",padding:0,textAlign:"left",cursor:"pointer",fontFamily:"'Georgia',serif",fontSize:"10px",color:open?"#c8a96e":"#4a4a6a",letterSpacing:"0.15em",display:"flex",alignItems:"center",gap:"6px",transition:"color 0.2s ease"}}>
+          <span style={{fontSize:"9px"}}>◈</span> WHY THIS WORKS {open?"▾":"▸"}
+        </button>
+        {open && (
+          <div style={{fontSize:"12px",color:"#7a7a8e",lineHeight:1.7,fontStyle:"italic",borderLeft:"2px solid #c8a96e33",paddingLeft:"12px",animation:"fadeIn 0.3s ease"}}>
+            {children}
+          </div>
+        )}
+      </div>
+    );
+  }
   const pledgeRecRef = useRef(null);
   const recognitionRef = useRef(null);
   const speechSupported = typeof window !== "undefined" && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
@@ -1831,7 +1856,7 @@ Write the script.`;
           <textarea style={{...S.textarea,minHeight:"60px",flex:1}} placeholder="Speak honestly..." value={userInput} onChange={e=>setUserInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage();}}} rows={2}/>
           <button style={{...S.btn,width:"auto",padding:"0 20px",opacity:userInput.trim()&&!aiTyping?1:0.4}} onClick={sendMessage} disabled={!userInput.trim()||aiTyping}>→</button>
         </div>
-        <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>FORGE won't move forward on vague answers — it will push back until your answer is real</div>
+        <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>Specific and honest beats polished — FORGE may ask you to sharpen an answer, because the system gets built from this</div>
         <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>{Object.values(pillarStatus).filter(Boolean).length} of {PILLARS.length} pillars locked in</div>
       </div>
     </div>
@@ -2084,7 +2109,7 @@ Write the script.`;
         <div style={S.eyebrow}>Your Identity — Forged</div>
         <div style={S.identityBadge}>
           <div style={{fontSize:"10px",color:"#5a5a6e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>You are</div>
-          <div style={S.identityLabel}>{userData?.identity?.label}</div>
+          <div style={{...S.identityLabel, color:accentOf(userData)}}>{userData?.identity?.label}</div>
           <div style={{fontSize:"13px",color:"#9a9aae",marginTop:"12px",lineHeight:1.65,fontStyle:"italic"}}>"{userData?.identity?.statement}"</div>
         </div>
         <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.15em",lineHeight:1.6}}>TAP EACH CLAUSE TO INITIAL IT — a contract you haven't read isn't a contract.</div>
@@ -2181,7 +2206,11 @@ Write the script.`;
                 Signed contracts get filed. <span style={{color:"#e8e4dc"}}>Spoken oaths get kept.</span> Every vow that ever mattered — enlistments, weddings, testimony — was said out loud. Words that leave the body are filed by the brain as something that <i>happened</i>, not something you read.
               </div>
               <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.6,marginTop:"10px"}}>
-                Say your statement aloud, once, wherever you are. No one hears it but you.
+                Your oath is one sentence — say it aloud, once, wherever you are. No one hears it but you.
+              </div>
+              <div style={{marginTop:"12px",padding:"12px 14px",background:"#0a0a0f",borderRadius:"8px",borderLeft:"2px solid #c8a96e"}}>
+                <div style={{fontSize:"8px",color:"#c8a96e",letterSpacing:"0.35em",textTransform:"uppercase",marginBottom:"6px"}}>Your Oath</div>
+                <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.7,fontStyle:"italic"}}>"{userData?.identity?.statement || `I am ${userData?.identity?.label||"who I choose to be"}.`}"</div>
               </div>
             </div>
             <button style={S.btn} onClick={beginOath}>🎙 Swear It Aloud</button>
@@ -2192,8 +2221,9 @@ Write the script.`;
         {sealDone && pledgePhase === "listening" && (
           <div style={{display:"flex",flexDirection:"column",gap:"18px",maxWidth:"320px",width:"100%",alignItems:"center",animation:"fadeIn 0.4s ease both"}}>
             <div style={{width:"64px",height:"64px",borderRadius:"50%",border:"1px solid #c8a96e",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"24px",animation:"pulse 1.4s infinite",boxShadow:"0 0 30px rgba(200,169,110,0.3)"}}>🎙</div>
-            <div style={{fontSize:"15px",color:"#e8e4dc",lineHeight:1.8,fontStyle:"italic"}}>"{userData?.identity?.statement}"</div>
-            <div style={{fontSize:"11px",color:"#5a5a6e"}}>Speak it. Out loud. Like you mean it.</div>
+            <div style={{fontSize:"10px",color:"#c8a96e",letterSpacing:"0.4em",textTransform:"uppercase"}}>Say these words</div>
+            <div style={{fontSize:"17px",color:accentOf(userData),lineHeight:1.8,fontStyle:"italic",fontWeight:"700",textShadow:"0 0 20px rgba(200,169,110,0.3)"}}>"{userData?.identity?.statement || `I am ${userData?.identity?.label||"who I choose to be"}.`}"</div>
+            <div style={{fontSize:"11px",color:"#5a5a6e"}}>Out loud. Like you mean it.</div>
             <button style={{...S.btnGhost,maxWidth:"260px"}} onClick={completeOath}>I've spoken it</button>
           </div>
         )}
@@ -2303,7 +2333,7 @@ Write the script.`;
               </div>
             ))}
             <div style={{fontSize:"11px",color:"#3a3a5e",fontStyle:"italic",lineHeight:1.6}}>Belief follows evidence. FORGE is the bridge between the person you are and the one you declared — one vote at a time.</div>
-            <button style={S.btn} onClick={async()=>{await persist({...userData, methodSeen:true});}}>Cast My First Vote →</button>
+            <button style={S.btn} onClick={async()=>{await persist({...userData, methodSeen:true});}}>{currentDay() <= 1 ? "Cast My First Vote →" : "Back to the Work →"}</button>
           </div>
         </div>
       )}
@@ -2341,7 +2371,7 @@ Write the script.`;
         {new Date().getDay()===0 && (
           <div style={{...S.disruptor, borderColor:"#c8a96e", cursor:"pointer"}} onClick={()=>{resetCeoForm();setScreen("ceoReview");}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>It's Sunday</div>
-            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.6}}>Run your Weekly CEO Review. Score the week. Set next week's three priorities. →</div>
+            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.6}}>Run your Weekly Review — step out of the days and look at the whole week like an owner, not a passenger. Score it honestly, set three priorities. →</div>
           </div>
         )}
         <div style={{display:"flex",alignItems:"center",gap:"8px",padding:"10px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e"}}>
@@ -2351,7 +2381,11 @@ Write the script.`;
         </div>
 
         {/* ── Domain Mission Cards ── */}
-        <div style={{fontSize:"10px",color:"#3a3a5e",letterSpacing:"0.22em",textTransform:"uppercase"}}>Today's Domains</div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline"}}>
+          <div style={{fontSize:"10px",color:"#3a3a5e",letterSpacing:"0.22em",textTransform:"uppercase"}}>Today's Domains</div>
+          <div style={{fontSize:"10px",color:"#4a4a6a"}}>One action each · Good tier counts</div>
+        </div>
+        <WhyThis id="domains">Every completed action is a vote for the person you declared — and research on identity-framed habits shows framing actions as "who I am" instead of "what I want" raises follow-through by about a third. The Good/Better/Best tiers exist so hard days still count: the system bends, so you don't break.</WhyThis>
         {(userData?.domains || DOMAINS).map(domain => {
           const log = domainLogs[domain.domain];
           const isCompleted = log?.completed;
@@ -2394,7 +2428,7 @@ Write the script.`;
                   {/* Tier selector */}
                   <div style={{display:"flex",gap:"8px"}}>
                     {["good","better","best"].map(t=>(
-                      <button key={t} onClick={()=>setSelectedTier(p=>({...p,[domain.domain]:t}))} style={{flex:1,padding:"9px 0",borderRadius:"8px",border:`1px solid ${currentTier===t?"#c8a96e":"#1e1e2e"}`,background:currentTier===t?"#c8a96e":"#0a0a0f",color:currentTier===t?"#0a0a0f":"#5a5a6e",fontSize:"11px",fontWeight:currentTier===t?"700":"400",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>
+                      <button key={t} onClick={()=>setSelectedTier(p=>({...p,[domain.domain]:t}))} style={{flex:1,padding:"9px 0",borderRadius:"8px",border:`1px solid ${currentTier===t?accentOf(userData):"#1e1e2e"}`,background:currentTier===t?accentOf(userData):"#0a0a0f",color:currentTier===t?"#0a0a0f":"#5a5a6e",fontSize:"11px",fontWeight:currentTier===t?"700":"400",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>
                         {t==="good"?"Good ①":t==="better"?"Better ②":"Best ③"}
                       </button>
                     ))}
@@ -2490,7 +2524,7 @@ Write the script.`;
         {Object.keys(domainLogs).length > 0 && (
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 16px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e"}}>
             <div style={{fontSize:"11px",color:"#4a4a6a",letterSpacing:"0.2em",textTransform:"uppercase"}}>Today's Vote Score</div>
-            <div style={{fontSize:"20px",fontWeight:"700",color:"#c8a96e"}}>{calcVoteScore(domainLogs)}<span style={{fontSize:"11px",color:"#5a5a6e",marginLeft:"4px"}}>pts</span></div>
+            <div style={{fontSize:"20px",fontWeight:"700",color:accentOf(userData)}}>{calcVoteScore(domainLogs)}<span style={{fontSize:"11px",color:"#5a5a6e",marginLeft:"4px"}}>pts</span></div>
           </div>
         )}
 
@@ -2546,7 +2580,7 @@ Write the script.`;
         </div>
         <div style={S.identityBadge}>
           <div style={{fontSize:"10px",color:"#5a5a6e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>You became</div>
-          <div style={{fontSize:"26px",fontWeight:"700",color:"#c8a96e"}}>{userData?.identity?.label}</div>
+          <div style={{fontSize:"26px",fontWeight:"700",color:accentOf(userData)}}>{userData?.identity?.label}</div>
           <div style={{fontSize:"12px",color:"#9a9aae",marginTop:"10px",fontStyle:"italic",lineHeight:1.6}}>"{userData?.identity?.statement}"</div>
         </div>
         <div style={{fontSize:"13px",color:"#5a5a6e",lineHeight:1.75,textAlign:"center"}}>
@@ -2591,6 +2625,7 @@ Write the script.`;
       <div style={S.card}>
         <div style={S.eyebrow}>FORGE Store</div>
         <div style={S.h1}>Forgers only.</div>
+        <WhyThis id="store">Symbols you earn work differently than things you buy — they're public evidence of a private standard. Every threshold here is measured in active days, so the gear can only ever mean one thing: you kept showing up.</WhyThis>
         <div style={S.sub}>Earned, never bought. Gear marks Forgers who kept showing up. The longer you stay in the forge, the more you unlock.</div>
 
         {/* Loyalty status */}
@@ -2687,6 +2722,7 @@ Write the script.`;
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
           <div>
             <div style={S.eyebrow}>The Forgers</div>
+            <WhyThis id="cohort">Watching others hold the standard makes holding it feel normal — and a 2025 meta-analysis of 42 studies found people with accountability structures were 2.8x more likely to keep new habits. Nobody here knows your name. Everybody here knows if you showed up.</WhyThis>
             <div style={{...S.h1,fontSize:"20px",marginTop:"6px"}}>Who's showing up today.</div>
           </div>
           <button style={{...S.btnGhost,width:"auto",padding:"8px 14px",fontSize:"10px"}} onClick={refreshCohort}>↻ Refresh</button>
@@ -2801,6 +2837,7 @@ Write the script.`;
       )}
       <div style={S.card}>
         <div style={S.eyebrow}>Behavior Scripts</div>
+        <WhyThis id="scripts">Deciding your response before the trigger arrives — "when X happens, I do Y" — is one of the most replicated effects in behavior science; willpower in the moment loses to a decision already made. These scripts are your pre-made decisions.</WhyThis>
         <div style={S.h1}>Decide now. Execute automatically later.</div>
         <div style={S.sub}>Write your response to high-risk moments while calm — so it runs on its own when the moment actually hits.</div>
 
@@ -2920,6 +2957,7 @@ Write the script.`;
       )}
       <div style={S.card}>
         <div style={S.eyebrow}>Weekly CEO Review — Week {Math.ceil(currentDay()/7)}</div>
+        <WhyThis id="ceo">Days are where you execute; weeks are where you steer. A deliberate weekly review — honest scores, what got missed, three priorities — is the feedback loop that turns effort into direction. You run the review like an owner, because you are one.</WhyThis>
         <div style={S.h1}>You are the CEO of your life.</div>
         <div style={S.sub}>Score the week honestly. This isn't about feeling good — it's about seeing clearly.</div>
 
@@ -3074,11 +3112,11 @@ Write the script.`;
         </div>
       )}
       <div style={S.card}>
-        <div style={S.eyebrow}>The Mirror — Day {currentDay()}</div>
+        <div style={S.eyebrow}>The Mirror · who the evidence says you are — Day {currentDay()}</div>
         <div style={S.h1}>Who your actions say you are</div>
         <div style={S.identityBadge}>
           <div style={{fontSize:"10px",color:"#5a5a6e",letterSpacing:"0.3em",marginBottom:"8px",textTransform:"uppercase"}}>Declared Identity</div>
-          <div style={{fontSize:"22px",fontWeight:"700",color:"#c8a96e"}}>{userData?.identity?.label}</div>
+          <div style={{fontSize:"22px",fontWeight:"700",color:accentOf(userData)}}>{userData?.identity?.label}</div>
           <div style={{fontSize:"12px",color:"#5a5a6e",marginTop:"8px",fontStyle:"italic"}}>"{userData?.identity?.statement}"</div>
         </div>
 
@@ -3106,7 +3144,7 @@ Write the script.`;
                   {v:j.bestDay, l:"Best day"},
                 ].map((s,i)=>(
                   <div key={i} style={{textAlign:"center"}}>
-                    <div style={{fontSize:"20px",fontWeight:"700",color:"#c8a96e"}}>{s.v}</div>
+                    <div style={{fontSize:"20px",fontWeight:"700",color:accentOf(userData)}}>{s.v}</div>
                     <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.1em",textTransform:"uppercase",marginTop:"2px"}}>{s.l}</div>
                   </div>
                 ))}
@@ -3144,6 +3182,7 @@ Write the script.`;
             <div style={{padding:"16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #c8a96e22",display:"flex",flexDirection:"column",gap:"12px"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                 <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>Forged Traits</div>
+                <WhyThis id="traits">Self-perception research says belief follows evidence: you come to see yourself as disciplined by repeatedly watching yourself act disciplined. These numbers are computed only from what you actually did — never from what you said. That's why they're worth believing.</WhyThis>
                 <div style={{fontSize:"10px",color:t.trend==="rising"?"#4a8a4a":t.trend==="falling"?"#8a5a5a":"#4a4a6a",letterSpacing:"0.15em",textTransform:"uppercase"}}>
                   {t.trend==="rising"?"▲ Rising":t.trend==="falling"?"▼ Cooling":"— Steady"}
                 </div>
@@ -3316,6 +3355,7 @@ Write the script.`;
       )}
       <div style={S.card}>
         <div style={S.eyebrow}>Nightly Debrief — Day {currentDay()}</div>
+        <WhyThis id="debrief">People who track their behavior with honest feedback achieve their goals at roughly double the rate of people who don't — the score forces one moment of truth per day. Speaking or writing what happened also consolidates it: named experience gets encoded; vague days evaporate.</WhyThis>
         {(() => {
           const todayLog = userData?.dailyLogs?.[todayStr()];
           if (todayLog?.debriefScore != null && !debriefResponse) {
@@ -3341,12 +3381,23 @@ Write the script.`;
           );
         })()}
         {(userData?.dailyLogs?.[todayStr()]?.debriefScore == null || debriefResponse) && (
-        <div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:"8px"}}>
-          {[1,2,3,4,5,6,7,8,9,10].map(n=>(
-            <button key={n} style={S.scoreBtn(debriefScore===n)} onClick={()=>{setDebriefScore(n);setDebriefResponse("");}}>
-              {n}
-            </button>
-          ))}
+        <div style={{display:"flex",flexDirection:"column",gap:"8px"}}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:"8px"}}>
+            {[1,2,3,4,5,6,7,8,9,10].map(n=>(
+              <button key={n} style={S.scoreBtn(debriefScore===n)} onClick={()=>{setDebriefScore(n);setDebriefResponse("");}}>
+                {n}
+              </button>
+            ))}
+          </div>
+          {/* Anchored meaning — the number is a judgment against a standard, not a mood */}
+          <div style={{fontSize:"11px",color:debriefScore?"#c8a96e":"#3a3a5e",textAlign:"center",minHeight:"16px",letterSpacing:"0.08em",transition:"color 0.2s ease"}}>
+            {debriefScore==null ? "Only the score is required — everything below it sharpens the coaching" :
+             debriefScore<=2 ? "Didn't show up. The day happened to you." :
+             debriefScore<=4 ? "Below your standard — you know where it slipped." :
+             debriefScore<=6 ? "Went through the motions. Present, not forged." :
+             debriefScore<=8 ? "Showed up as the real thing. Repeatable." :
+             "The standard itself. This is who you said you'd be."}
+          </div>
         </div>
         )}
 
