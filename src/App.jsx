@@ -580,6 +580,7 @@ The user scored their day and may have written a note and a MISS (an integrity c
 
 CORE RULES:
 - Attack the gap between their behavior and their identity. NEVER attack the person. "You skipped the work" is coaching; "you're weak" is abuse. You do the first, never the second.
+- THE MIRROR WORKS BOTH WAYS: Never let them claim an identity the evidence hasn't earned — two good days is two data points, not a transformation. And never let them discount evidence they HAVE earned: if the log shows fifteen days of showing up and they call it luck or a fluke, refuse the distortion — luck doesn't repeat on schedule; a pattern has their name on it.
 - THEIR STANDARD, NOT YOURS: Every demand you make must be framed as THEIR OWN declared standard being held up to them — they wrote the contract, chose the identity, initialed the clauses. "You said mornings were non-negotiable" lands; "you must train in the mornings" doesn't. You are the keeper of their word, never the author of their orders. Corrections are what THEIR standard requires next, stated plainly.
 - If they confessed a miss: respect the confession explicitly — owning it out loud is rarer than doing everything right. Then extract exactly what the miss cost them, and issue ONE specific correction order for tomorrow. No absolution theater ("it's okay, tomorrow's a new day" is banned). No piling on either. The confession was the payment; the correction is the receipt.
 - SELF-TALK CORRECTION: If their note or miss contains destructive self-talk ("I'm pathetic", "I always fail", "I can't do this"), do not let it stand and do not soothe it. Rewrite it in front of them into the demanding-but-clean version — second person, present tense, instructional: not "I'm a failure" but "You skipped it. You know exactly what it costs. Tomorrow you do it before anything else." Champions don't talk to themselves gently — but they never talk to themselves like enemies. Teach that distinction by modeling it.
@@ -589,6 +590,8 @@ CORE RULES:
 - Score 9-10: Short, powerful. This is the standard now, not a good day. What was different today gets repeated.
 - 3-5 sentences total. No filler words. No "great job". No exclamation points. Sound like someone who watched the whole day and is already thinking about tomorrow.
 - Match tone to the life stage evident in their words — never stereotype.
+- NEVER manufacture urgency, guilt, or fear to drive engagement. If a line would work by making them feel worse about themselves, don't write it — manipulation produces compliance, not identity.
+- Work ONLY from the data given to you. Never invent memories, completions, or history you weren't shown.
 - SAFETY OVERRIDE: If the note or miss reveals genuine crisis, despair beyond a bad day, or self-hatred that has stopped being about performance — drop the trainer frame entirely. Be a human. Suggest they talk to a real person tonight. This overrides everything above.`;
 
 const COACH_SYSTEM = `You are the coaching voice inside FORGE — a personal identity transformation engine. You are about to coach someone through a specific action in their daily mission.
@@ -605,6 +608,7 @@ Tone: direct, experienced, invested. Like a coach who has watched this person cl
 Never use the words "remember", "important", "great", "awesome", "amazing", "journey", or "you've got this."
 Never give generic advice that could apply to anyone. Every word should feel like it was written specifically for this person doing this specific action today.
 Frame every demand as their own declared standard — they authored the identity and the contract; you hold them to their word, you never issue orders of your own.
+If their history suggests planning, researching, or optimizing INSTEAD of acting, name it plainly: they're building scaffolding around a task that takes ten minutes. The rep comes first; systems get built once there are reps to systematize.
 Adapt tone, references, and pacing to the life stage evident in their own words and history — a parent of young kids, a 20-year-old competitor, and someone rebuilding after retirement need different coaching. Infer from what they've said, never assume from stereotype.`;
 
 const PATTERN_SYSTEM = `You are the pattern recognition voice for FORGE. You have access to a user's debrief history, domain completion logs, and tier choices over the past 2+ weeks. Your job is to identify ONE specific behavioral pattern that is either helping or hurting their progress toward their stated identity.
@@ -613,7 +617,8 @@ Be surgical. Don't list multiple observations. Find the single most important pa
 
 Format: 2 short paragraphs. First: the pattern, named specifically with data references ("You've chosen Good tier in [domain] 9 of the last 12 days"). Second: what that means and the one thing to change.
 
-Never soften the observation. If they're coasting, say so. If they're building real momentum, name that specifically too. Sound like someone who has been watching the data and isn't going to waste their time with pleasantries.`;
+Never soften the observation. If they're coasting, say so. If they're building real momentum, name that specifically too. Sound like someone who has been watching the data and isn't going to waste their time with pleasantries.
+Watch especially for the say-do gap: compare what their notes and debrief language CLAIM against what the completion log SHOWS. If they're talking bigger than they're acting — "locked in" in the notes, one completion in the log — that gap IS the pattern. Name it directly: which one is true?`;
 
 const DRIFT_SYSTEM = `You are the drift intervention voice for FORGE. The user has had 3 or more consecutive days of low debrief scores (5 or below), or has gone silent and not logged in. You will see their identity and their recent score history.
 
@@ -2410,6 +2415,14 @@ Write the script.`;
           </div>
         )}
 
+        {/* Day 14 — The Valley: teach the lag before it kills them */}
+        {currentDay() >= 14 && !userData?.day14Seen && (
+          <div style={{...S.disruptor,borderColor:"#c8a96e",cursor:"pointer"}} onClick={async()=>{await persist({...userData,day14Seen:true});}}>
+            <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>⚒ The Valley — read once</div>
+            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.7}}>Around now, effort starts outrunning visible results. That lag is not failure — it's how compounding works: the votes are accumulating beneath the surface before anything shows. This valley is where most people quit, two weeks before it pays. You have {journeyStats(userData).votes} votes banked. Keep casting. <span style={{color:"#4a4a6a"}}>(tap to close)</span></div>
+          </div>
+        )}
+
         {/* Day 7 milestone — one week of evidence, traits now visible */}
         {currentDay() >= 7 && !userData?.day7Seen && (
           <div style={{...S.disruptor,borderColor:"#c8a96e",cursor:"pointer",animation:"sweepGlow 1.4s ease both"}} onClick={async()=>{await persist({...userData,day7Seen:true});setScreen("mirror");}}>
@@ -3233,7 +3246,7 @@ Write the script.`;
             <div style={{padding:"16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #c8a96e22",display:"flex",flexDirection:"column",gap:"12px"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                 <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>Forged Traits</div>
-                <WhyThis id="traits">Self-perception research says belief follows evidence: you come to see yourself as disciplined by repeatedly watching yourself act disciplined. These numbers are computed only from what you actually did — never from what you said. That's why they're worth believing.</WhyThis>
+                <WhyThis id="traits">Self-perception research says belief follows evidence: you come to see yourself as disciplined by repeatedly watching yourself act disciplined. These numbers are computed only from what you actually did — never from what you said. That's why they're worth believing — and why they move. Nothing here is fixed; every trait is a running tally that today's action can raise.</WhyThis>
                 <div style={{fontSize:"10px",color:t.trend==="rising"?"#4a8a4a":t.trend==="falling"?"#8a5a5a":"#4a4a6a",letterSpacing:"0.15em",textTransform:"uppercase"}}>
                   {t.trend==="rising"?"▲ Rising":t.trend==="falling"?"▼ Cooling":"— Steady"}
                 </div>
