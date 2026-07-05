@@ -199,6 +199,17 @@ async function loadAllCohortMembers() {
 }
 
 // ── Feedback: stored in Supabase `feedback` table, visible to you across testers ──
+// ── Anonymous usage events — funnel signals only, never user words ────────────
+function trackEvent(memberId, event, day) {
+  try {
+    supabaseRequest("events", {
+      method: "POST",
+      headers: { "Prefer": "return=minimal" },
+      body: JSON.stringify({ member_id: memberId || "anon", event, day: day || 0 }),
+    }).catch(()=>{});
+  } catch {}
+}
+
 async function submitFeedback(memberId, callsign, screen, category, message) {
   try {
     await supabaseRequest(`feedback`, {
@@ -994,6 +1005,7 @@ function Forge() {
     const totalDomains = (userData?.domains||DOMAINS).length;
     // Lifetime vote milestone check — did this action cross a threshold?
     const priorVotes = journeyStats(userData).votes;
+    if (Object.values(domainLogs||{}).filter(l=>l?.completed).length === 0) trackEvent(userData?.memberId, "daily_first_vote", currentDay());
     const newTotal = priorVotes + voteWeight;
     const milestone = VOTE_MILESTONES.find(m => priorVotes < m && newTotal >= m) || null;
     const isSweep = completedCountNow === totalDomains;
@@ -1037,6 +1049,7 @@ function Forge() {
   // ── Onboarding ────────────────────────────────────────────────────────────
   async function startOnboarding() {
     setReadyToForge(false);
+    trackEvent(userData?.memberId, "onboarding_started", 0);
     setScreen("onboarding");
     setPillarStatus({ identity:false, sacrifice:false, blocker:false, vision:false, domains:false });
     setAiTyping(true);
@@ -1069,7 +1082,7 @@ function Forge() {
       setChatHistory(fullHistory);
       // Save progress so onboarding can be resumed if interrupted
       await saveToStorage({ onboardingInProgress: { chatHistory: fullHistory, pillarStatus: status || pillarStatus } });
-      if (isReady) setReadyToForge(true); // show the forge button — user reads, then chooses the moment
+      if (isReady) { setReadyToForge(true); trackEvent(userData?.memberId, "onboarding_ready", 0); } // user reads, then chooses the moment
     } catch (e) {
       setChatHistory([...newHistory, {role:"assistant",content:`⚠️ Debug info: ${e.message || e}`}]);
     } finally {
@@ -1213,6 +1226,7 @@ function Forge() {
 
     const memberId = genId();
     const accent = ACCENTS[identity?.accent] ? identity.accent : "gold";
+    trackEvent(memberId, "identity_forged", 0);
     const newUserData = {
       identity,
       accent,
@@ -1278,6 +1292,34 @@ Rewrite their inner voice.`;
     setTimeout(()=>URL.revokeObjectURL(url), 5000);
   }
 
+  // ── Export / Import — the user owns their record ──────────────────────────
+  function exportRecord() {
+    try {
+      const blob = new Blob([JSON.stringify(userData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = `forge-record-${todayStr()}.json`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(url), 5000);
+    } catch {}
+  }
+  function importRecord() {
+    const input = document.createElement("input");
+    input.type = "file"; input.accept = ".json,application/json";
+    input.onchange = async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        if (!data?.identity?.label) return; // not a FORGE record
+        await persist(data);
+        setScreen("dashboard");
+      } catch {}
+    };
+    input.click();
+  }
+
   // ── The Oath — spoken pledge at the seal ──────────────────────────────────
   function beginOath() {
     setPledgePhase("listening");
@@ -1297,6 +1339,7 @@ Rewrite their inner voice.`;
   async function completeOath() {
     try { pledgeRecRef.current?.stop(); } catch {}
     setPledgePhase("witnessed");
+    trackEvent(userData?.memberId, "oath_sworn", 1);
     await persist({ ...userData, oathSwornAt: new Date().toISOString() });
   }
 
@@ -1362,6 +1405,7 @@ ${traitsPromptBlock(userData)}`;
     const response = await askClaude([{role:"user",content:prompt}], DEBRIEF_SYSTEM);
     setDebriefResponse(response); setAiTyping(false);
     const entry = { date:today, score:debriefScore, note:debriefNote, miss:debriefMiss, voiceCheck:debriefVoice, response, dayCount:currentDay() };
+    trackEvent(userData?.memberId, "debrief_done", currentDay());
     const updated = {
       ...userData,
       debriefHistory: [...(userData?.debriefHistory||[]), entry],
@@ -1426,6 +1470,7 @@ ${lowRelationalScore ? "NOTE: Relationships or Family scored 3 or below — appl
 
   // ── Re-Forge ──────────────────────────────────────────────────────────────────
   async function startReforge() {
+    trackEvent(userData?.memberId, "reforge_started", currentDay());
     setReforgeLoading(true);
     setReforgeStep(2);
 
@@ -2225,7 +2270,7 @@ Write the script.`;
         </div>
 
         {(()=>{ const allAcked = ackClauses.statement && ackClauses.sacrifice && ackClauses.vision; return (
-        <button style={{...S.btn,opacity:allAcked?1:0.35,cursor:allAcked?"pointer":"default"}} disabled={!allAcked} onClick={async()=>{setSealDone(false);setPledgePhase("offer");setScreen("seal");setTimeout(()=>setSealDone(true),2600);}}>{allAcked?"I Accept This Identity":`Initial all clauses to seal (${Object.values(ackClauses).filter(Boolean).length}/3)`}</button>
+        <button style={{...S.btn,opacity:allAcked?1:0.35,cursor:allAcked?"pointer":"default"}} disabled={!allAcked} onClick={async()=>{trackEvent(userData?.memberId,"contract_sealed",1);setSealDone(false);setPledgePhase("offer");setScreen("seal");setTimeout(()=>setSealDone(true),2600);}}>{allAcked?"I Accept This Identity":`Initial all clauses to seal (${Object.values(ackClauses).filter(Boolean).length}/3)`}</button>
         );})()}
         <button style={S.btnGhost} onClick={async()=>{await clearStorage();setUserData(null);setChatHistory([]);setAckClauses({statement:false,sacrifice:false,vision:false});setPickedFoundations([]);startOnboarding();}}>Start Over</button>
       </div>
@@ -3290,7 +3335,12 @@ Write the script.`;
         {/* Private by Design */}
         <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
           <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>🔒 Private by Design</div>
-          <div style={{fontSize:"12px",color:"#8a8a9c",lineHeight:1.7}}>Your identity, debriefs, misses, and inner voice live in your device's storage — there is no account and no server database of your entries. No human reads what you write. Your words are sent securely to the AI coach only to generate its response, and are never sold or used to advertise to you. The cohort sees only an anonymous callsign. Deleting the app, or Start Over, erases your record.</div>
+          <div style={{fontSize:"12px",color:"#8a8a9c",lineHeight:1.7}}>Your identity, debriefs, misses, and inner voice live in your device's storage — there is no account and no server database of your entries. No human reads what you write. Your words are sent securely to the AI coach only to generate its response, and are never sold or used to advertise to you. The cohort sees only an anonymous callsign. FORGE records anonymous usage signals (like "a debrief was completed") to improve the app — never your words, scores, or confessions. Deleting the app, or Start Over, erases your record.</div>
+          <div style={{display:"flex",gap:"8px",marginTop:"12px"}}>
+            <button style={{...S.btnGhost,flex:1,padding:"10px 0",fontSize:"12px"}} onClick={exportRecord}>⬇ Export my record</button>
+            <button style={{...S.btnGhost,flex:1,padding:"10px 0",fontSize:"12px"}} onClick={importRecord}>⬆ Restore from file</button>
+          </div>
+          <div style={{fontSize:"10px",color:"#5a5a76",marginTop:"6px",lineHeight:1.5}}>Your record is yours — export a backup file anytime, restore it on any device.</div>
         </div>
 
         {/* Identity accent — curated palette, AI-assigned, user-overridable */}
