@@ -1267,6 +1267,35 @@ Rewrite their inner voice.`;
     setInnerVoiceLoading(false);
   }
 
+  // ── Opening Observation — the app notices you before it asks anything ─────
+  function openingObservation() {
+    try {
+      const hr = new Date().getHours();
+      const logs = userData?.dailyLogs || {};
+      const y = new Date(); y.setDate(y.getDate()-1);
+      const yKey = y.toISOString().split("T")[0];
+      const yLog = logs[yKey];
+      const yVotes = yLog?.domainLogs ? Object.values(yLog.domainLogs).reduce((s,l)=>s+(l?.completed?(l.voteWeight||0):0),0) : 0;
+      const lastEntry = (userData?.debriefHistory||[]).slice(-1)[0];
+      const ackYesterday = lastEntry?.date === yKey && lastEntry?.acknowledged;
+      // quiet-day count (up to 3 back)
+      let quiet = 0;
+      for (let i=1;i<=3;i++){ const d=new Date(); d.setDate(d.getDate()-i); if(!isActiveLog(logs[d.toISOString().split("T")[0]])) quiet++; else break; }
+      const t = computeTraits(userData);
+      const domainCount = (userData?.domains||DOMAINS).length;
+      const ySweep = yLog?.domainLogs && Object.values(yLog.domainLogs).filter(l=>l?.completed).length >= domainCount;
+
+      if (ackYesterday && yVotes > 0) return `Last night you said "hold me to it." Today's log shows you kept your word. Noted.`;
+      if (ackYesterday && yVotes === 0) return `You tapped "hold me to it" — and yesterday went quiet. The order stands. Today answers for both.`;
+      if (quiet >= 2) return `${quiet} quiet days. The evidence is waiting — one domain restarts the record.`;
+      if (ySweep) return `Yesterday: full sweep. That's what ${userData?.identity?.label||"your identity"} looks like when it's real. Do it again.`;
+      if (t?.trend === "rising") return `The 28-day evidence is trending up. Whatever you changed — it's working. Protect it.`;
+      if (t?.trend === "falling") return `The evidence has been slipping this week. Not a verdict — a heading. Today turns it.`;
+      if (yVotes > 0) return `Yesterday: ${yVotes} ${yVotes===1?"vote":"votes"} banked. The record is watching.`;
+      return hr < 12 ? `The day is unwritten. What will you prove?` : hr < 18 ? `The day is in motion. Evidence over intention.` : `The day is closing. What does the record say?`;
+    } catch { return null; }
+  }
+
   // ── Nightly reminder — one-tap daily calendar alert ───────────────────────
   function downloadReminder() {
     const [h, m] = reminderTime.split(":");
@@ -1740,6 +1769,8 @@ Write the script.`;
     @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
     @keyframes emberAwait { 0%,100%{border-color:#1e1e2e;box-shadow:none} 50%{border-color:#c8a96e44;box-shadow:0 0 14px rgba(200,169,110,0.10)} }
     @keyframes emberDot { 0%,100%{opacity:0.25} 50%{opacity:1} }
+    @keyframes emberDotEvening { 0%,100%{opacity:0.2} 50%{opacity:1} }
+    @keyframes emberDotLate { 0%,100%{opacity:0.15;box-shadow:none} 50%{opacity:1;box-shadow:0 0 8px rgba(200,169,110,0.9)} }
     @keyframes beaconPulse { 0%,100%{opacity:1;text-shadow:0 0 8px rgba(200,169,110,0.8)} 50%{opacity:0.3;text-shadow:none} }
     @keyframes dreamFade { 0%{opacity:1;filter:blur(0)} 100%{opacity:0;filter:blur(5px);transform:scale(1.04)} }
     @keyframes dreamIn { 0%{opacity:0;filter:blur(4px);transform:translateY(10px)} 100%{opacity:1;filter:blur(0);transform:translateY(0)} }
@@ -2430,7 +2461,7 @@ Write the script.`;
       <div style={{width:"100%",maxWidth:"480px",display:"flex",flexDirection:"column",gap:"14px",animation:"dreamIn 0.9s ease both"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
           <div>
-            <div style={S.eyebrow}>Day {currentDay()} — Mission Brief</div>
+            <div style={S.eyebrow}>Day {currentDay()} of proving</div>
             <div style={{fontSize:"22px",fontWeight:"700",color:accentOf(userData),marginTop:"5px"}}>{userData?.identity?.label}</div>
           </div>
           <div style={{textAlign:"right"}}>
@@ -2445,6 +2476,20 @@ Write the script.`;
           </div>
         </div>
         <div style={S.progressBar}><div style={S.progressFill(pct)}/></div>
+        {/* Opening Observation — be seen before being tasked */}
+        {(()=>{ const obs = openingObservation(); return obs ? (
+          <div style={{padding:"13px 16px",background:"#0d0d14",border:"1px solid #c8a96e2a",borderLeft:"3px solid #c8a96e",borderRadius:"0 10px 10px 0"}}>
+            <div style={{fontSize:"13px",color:"#c8bfae",lineHeight:1.65,fontStyle:"italic"}}>{obs}</div>
+          </div>
+        ) : null; })()}
+
+        {/* Evening: the day's close takes the lead — the app follows the clock */}
+        {new Date().getHours() >= 18 && userData?.dailyLogs?.[todayStr()]?.debriefScore == null && (
+          <button style={{...S.btn,display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}>
+            🌙 Close the Day — Debrief
+          </button>
+        )}
+
         {/* Nightly reminder — the cue the habit loop needs */}
         {!userData?.reminderHandled && (
           <div style={{...S.disruptor,borderColor:"#c8a96e55"}}>
@@ -2666,7 +2711,7 @@ Write the script.`;
         )}
         <div style={S.navBar}>
           <button style={S.navBtn(true)}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2776,7 +2821,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2891,7 +2936,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(true)}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3011,7 +3056,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3119,7 +3164,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3421,7 +3466,7 @@ Write the script.`;
         <button style={S.btnDanger} onClick={()=>setResetConfirmOpen(true)}>Reset Identity</button>
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)}><span>◈</span>Profile</button>
         </div>
@@ -3590,7 +3635,7 @@ Write the script.`;
         )}
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(true)}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(true)}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3670,7 +3715,7 @@ Write the script.`;
         </div>
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
