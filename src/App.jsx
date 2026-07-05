@@ -816,10 +816,14 @@ function Forge() {
   // Point-of-use education: a small expandable rationale on major sections
   function WhyThis({ id, children }) {
     const open = !!whyOpen[id];
+    const unread = !userData?.whySeen?.[id];
     return (
       <div style={{display:"flex",flexDirection:"column",gap:"6px"}}>
-        <button onClick={()=>setWhyOpen(p=>({...p,[id]:!p[id]}))} style={{background:"none",border:"none",padding:0,textAlign:"left",cursor:"pointer",fontFamily:"'Georgia',serif",fontSize:"10px",color:open?"#c8a96e":"#4a4a6a",letterSpacing:"0.15em",display:"flex",alignItems:"center",gap:"6px",transition:"color 0.2s ease"}}>
-          <span style={{fontSize:"9px"}}>◈</span> WHY THIS WORKS {open?"▾":"▸"}
+        <button onClick={async()=>{
+          setWhyOpen(p=>({...p,[id]:!p[id]}));
+          if (unread && userData) await persist({...userData, whySeen:{...(userData.whySeen||{}), [id]:true}});
+        }} style={{background:open?"#c8a96e18":"#c8a96e0d",border:`1px solid ${open?"#c8a96e66":unread?"#c8a96e55":"#c8a96e33"}`,borderRadius:"14px",padding:"5px 12px",textAlign:"left",cursor:"pointer",fontFamily:"'Georgia',serif",fontSize:"11px",color:open?"#c8a96e":"#b89a68",letterSpacing:"0.12em",display:"inline-flex",alignItems:"center",gap:"6px",transition:"all 0.2s ease",alignSelf:"flex-start"}}>
+          <span style={{fontSize:"10px",color:"#c8a96e",animation:unread&&!open?"beaconPulse 2.4s ease-in-out infinite":"none"}}>◈</span> WHY THIS WORKS {open?"▾":"▸"}
         </button>
         {open && (
           <div style={{fontSize:"13px",color:"#9a9aac",lineHeight:1.7,fontStyle:"italic",borderLeft:"2px solid #c8a96e33",paddingLeft:"12px",animation:"fadeIn 0.3s ease"}}>
@@ -1689,6 +1693,9 @@ Write the script.`;
     @keyframes votePop { 0%{transform:translateY(14px) scale(0.7);opacity:0} 35%{transform:translateY(0) scale(1.12);opacity:1} 55%{transform:scale(0.97)} 100%{transform:scale(1);opacity:1} }
     @keyframes sweepGlow { 0%{box-shadow:0 0 0 rgba(200,169,110,0)} 40%{box-shadow:0 0 60px rgba(200,169,110,0.5)} 100%{box-shadow:0 0 18px rgba(200,169,110,0.2)} }
     @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+    @keyframes emberAwait { 0%,100%{border-color:#1e1e2e;box-shadow:none} 50%{border-color:#c8a96e44;box-shadow:0 0 14px rgba(200,169,110,0.10)} }
+    @keyframes emberDot { 0%,100%{opacity:0.25} 50%{opacity:1} }
+    @keyframes beaconPulse { 0%,100%{opacity:1;text-shadow:0 0 8px rgba(200,169,110,0.8)} 50%{opacity:0.3;text-shadow:none} }
     @keyframes dreamFade { 0%{opacity:1;filter:blur(0)} 100%{opacity:0;filter:blur(5px);transform:scale(1.04)} }
     @keyframes dreamIn { 0%{opacity:0;filter:blur(4px);transform:translateY(10px)} 100%{opacity:1;filter:blur(0);transform:translateY(0)} }
     @keyframes emphasize { from{color:#5a5a6e;text-shadow:none;transform:scale(1);-webkit-text-stroke:0px transparent} to{color:#f4f1ea;text-shadow:0 0 26px rgba(232,228,220,0.4);transform:scale(1.06);-webkit-text-stroke:0.35px #f4f1ea} }
@@ -2449,7 +2456,7 @@ Write the script.`;
           const tierActions = rotatedActions.filter(a => getTierForAction(domain, a.id)?.tierName === currentTier);
 
           return (
-            <div key={domain.domain} style={{background:"#0a0a0f",borderRadius:"12px",border:`1px solid ${isCompleted?"#c8a96e44":"#1e1e2e"}`,overflow:"hidden"}}>
+            <div key={domain.domain} style={{background:"#0a0a0f",borderRadius:"12px",border:`1px solid ${isCompleted?"#c8a96e44":"#1e1e2e"}`,overflow:"hidden",animation:isCompleted?"none":"emberAwait 6s ease-in-out infinite"}}>
               {/* Domain header — always visible */}
               <div style={{display:"flex",alignItems:"center",gap:"12px",padding:"14px 16px",cursor:"pointer"}} onClick={()=>setActiveDomain(isExpanded?null:domain.domain)}>
                 <span style={{fontSize:"20px"}}>{domain.emoji}</span>
@@ -2614,7 +2621,7 @@ Write the script.`;
         )}
         <div style={S.navBar}>
           <button style={S.navBtn(true)}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2724,7 +2731,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2839,7 +2846,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(true)}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2959,7 +2966,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3067,7 +3074,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3364,7 +3371,7 @@ Write the script.`;
         <button style={S.btnDanger} onClick={()=>setResetConfirmOpen(true)}>Reset Identity</button>
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)}><span>◈</span>Profile</button>
         </div>
@@ -3533,7 +3540,7 @@ Write the script.`;
         )}
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(true)}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(true)}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3613,7 +3620,7 @@ Write the script.`;
         </div>
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
