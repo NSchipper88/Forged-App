@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-6",
-        max_tokens: Math.min(max_tokens || 1000, 1500),
+        max_tokens: Math.min(max_tokens || 1000, 4096), // raised: identity forge needs room for full domain JSON
         system,
         messages,
       }),
