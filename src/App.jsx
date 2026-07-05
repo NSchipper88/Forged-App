@@ -401,12 +401,12 @@ const S = {
 };
 
 // ── Claude API ────────────────────────────────────────────────────────────────
-async function askClaudeOnce(messages, systemPrompt) {
+async function askClaudeOnce(messages, systemPrompt, maxTokens = 1000) {
   let res;
   try {
     res = await fetch("/api/claude", {
       method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({ max_tokens:1000, system:systemPrompt, messages }),
+      body: JSON.stringify({ max_tokens:maxTokens, system:systemPrompt, messages }),
     });
   } catch (networkErr) {
     throw new Error(`NETWORK_FAIL: ${networkErr.message || networkErr}`);
@@ -439,11 +439,11 @@ async function askClaudeOnce(messages, systemPrompt) {
   return text;
 }
 
-async function askClaude(messages, systemPrompt, retries = 2) {
+async function askClaude(messages, systemPrompt, retries = 2, maxTokens = 1000) {
   let lastErr;
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
-      return await askClaudeOnce(messages, systemPrompt);
+      return await askClaudeOnce(messages, systemPrompt, maxTokens);
     } catch (e) {
       lastErr = e;
       // Only retry on empty body or transient network failures — not on real HTTP errors like 401/429
@@ -801,6 +801,7 @@ function Forge() {
   const [splashDest, setSplashDest] = useState("hook"); // where splash routes: hook (new) | dashboard | drift
   const [reminderTime, setReminderTime] = useState("21:00");
   const [debriefVoice, setDebriefVoice] = useState(null); // null | "none" | "won" | "overrode"
+  const [readyToForge, setReadyToForge] = useState(false);
   const [voteFlash, setVoteFlash] = useState(null); // { weight, tier, sweep } transient celebration
   const [sealDone, setSealDone] = useState(false);
   const [pickedFoundations, setPickedFoundations] = useState([]);
@@ -1031,6 +1032,7 @@ function Forge() {
 
   // ── Onboarding ────────────────────────────────────────────────────────────
   async function startOnboarding() {
+    setReadyToForge(false);
     setScreen("onboarding");
     setPillarStatus({ identity:false, sacrifice:false, blocker:false, vision:false, domains:false });
     setAiTyping(true);
@@ -1063,7 +1065,7 @@ function Forge() {
       setChatHistory(fullHistory);
       // Save progress so onboarding can be resumed if interrupted
       await saveToStorage({ onboardingInProgress: { chatHistory: fullHistory, pillarStatus: status || pillarStatus } });
-      if (isReady) setTimeout(()=>forgeIdentity(fullHistory),1200);
+      if (isReady) setReadyToForge(true); // show the forge button — user reads, then chooses the moment
     } catch (e) {
       setChatHistory([...newHistory, {role:"assistant",content:`⚠️ Debug info: ${e.message || e}`}]);
     } finally {
@@ -1090,7 +1092,7 @@ function Forge() {
     try {
       setForgingPhase("domains"); // show domain phase immediately since it's one call
       const prompt = `Here is the onboarding conversation:\n\n${transcript}\n\nGenerate the complete identity profile and custom life domains for this person. Output only the JSON object.`;
-      const raw = await askClaude([{role:"user",content:prompt}], IDENTITY_SYSTEM);
+      const raw = await askClaude([{role:"user",content:prompt}], IDENTITY_SYSTEM, 2, 4000);
       const cleaned = raw.replace(/```json/gi,"").replace(/```/g,"").trim();
       const parsed = JSON.parse(cleaned);
 
@@ -1895,10 +1897,17 @@ Write the script.`;
           {aiTyping&&<div style={{display:"flex",justifyContent:"flex-start"}}><div style={S.bubble(true)}><div style={{display:"flex",gap:"5px",alignItems:"center",padding:"2px 0"}}>{[0,1,2].map(i=><div key={i} style={S.typingDot(i)}/>)}</div></div></div>}
           <div ref={chatEndRef}/>
         </div>
+        {readyToForge ? (
+          <div style={{display:"flex",flexDirection:"column",gap:"8px",animation:"fadeIn 0.6s ease both"}}>
+            <button style={{...S.btn,animation:"emberGlow 2.2s ease-in-out infinite"}} onClick={()=>forgeIdentity(chatHistory)}>⚒ Forge My Identity →</button>
+            <div style={{fontSize:"10px",color:"#4a4a6a",textAlign:"center"}}>Read the message above — then step into the forge when you're ready.</div>
+          </div>
+        ) : (
         <div style={{display:"flex",gap:"10px"}}>
           <textarea style={{...S.textarea,minHeight:"60px",flex:1}} placeholder="Speak honestly..." value={userInput} onChange={e=>setUserInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage();}}} rows={2}/>
           <button style={{...S.btn,width:"auto",padding:"0 20px",opacity:userInput.trim()&&!aiTyping?1:0.4}} onClick={sendMessage} disabled={!userInput.trim()||aiTyping}>→</button>
         </div>
+        )}
         <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>Specific and honest beats polished — FORGE may ask you to sharpen an answer, because the system gets built from this</div>
         <div style={{fontSize:"10px",color:"#4a4a6a",textAlign:"center",lineHeight:1.5}}>🔒 No human reads this. Your record lives on your device — your words go only to the AI coach, encrypted, never sold.</div>
         <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>{Object.values(pillarStatus).filter(Boolean).length} of {PILLARS.length} pillars locked in</div>
