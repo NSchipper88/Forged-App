@@ -812,6 +812,8 @@ function Forge() {
   const [splashDest, setSplashDest] = useState("hook"); // where splash routes: hook (new) | dashboard | drift
   const [reminderTime, setReminderTime] = useState("21:00");
   const [debriefVoice, setDebriefVoice] = useState(null); // null | "none" | "won" | "overrode"
+  const [missOpen, setMissOpen] = useState(false);
+  const [voiceOpen, setVoiceOpen] = useState(false);
   const [readyToForge, setReadyToForge] = useState(false);
   const [voteFlash, setVoteFlash] = useState(null); // { weight, tier, sweep } transient celebration
   const [sealDone, setSealDone] = useState(false);
@@ -2150,7 +2152,7 @@ Write the script.`;
               <button style={{...S.btn,background:"#c8a96e"}} onClick={()=>{setReforgeStep(2);startReforge();}} disabled={driftAlert?.loading}>
                 I acknowledge what happened. I'm back.
               </button>
-              <button style={S.btnGhost} onClick={()=>{setDriftAlert(null);setScreen("debrief");setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);}} disabled={driftAlert?.loading}>
+              <button style={S.btnGhost} onClick={()=>{setDriftAlert(null);setScreen("debrief");setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);}} disabled={driftAlert?.loading}>
                 Let me be honest in a debrief first
               </button>
             </div>
@@ -2485,7 +2487,7 @@ Write the script.`;
 
         {/* Evening: the day's close takes the lead — the app follows the clock */}
         {new Date().getHours() >= 18 && userData?.dailyLogs?.[todayStr()]?.debriefScore == null && (
-          <button style={{...S.btn,display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}>
+          <button style={{...S.btn,display:"flex",alignItems:"center",justifyContent:"center",gap:"8px"}} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);setScreen("debrief");}}>
             🌙 Close the Day — Debrief
           </button>
         )}
@@ -2711,7 +2713,7 @@ Write the script.`;
         )}
         <div style={S.navBar}>
           <button style={S.navBtn(true)}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2821,7 +2823,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2936,7 +2938,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(true)}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3056,7 +3058,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3164,7 +3166,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3466,7 +3468,7 @@ Write the script.`;
         <button style={S.btnDanger} onClick={()=>setResetConfirmOpen(true)}>Reset Identity</button>
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)}><span>◈</span>Profile</button>
         </div>
@@ -3592,21 +3594,25 @@ Write the script.`;
           </div>
 
           {/* The Miss — integrity confession */}
-          <div style={{padding:"12px 14px",background:"#0f0d0a",border:"1px solid #3a2e1e",borderRadius:"10px",display:"flex",flexDirection:"column",gap:"8px"}}>
-            <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>The Miss · Integrity Check</div>
+          <div style={{padding:"12px 14px",background:"#0f0d0a",border:"1px solid #3a2e1e",borderRadius:"10px",display:"flex",flexDirection:"column",gap:missOpen?"8px":"0px"}}>
+            <div onClick={()=>setMissOpen(!missOpen)} style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center"}}><span>The Miss · Integrity Check{debriefMiss.trim()?"  ✓":""}</span><span style={{fontSize:"11px"}}>{missOpen?"▾":"▸"}</span></div>
+            {missOpen && (<>
             <div style={{fontSize:"12px",color:"#8a8a9c",lineHeight:1.6}}>What did you dodge, soften, or lie to yourself about today? Owning it out loud is rarer than doing everything right — and your coach respects it more. No human ever reads this — it lives on your device and goes only to the AI that writes your response.</div>
             <textarea style={{...S.textarea,minHeight:"56px",fontSize:"16px",background:"#0a0a0f"}} placeholder="No one sees this but you and your coach." value={debriefMiss} onChange={e=>setDebriefMiss(e.target.value)} rows={2}/>
+            </>)}
           </div>
 
           {/* Voice Check — track victories over the old voice, not the thoughts themselves */}
-          <div style={{padding:"12px 14px",background:"#0a0a12",border:"1px solid #1e1e2e",borderRadius:"10px",display:"flex",flexDirection:"column",gap:"8px"}}>
-            <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>Voice Check · optional</div>
+          <div style={{padding:"12px 14px",background:"#0a0a12",border:"1px solid #1e1e2e",borderRadius:"10px",display:"flex",flexDirection:"column",gap:voiceOpen?"8px":"0px"}}>
+            <div onClick={()=>setVoiceOpen(!voiceOpen)} style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center"}}><span>Voice Check{debriefVoice?"  ✓":""}</span><span style={{fontSize:"11px"}}>{voiceOpen?"▾":"▸"}</span></div>
+            {voiceOpen && (<>
             <div style={{fontSize:"12px",color:"#8a8a9c",lineHeight:1.6}}>Did the old voice show up today — the one that says you can't? Acting with the thought still present is the rep that rewires it.</div>
             <div style={{display:"flex",gap:"6px"}}>
               {[["none","Didn't show"],["won","It won today"],["overrode","I overrode it ⚒"]].map(([k,l])=>(
                 <button key={k} onClick={()=>setDebriefVoice(debriefVoice===k?null:k)} style={{flex:1,padding:"9px 4px",borderRadius:"8px",border:`1px solid ${debriefVoice===k?(k==="overrode"?"#c8a96e":"#5a5a6e"):"#1e1e2e"}`,background:debriefVoice===k?(k==="overrode"?"#c8a96e22":"#1a1a24"):"transparent",color:debriefVoice===k?(k==="overrode"?"#c8a96e":"#9a9aae"):"#5a5a6e",fontSize:"10px",cursor:"pointer",fontFamily:"'Georgia',serif",lineHeight:1.3}}>{l}</button>
               ))}
             </div>
+            </>)}
           </div>
         </div>
         )}
@@ -3715,7 +3721,7 @@ Write the script.`;
         </div>
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setMissOpen(false);setVoiceOpen(false);setScreen("debrief");}}><span style={{position:"relative"}}>🌙{userData?.dailyLogs?.[todayStr()]?.debriefScore==null && <span style={{position:"absolute",top:"-2px",right:"-7px",width:"6px",height:"6px",borderRadius:"50%",background:"#c8a96e",animation:new Date().getHours()>=21?"emberDotLate 1.6s ease-in-out infinite":new Date().getHours()>=18?"emberDotEvening 3s ease-in-out infinite":"emberDot 6s ease-in-out infinite"}}/>}</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
