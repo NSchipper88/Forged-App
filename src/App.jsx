@@ -369,12 +369,12 @@ function accentOf(userData) { return (ACCENTS[userData?.accent] || ACCENTS.gold)
 const S = {
   app: { minHeight:"100vh", background:"#0a0a0f", color:"#e8e4dc", fontFamily:"'Georgia',serif", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"24px", overflowX:"hidden" },
   card: { width:"100%", maxWidth:"480px", background:"#12121a", border:"1px solid #1e1e2e", borderRadius:"16px", padding:"32px 28px", display:"flex", flexDirection:"column", gap:"18px" },
-  eyebrow: { fontSize:"10px", letterSpacing:"0.35em", color:"#4a4a6a", textTransform:"uppercase" },
+  eyebrow: { fontSize:"10px", letterSpacing:"0.35em", color:"#6e6e88", textTransform:"uppercase" },
   h1: { fontSize:"26px", fontWeight:"700", color:"#e8e4dc", lineHeight:1.25, letterSpacing:"-0.01em" },
-  sub: { fontSize:"13px", color:"#5a5a6e", lineHeight:1.6 },
-  btn: { background:"#c8a96e", color:"#0a0a0f", border:"none", borderRadius:"10px", padding:"15px 24px", fontSize:"13px", fontWeight:"700", letterSpacing:"0.12em", textTransform:"uppercase", cursor:"pointer", width:"100%", transition:"opacity 0.2s" },
-  btnGhost: { background:"transparent", color:"#5a5a6e", border:"1px solid #1e1e2e", borderRadius:"10px", padding:"13px 24px", fontSize:"12px", letterSpacing:"0.1em", textTransform:"uppercase", cursor:"pointer", width:"100%" },
-  btnDanger: { background:"transparent", color:"#6a3a3a", border:"1px solid #3a1e1e", borderRadius:"10px", padding:"11px 24px", fontSize:"11px", letterSpacing:"0.12em", textTransform:"uppercase", cursor:"pointer", width:"100%" },
+  sub: { fontSize:"14px", color:"#8a8a9c", lineHeight:1.6 },
+  btn: { background:"#c8a96e", color:"#0a0a0f", border:"none", borderRadius:"10px", padding:"15px 24px", fontSize:"14px", fontWeight:"700", letterSpacing:"0.12em", textTransform:"uppercase", cursor:"pointer", width:"100%", transition:"opacity 0.2s" },
+  btnGhost: { background:"transparent", color:"#8a8a9c", border:"1px solid #1e1e2e", borderRadius:"10px", padding:"13px 24px", fontSize:"13px", letterSpacing:"0.1em", textTransform:"uppercase", cursor:"pointer", width:"100%" },
+  btnDanger: { background:"transparent", color:"#6a3a3a", border:"1px solid #3a1e1e", borderRadius:"10px", padding:"11px 24px", fontSize:"12px", letterSpacing:"0.12em", textTransform:"uppercase", cursor:"pointer", width:"100%" },
   textarea: { background:"#0a0a0f", border:"1px solid #2a2a3e", borderRadius:"10px", color:"#e8e4dc", fontSize:"16px", fontFamily:"'Georgia',serif", padding:"14px", resize:"none", outline:"none", lineHeight:1.7, width:"100%", boxSizing:"border-box" },
   bubble: (ai) => ({ maxWidth:"85%", alignSelf:ai?"flex-start":"flex-end", background:ai?"#1a1a2a":"#1e1e14", border:`1px solid ${ai?"#2a2a3e":"#c8a96e22"}`, borderRadius:ai?"4px 14px 14px 14px":"14px 4px 14px 14px", padding:"13px 16px", fontSize:"14px", lineHeight:1.65, color:ai?"#e8e4dc":"#c8a96e" }),
   chatWrap: { display:"flex", flexDirection:"column", gap:"12px", maxHeight:"300px", overflowY:"auto", padding:"4px 0" },
@@ -385,9 +385,9 @@ const S = {
   taskItem: (done) => ({ display:"flex", alignItems:"flex-start", gap:"14px", padding:"15px", background:"#0a0a0f", borderRadius:"10px", border:`1px solid ${done?"#c8a96e44":"#1e1e2e"}`, cursor:"pointer" }),
   checkbox: (done) => ({ width:"20px", height:"20px", borderRadius:"6px", border:`2px solid ${done?"#c8a96e":"#2a2a3e"}`, background:done?"#c8a96e":"transparent", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", marginTop:"2px" }),
   navBar: { display:"flex", justifyContent:"space-around", width:"100%", maxWidth:"480px", marginTop:"20px", borderTop:"1px solid #1e1e2e", paddingTop:"14px" },
-  navBtn: (active) => ({ background:"none", border:"none", color:active?"#c8a96e":"#3a3a5e", fontSize:"10px", letterSpacing:"0.15em", textTransform:"uppercase", cursor:"pointer", padding:"6px 8px", fontFamily:"'Georgia',serif", display:"flex", flexDirection:"column", alignItems:"center", gap:"3px", flex:1 }),
+  navBtn: (active) => ({ background:"none", border:"none", color:active?"#c8a96e":"#5a5a76", fontSize:"10px", letterSpacing:"0.15em", textTransform:"uppercase", cursor:"pointer", padding:"6px 8px", fontFamily:"'Georgia',serif", display:"flex", flexDirection:"column", alignItems:"center", gap:"3px", flex:1 }),
   disruptor: { background:"#0f0f1a", border:"1px solid #c8a96e44", borderLeft:"3px solid #c8a96e", borderRadius:"12px", padding:"18px 22px" },
-  scoreBtn: (active) => ({ padding:"13px 0", borderRadius:"8px", border:`1px solid ${active?"#c8a96e":"#1e1e2e"}`, background:active?"#c8a96e":"#0a0a0f", color:active?"#0a0a0f":"#5a5a6e", fontSize:"16px", cursor:"pointer", fontFamily:"'Georgia',serif", fontWeight:active?"700":"400" }),
+  scoreBtn: (active) => ({ padding:"13px 0", borderRadius:"8px", border:`1px solid ${active?"#c8a96e":"#1e1e2e"}`, background:active?"#c8a96e":"#0a0a0f", color:active?"#0a0a0f":"#8a8a9c", fontSize:"16px", cursor:"pointer", fontFamily:"'Georgia',serif", fontWeight:active?"700":"400" }),
   stat: { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"13px 16px", background:"#0a0a0f", borderRadius:"8px", border:"1px solid #1e1e2e" },
   typingDot: (i) => ({ width:"7px", height:"7px", borderRadius:"50%", background:"#5a5a6e", animation:`typingPulse 1.2s ${i*0.2}s infinite` }),
   historyItem: { padding:"13px 16px", background:"#0a0a0f", borderRadius:"8px", border:"1px solid #1e1e2e", display:"flex", flexDirection:"column", gap:"5px" },
@@ -397,7 +397,7 @@ const S = {
   cohortBar: { height:"4px", background:"#1e1e2e", borderRadius:"2px", overflow:"hidden", flex:1 },
   cohortFill: (pct, isMe) => ({ height:"100%", background: isMe?"#c8a96e":"#3a3a5e", borderRadius:"2px", width:`${pct}%`, transition:"width 0.6s ease" }),
   cohortBadge: (active) => ({ width:"8px", height:"8px", borderRadius:"50%", background: active?"#4a8a4a":"#2a2a3e", flexShrink:0 }),
-  rankNum: (rank) => ({ fontSize:"13px", fontWeight:"700", color: rank===1?"#c8a96e":rank===2?"#9a9aae":"#5a5a6e", width:"18px", textAlign:"center", flexShrink:0 }),
+  rankNum: (rank) => ({ fontSize:"14px", fontWeight:"700", color: rank===1?"#c8a96e":rank===2?"#b2b2c4":"#8a8a9c", width:"18px", textAlign:"center", flexShrink:0 }),
 };
 
 // ── Claude API ────────────────────────────────────────────────────────────────
@@ -822,7 +822,7 @@ function Forge() {
           <span style={{fontSize:"9px"}}>◈</span> WHY THIS WORKS {open?"▾":"▸"}
         </button>
         {open && (
-          <div style={{fontSize:"12px",color:"#7a7a8e",lineHeight:1.7,fontStyle:"italic",borderLeft:"2px solid #c8a96e33",paddingLeft:"12px",animation:"fadeIn 0.3s ease"}}>
+          <div style={{fontSize:"13px",color:"#9a9aac",lineHeight:1.7,fontStyle:"italic",borderLeft:"2px solid #c8a96e33",paddingLeft:"12px",animation:"fadeIn 0.3s ease"}}>
             {children}
           </div>
         )}
@@ -1714,7 +1714,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -1761,7 +1761,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -1791,10 +1791,10 @@ Write the script.`;
         </div>
       )}
       <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"14px",animation:splashDest==="hook"?"fadeIn 1.2s ease, dreamFade 1.2s 6.75s ease both":"fadeIn 0.8s ease, dreamFade 1.0s 3.6s ease both"}}>
-        <div style={{fontSize:"10px",letterSpacing:"0.4em",color:"#5a5a6e",textTransform:"uppercase"}}>Identity Engine</div>
+        <div style={{fontSize:"10px",letterSpacing:"0.4em",color:"#8a8a9c",textTransform:"uppercase"}}>Identity Engine</div>
         <div style={{fontSize:"56px",fontWeight:"700",letterSpacing:"-0.03em",color:"#e8e4dc",lineHeight:1}}>FORGE</div>
-        <div style={{fontSize:"12px",letterSpacing:"0.18em",textTransform:"uppercase",animation:splashDest==="hook"?"emphasize 2.6s 3.0s ease both":"emphasize 1.6s 1.2s ease both"}}>Become who you choose to be</div>
-        <div style={{fontSize:"12px",letterSpacing:"0.14em",marginTop:"4px",animation:splashDest==="hook"?"fadeIn 1s 0.9s ease both, emphasizeGold 2.2s 4.0s ease both":"fadeIn 0.7s 0.5s ease both, emphasizeGold 1.5s 1.9s ease both"}}>Decide who you are. Prove it daily.</div>
+        <div style={{fontSize:"13px",letterSpacing:"0.18em",textTransform:"uppercase",animation:splashDest==="hook"?"emphasize 2.6s 3.0s ease both":"emphasize 1.6s 1.2s ease both"}}>Become who you choose to be</div>
+        <div style={{fontSize:"13px",letterSpacing:"0.14em",marginTop:"4px",animation:splashDest==="hook"?"fadeIn 1s 0.9s ease both, emphasizeGold 2.2s 4.0s ease both":"fadeIn 0.7s 0.5s ease both, emphasizeGold 1.5s 1.9s ease both"}}>Decide who you are. Prove it daily.</div>
         <div style={{marginTop:"28px",display:"flex",gap:"7px"}}>{[0,1,2].map(i=><div key={i} style={{width:"7px",height:"7px",borderRadius:"50%",background:"#c8a96e",animation:`pulse 1.4s ${i*0.22}s infinite`}}/>)}</div>
       </div>
     </div>
@@ -1803,7 +1803,7 @@ Write the script.`;
   if (screen==="hook") return (
     <div style={S.app}><style>{CSS}</style>
       <div style={{...S.card,maxWidth:"420px",minHeight:"480px",justifyContent:"space-between",overflow:"hidden",animation:"dreamIn 1.1s ease both"}}>
-        <div style={{fontSize:"10px",letterSpacing:"0.4em",color:"#5a5a6e",textTransform:"uppercase",textAlign:"center"}}>FORGE — Identity Engine</div>
+        <div style={{fontSize:"10px",letterSpacing:"0.4em",color:"#8a8a9c",textTransform:"uppercase",textAlign:"center"}}>FORGE — Identity Engine</div>
 
         {(() => {
           const slides = [
@@ -1846,7 +1846,7 @@ Write the script.`;
               >
                 <div style={{fontSize:"52px",animation:"iconForge 0.6s cubic-bezier(0.34,1.56,0.64,1), emberGlow 2.4s 0.6s ease-in-out infinite"}}>{s.icon}</div>
                 <div style={{fontSize:"20px",fontWeight:"700",color:"#c8a96e",lineHeight:1.3,letterSpacing:"-0.01em"}}>{s.title}</div>
-                <div style={{fontSize:"15px",color:"#9a9aae",lineHeight:1.8,maxWidth:"320px"}}>{s.text}</div>
+                <div style={{fontSize:"15px",color:"#b2b2c4",lineHeight:1.8,maxWidth:"320px"}}>{s.text}</div>
               </div>
 
               {/* Dots */}
@@ -1862,7 +1862,7 @@ Write the script.`;
               ) : (
                 <button style={S.btnGhost} onClick={()=>go(hookSlide+1,"right")}>Next →</button>
               )}
-              <div style={{fontSize:"10px",color:"#4a4a6a",textAlign:"center",letterSpacing:"0.1em"}}>{isLast ? "The conversation matters. Take it seriously." : "Swipe or tap to continue"}</div>
+              <div style={{fontSize:"10px",color:"#6e6e88",textAlign:"center",letterSpacing:"0.1em"}}>{isLast ? "The conversation matters. Take it seriously." : "Swipe or tap to continue"}</div>
             </>
           );
         })()}
@@ -1876,7 +1876,7 @@ Write the script.`;
       {screen!=="loading"&&screen!=="splash"&&(
         <button onClick={()=>setFeedbackOpen(true)} style={{position:"fixed",bottom:"20px",right:"20px",zIndex:50,background:"#1a1a2a",border:"1px solid #2a2a3e",borderRadius:"50%",width:"44px",height:"44px",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:"16px",color:"#c8a96e",boxShadow:"0 4px 12px rgba(0,0,0,0.4)"}}>💬</button>
       )}
-      {feedbackOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>!feedbackSubmitting&&setFeedbackOpen(false)}><div style={{...S.card,maxWidth:"380px"}} onClick={e=>e.stopPropagation()}>{!feedbackSent?(<><div style={S.eyebrow}>Send Feedback</div><div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div><div style={{display:"flex",gap:"8px"}}>{["bug","confusing","idea","other"].map(c=>(<button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>))}</div><textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/><button style={{...S.btn,opacity:feedbackMessage.trim()&&!feedbackSubmitting?1:0.4}} disabled={!feedbackMessage.trim()||feedbackSubmitting} onClick={handleSubmitFeedback}>{feedbackSubmitting?"Sending...":"Send Feedback"}</button><button style={S.btnGhost} onClick={()=>setFeedbackOpen(false)}>Cancel</button></>):(<div style={{textAlign:"center",padding:"20px 0"}}><div style={{fontSize:"32px",marginBottom:"12px"}}>✓</div><div style={{fontSize:"14px",color:"#c8a96e"}}>Sent. Thank you.</div></div>)}</div></div>)}
+      {feedbackOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>!feedbackSubmitting&&setFeedbackOpen(false)}><div style={{...S.card,maxWidth:"380px"}} onClick={e=>e.stopPropagation()}>{!feedbackSent?(<><div style={S.eyebrow}>Send Feedback</div><div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div><div style={{display:"flex",gap:"8px"}}>{["bug","confusing","idea","other"].map(c=>(<button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>))}</div><textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/><button style={{...S.btn,opacity:feedbackMessage.trim()&&!feedbackSubmitting?1:0.4}} disabled={!feedbackMessage.trim()||feedbackSubmitting} onClick={handleSubmitFeedback}>{feedbackSubmitting?"Sending...":"Send Feedback"}</button><button style={S.btnGhost} onClick={()=>setFeedbackOpen(false)}>Cancel</button></>):(<div style={{textAlign:"center",padding:"20px 0"}}><div style={{fontSize:"32px",marginBottom:"12px"}}>✓</div><div style={{fontSize:"14px",color:"#c8a96e"}}>Sent. Thank you.</div></div>)}</div></div>)}
       {resetConfirmOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>setResetConfirmOpen(false)}><div style={{...S.card,maxWidth:"360px",border:"1px solid #4a2a2a"}} onClick={e=>e.stopPropagation()}><div style={{fontSize:"10px",letterSpacing:"0.3em",color:"#8a5a5a",textTransform:"uppercase"}}>This Cannot Be Undone</div><div style={{...S.h1,fontSize:"19px"}}>Reset your identity?</div><div style={S.sub}>Your identity, debrief history, scripts, and progress will be permanently erased. You'll start over from onboarding.</div><button style={{...S.btn,background:"#8a3a3a"}} onClick={resetApp}>Yes, Erase Everything</button><button style={S.btnGhost} onClick={()=>setResetConfirmOpen(false)}>Cancel</button></div></div>)}
       <div style={S.card}>
         <div><div style={S.eyebrow}>Identity Intake</div><div style={{...S.h1,fontSize:"18px",marginTop:"6px"}}>FORGE is listening.</div></div>
@@ -1900,7 +1900,7 @@ Write the script.`;
         {readyToForge ? (
           <div style={{display:"flex",flexDirection:"column",gap:"8px",animation:"fadeIn 0.6s ease both"}}>
             <button style={{...S.btn,animation:"emberGlow 2.2s ease-in-out infinite"}} onClick={()=>forgeIdentity(chatHistory)}>⚒ Forge My Identity →</button>
-            <div style={{fontSize:"10px",color:"#4a4a6a",textAlign:"center"}}>Read the message above — then step into the forge when you're ready.</div>
+            <div style={{fontSize:"10px",color:"#6e6e88",textAlign:"center"}}>Read the message above — then step into the forge when you're ready.</div>
           </div>
         ) : (
         <div style={{display:"flex",gap:"10px"}}>
@@ -1908,9 +1908,9 @@ Write the script.`;
           <button style={{...S.btn,width:"auto",padding:"0 20px",opacity:userInput.trim()&&!aiTyping?1:0.4}} onClick={sendMessage} disabled={!userInput.trim()||aiTyping}>→</button>
         </div>
         )}
-        <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>Specific and honest beats polished — FORGE may ask you to sharpen an answer, because the system gets built from this</div>
-        <div style={{fontSize:"10px",color:"#4a4a6a",textAlign:"center",lineHeight:1.5}}>🔒 No human reads this. Your record lives on your device — your words go only to the AI coach, encrypted, never sold.</div>
-        <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>{Object.values(pillarStatus).filter(Boolean).length} of {PILLARS.length} pillars locked in</div>
+        <div style={{fontSize:"12px",color:"#5a5a76",textAlign:"center"}}>Specific and honest beats polished — FORGE may ask you to sharpen an answer, because the system gets built from this</div>
+        <div style={{fontSize:"10px",color:"#6e6e88",textAlign:"center",lineHeight:1.5}}>🔒 No human reads this. Your record lives on your device — your words go only to the AI coach, encrypted, never sold.</div>
+        <div style={{fontSize:"12px",color:"#5a5a76",textAlign:"center"}}>{Object.values(pillarStatus).filter(Boolean).length} of {PILLARS.length} pillars locked in</div>
       </div>
     </div>
   );
@@ -1929,7 +1929,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -1981,13 +1981,13 @@ Write the script.`;
           <div style={{fontSize:"17px",color:"#e8e4dc",lineHeight:1.7,fontStyle:"italic",textAlign:"center",transition:"opacity 0.5s ease"}}>
             "{FORGE_QUOTES[forgingQuoteIdx].text}"
           </div>
-          <div style={{fontSize:"11px",color:"#5a5a6e",letterSpacing:"0.2em",textTransform:"uppercase"}}>
+          <div style={{fontSize:"12px",color:"#8a8a9c",letterSpacing:"0.2em",textTransform:"uppercase"}}>
             — {FORGE_QUOTES[forgingQuoteIdx].author}
           </div>
         </div>
 
         {/* Phase label */}
-        <div style={{marginTop:"40px",fontSize:"11px",color:"#3a3a5e",letterSpacing:"0.25em",textTransform:"uppercase",textAlign:"center"}}>
+        <div style={{marginTop:"40px",fontSize:"12px",color:"#5a5a76",letterSpacing:"0.25em",textTransform:"uppercase",textAlign:"center"}}>
           {forgingPhase === "identity" ? "Synthesizing your identity..." : "Building your personal domain system..."}
         </div>
         <div style={{display:"flex",gap:"6px",marginTop:"16px"}}>
@@ -2012,7 +2012,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -2061,8 +2061,8 @@ Write the script.`;
             <div style={{display:"flex",gap:"6px",alignItems:"center",margin:"4px 0"}}>
               {[1,2,3].map(s=><div key={s} style={{height:"2px",flex:1,borderRadius:"1px",background:s<=reforgeStep?"#c8a96e":"#2a2a3e"}}/>)}
             </div>
-            <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.2em",textTransform:"uppercase",textAlign:"center"}}>Step 1 of 3 — Acknowledge</div>
-            <div style={{fontSize:"11px",color:"#7a7a8e",lineHeight:1.65,fontStyle:"italic",textAlign:"center"}}>Everyone drifts. The research is blunt: people with a recovery ritual rebuild — people with shame quit. This is the ritual.</div>
+            <div style={{fontSize:"10px",color:"#6e6e88",letterSpacing:"0.2em",textTransform:"uppercase",textAlign:"center"}}>Step 1 of 3 — Acknowledge</div>
+            <div style={{fontSize:"12px",color:"#9a9aac",lineHeight:1.65,fontStyle:"italic",textAlign:"center"}}>Everyone drifts. The research is blunt: people with a recovery ritual rebuild — people with shame quit. This is the ritual.</div>
             <div style={{display:"flex",flexDirection:"column",gap:"10px",marginTop:"4px"}}>
               <button style={{...S.btn,background:"#c8a96e"}} onClick={()=>{setReforgeStep(2);startReforge();}} disabled={driftAlert?.loading}>
                 I acknowledge what happened. I'm back.
@@ -2085,7 +2085,7 @@ Write the script.`;
             <div style={{display:"flex",justifyContent:"center",gap:"6px",padding:"16px 0"}}>
               {[0,1,2].map(i=><div key={i} style={S.typingDot(i)}/>)}
             </div>
-            <div style={{fontSize:"12px",color:"#3a3a5e",textAlign:"center"}}>Analyzing your history and building your specific re-entry path...</div>
+            <div style={{fontSize:"13px",color:"#5a5a76",textAlign:"center"}}>Analyzing your history and building your specific re-entry path...</div>
           </>
         )}
 
@@ -2101,7 +2101,7 @@ Write the script.`;
               <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>Your Re-Entry</div>
               <div style={{fontSize:"14px",color:"#d8d4cc",lineHeight:1.8}}>{reforgeMessage}</div>
             </div>
-            <div style={{padding:"12px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e",fontSize:"12px",color:"#5a5a6e",lineHeight:1.6}}>
+            <div style={{padding:"12px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e",fontSize:"13px",color:"#8a8a9c",lineHeight:1.6}}>
               Today: one domain only. Build the streak back one day at a time. Don't try to recover everything at once.
             </div>
             <button style={S.btn} onClick={()=>{setDriftAlert(null);setReforgeStep(1);setReforgeMessage("");setScreen("dashboard");}}>
@@ -2130,7 +2130,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -2162,11 +2162,11 @@ Write the script.`;
       <div style={S.card}>
         <div style={S.eyebrow}>Your Identity — Forged</div>
         <div style={S.identityBadge}>
-          <div style={{fontSize:"10px",color:"#5a5a6e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>You are</div>
+          <div style={{fontSize:"10px",color:"#8a8a9c",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>You are</div>
           <div style={{...S.identityLabel, color:accentOf(userData)}}>{userData?.identity?.label}</div>
-          <div style={{fontSize:"13px",color:"#9a9aae",marginTop:"12px",lineHeight:1.65,fontStyle:"italic"}}>"{userData?.identity?.statement}"</div>
+          <div style={{fontSize:"14px",color:"#b2b2c4",marginTop:"12px",lineHeight:1.65,fontStyle:"italic"}}>"{userData?.identity?.statement}"</div>
         </div>
-        <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.15em",lineHeight:1.6}}>TAP EACH CLAUSE TO INITIAL IT — a contract you haven't read isn't a contract.</div>
+        <div style={{fontSize:"10px",color:"#6e6e88",letterSpacing:"0.15em",lineHeight:1.6}}>TAP EACH CLAUSE TO INITIAL IT — a contract you haven't read isn't a contract.</div>
         {[
           {key:"statement", label:"Your statement", value:userData?.identity?.statement},
           {key:"sacrifice", label:"What you surrender", value:userData?.identity?.sacrifice},
@@ -2176,27 +2176,27 @@ Write the script.`;
           return (
             <div key={r.key} onClick={()=>setAckClauses(p=>({...p,[r.key]:!p[r.key]}))} style={{padding:"12px 14px",background:acked?"#0f0d08":"#0a0a0f",borderRadius:"8px",border:`1px solid ${acked?"#c8a96e55":"#1e1e2e"}`,borderLeft:acked?"3px solid #c8a96e":"1px solid #1e1e2e",cursor:"pointer",display:"flex",gap:"12px",alignItems:"flex-start",transition:"all 0.25s ease"}}>
               <div style={{width:"20px",height:"20px",borderRadius:"50%",border:`1.5px solid ${acked?"#c8a96e":"#2a2a3e"}`,background:acked?"#c8a96e":"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:"2px",transition:"all 0.25s ease"}}>
-                {acked && <span style={{color:"#0a0a0f",fontSize:"11px",fontWeight:"700"}}>✓</span>}
+                {acked && <span style={{color:"#0a0a0f",fontSize:"12px",fontWeight:"700"}}>✓</span>}
               </div>
               <div>
                 <div style={{fontSize:"9px",color:acked?"#c8a96e":"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"5px",transition:"color 0.25s ease"}}>{r.label}</div>
-                <div style={{fontSize:"13px",color:acked?"#e8e4dc":"#9a9aae",fontWeight:acked?"700":"400",lineHeight:1.55,transition:"all 0.25s ease"}}>{r.value}</div>
+                <div style={{fontSize:"14px",color:acked?"#e8e4dc":"#9a9aae",fontWeight:acked?"700":"400",lineHeight:1.55,transition:"all 0.25s ease"}}>{r.value}</div>
               </div>
             </div>
           );
         })}
         <div style={{padding:"12px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #c8a96e22"}}>
-          <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"5px"}}>Your Cohort Callsign</div>
+          <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"5px"}}>Your Cohort Callsign</div>
           <div style={{fontSize:"18px",fontWeight:"700",color:"#c8a96e",letterSpacing:"0.05em"}}>{myCallsign}</div>
-          <div style={{fontSize:"11px",color:"#3a3a5e",marginTop:"4px"}}>Anonymous. Others see your progress, not your name.</div>
+          <div style={{fontSize:"12px",color:"#5a5a76",marginTop:"4px"}}>Anonymous. Others see your progress, not your name.</div>
         </div>
-        <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.7,borderLeft:"2px solid #c8a96e33",paddingLeft:"14px"}}>
+        <div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.7,borderLeft:"2px solid #c8a96e33",paddingLeft:"14px"}}>
           This is not a goal. This is who you are choosing to be starting now. Your old self has 30 days left.
         </div>
 
         {/* Domain preview — shows what was generated */}
         <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
-          <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>
+          <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>
             Your Domains {userData?.domainGenError ? "⚠️ Fallback" : "✓ AI-Generated"}
           </div>
           <div style={{display:"flex",flexDirection:"column",gap:"6px"}}>
@@ -2204,8 +2204,8 @@ Write the script.`;
               <div key={i} style={{display:"flex",alignItems:"center",gap:"10px"}}>
                 <span style={{fontSize:"16px"}}>{d.emoji}</span>
                 <div>
-                  <div style={{fontSize:"13px",color:"#e8e4dc"}}>{d.label}</div>
-                  <div style={{fontSize:"11px",color:"#4a4a6a",fontStyle:"italic"}}>"{d.identity_claim}"</div>
+                  <div style={{fontSize:"14px",color:"#e8e4dc"}}>{d.label}</div>
+                  <div style={{fontSize:"12px",color:"#6e6e88",fontStyle:"italic"}}>"{d.identity_claim}"</div>
                 </div>
               </div>
             ))}
@@ -2217,25 +2217,8 @@ Write the script.`;
           )}
         </div>
 
-        {/* The Anvil — foundation identities they already own */}
-        <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
-          <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"6px"}}>The Anvil</div>
-          <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.6,marginBottom:"12px"}}>New steel is hammered on something solid. Pick up to 3 identities you already own — earned, not aspirational. Your coach will hold you to their standard.</div>
-          <div style={{display:"flex",flexWrap:"wrap",gap:"8px"}}>
-            {FOUNDATIONS.map(f=>{
-              const on = pickedFoundations.includes(f.key);
-              return (
-                <button key={f.key} onClick={()=>setPickedFoundations(p=>on?p.filter(k=>k!==f.key):(p.length<3?[...p,f.key]:p))} style={{display:"flex",alignItems:"center",gap:"6px",padding:"7px 11px",borderRadius:"18px",border:`1px solid ${on?"#c8a96e":"#1e1e2e"}`,background:on?"#c8a96e18":"#0a0a0f",color:on?"#c8a96e":"#5a5a6e",fontSize:"11px",cursor:"pointer",fontFamily:"'Georgia',serif"}}>
-                  <span>{f.emoji}</span>{f.label}
-                </button>
-              );
-            })}
-          </div>
-          <div style={{fontSize:"10px",color:"#3a3a5e",marginTop:"10px"}}>{pickedFoundations.length}/3 selected · optional</div>
-        </div>
-
         {(()=>{ const allAcked = ackClauses.statement && ackClauses.sacrifice && ackClauses.vision; return (
-        <button style={{...S.btn,opacity:allAcked?1:0.35,cursor:allAcked?"pointer":"default"}} disabled={!allAcked} onClick={async()=>{await persist({...userData, foundations:pickedFoundations});setSealDone(false);setPledgePhase("offer");setScreen("seal");setTimeout(()=>setSealDone(true),2600);}}>{allAcked?"I Accept This Identity":`Initial all clauses to seal (${Object.values(ackClauses).filter(Boolean).length}/3)`}</button>
+        <button style={{...S.btn,opacity:allAcked?1:0.35,cursor:allAcked?"pointer":"default"}} disabled={!allAcked} onClick={async()=>{setSealDone(false);setPledgePhase("offer");setScreen("seal");setTimeout(()=>setSealDone(true),2600);}}>{allAcked?"I Accept This Identity":`Initial all clauses to seal (${Object.values(ackClauses).filter(Boolean).length}/3)`}</button>
         );})()}
         <button style={S.btnGhost} onClick={async()=>{await clearStorage();setUserData(null);setChatHistory([]);setAckClauses({statement:false,sacrifice:false,vision:false});setPickedFoundations([]);startOnboarding();}}>Start Over</button>
       </div>
@@ -2246,9 +2229,9 @@ Write the script.`;
     <div style={S.app}><style>{CSS}</style>
       <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"26px",textAlign:"center",padding:"0 32px"}}>
         <div style={{fontSize:"58px",animation:"strike 0.9s cubic-bezier(0.34,1.56,0.64,1)"}}>⚒</div>
-        <div style={{fontSize:"10px",letterSpacing:"0.45em",color:"#5a5a6e",textTransform:"uppercase",animation:"fadeIn 0.6s 0.7s ease both"}}>Contract Sealed</div>
+        <div style={{fontSize:"10px",letterSpacing:"0.45em",color:"#8a8a9c",textTransform:"uppercase",animation:"fadeIn 0.6s 0.7s ease both"}}>Contract Sealed</div>
         <div style={{fontSize:"34px",fontWeight:"700",color:accentOf(userData),animation:"burnIn 1.1s 0.9s ease both"}}>{userData?.identity?.label}</div>
-        <div style={{fontSize:"13px",color:"#5a5a6e",lineHeight:1.7,maxWidth:"300px",animation:"fadeIn 0.7s 1.6s ease both"}}>The old version of you has 30 days left. Every action from here is evidence.</div>
+        <div style={{fontSize:"14px",color:"#8a8a9c",lineHeight:1.7,maxWidth:"300px",animation:"fadeIn 0.7s 1.6s ease both"}}>The old version of you has 30 days left. Every action from here is evidence.</div>
         {!sealDone && <div style={{height:"49px"}}/>}
 
         {/* The Oath — optional spoken pledge */}
@@ -2256,19 +2239,19 @@ Write the script.`;
           <div style={{display:"flex",flexDirection:"column",gap:"14px",maxWidth:"320px",width:"100%",animation:"fadeIn 0.5s ease both"}}>
             <div style={{padding:"16px 18px",background:"#12121a",border:"1px solid #c8a96e33",borderRadius:"12px",textAlign:"left"}}>
               <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.35em",textTransform:"uppercase",marginBottom:"8px"}}>One More Thing</div>
-              <div style={{fontSize:"13px",color:"#9a9aae",lineHeight:1.75}}>
+              <div style={{fontSize:"14px",color:"#b2b2c4",lineHeight:1.75}}>
                 Signed contracts get filed. <span style={{color:"#e8e4dc"}}>Spoken oaths get kept.</span> Every vow that ever mattered — enlistments, weddings, testimony — was said out loud. Words that leave the body are filed by the brain as something that <i>happened</i>, not something you read.
               </div>
-              <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.6,marginTop:"10px"}}>
+              <div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.6,marginTop:"10px"}}>
                 Your oath is one sentence — say it aloud, once, wherever you are. No one hears it but you.
               </div>
               <div style={{marginTop:"12px",padding:"12px 14px",background:"#0a0a0f",borderRadius:"8px",borderLeft:"2px solid #c8a96e"}}>
                 <div style={{fontSize:"8px",color:"#c8a96e",letterSpacing:"0.35em",textTransform:"uppercase",marginBottom:"6px"}}>Your Oath</div>
-                <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.7,fontStyle:"italic"}}>"{userData?.identity?.statement || `I am ${userData?.identity?.label||"who I choose to be"}.`}"</div>
+                <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.7,fontStyle:"italic"}}>"{userData?.identity?.statement || `I am ${userData?.identity?.label||"who I choose to be"}.`}"</div>
               </div>
             </div>
             <button style={S.btn} onClick={beginOath}>🎙 Swear It Aloud</button>
-            <button style={{background:"none",border:"none",color:"#3a3a5e",fontSize:"11px",cursor:"pointer",fontFamily:"'Georgia',serif",letterSpacing:"0.1em",padding:"6px"}} onClick={()=>setScreen("dashboard")}>continue in silence</button>
+            <button style={{background:"none",border:"none",color:"#5a5a76",fontSize:"12px",cursor:"pointer",fontFamily:"'Georgia',serif",letterSpacing:"0.1em",padding:"6px"}} onClick={()=>setScreen("dashboard")}>continue in silence</button>
           </div>
         )}
 
@@ -2277,15 +2260,15 @@ Write the script.`;
             <div style={{width:"64px",height:"64px",borderRadius:"50%",border:"1px solid #c8a96e",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"24px",animation:"pulse 1.4s infinite",boxShadow:"0 0 30px rgba(200,169,110,0.3)"}}>🎙</div>
             <div style={{fontSize:"10px",color:"#c8a96e",letterSpacing:"0.4em",textTransform:"uppercase"}}>Say these words</div>
             <div style={{fontSize:"17px",color:accentOf(userData),lineHeight:1.8,fontStyle:"italic",fontWeight:"700",textShadow:"0 0 20px rgba(200,169,110,0.3)"}}>"{userData?.identity?.statement || `I am ${userData?.identity?.label||"who I choose to be"}.`}"</div>
-            <div style={{fontSize:"11px",color:"#5a5a6e"}}>Out loud. Like you mean it.</div>
+            <div style={{fontSize:"12px",color:"#8a8a9c"}}>Out loud. Like you mean it.</div>
             <button style={{...S.btnGhost,maxWidth:"260px"}} onClick={completeOath}>I've spoken it</button>
           </div>
         )}
 
         {sealDone && pledgePhase === "witnessed" && (
           <div style={{display:"flex",flexDirection:"column",gap:"16px",maxWidth:"320px",width:"100%",alignItems:"center",animation:"fadeIn 0.5s ease both"}}>
-            <div style={{fontSize:"11px",letterSpacing:"0.45em",color:"#c8a96e",textTransform:"uppercase",animation:"emberGlow 2s ease-in-out infinite"}}>⚒ Oath Witnessed</div>
-            <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.6,textAlign:"center"}}>Spoken and sealed. Very few people ever say it out loud — you just did.</div>
+            <div style={{fontSize:"12px",letterSpacing:"0.45em",color:"#c8a96e",textTransform:"uppercase",animation:"emberGlow 2s ease-in-out infinite"}}>⚒ Oath Witnessed</div>
+            <div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.6,textAlign:"center"}}>Spoken and sealed. Very few people ever say it out loud — you just did.</div>
             <button style={{...S.btn,maxWidth:"280px"}} onClick={()=>setScreen("dashboard")}>Day 1 Begins Now →</button>
           </div>
         )}
@@ -2307,7 +2290,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -2343,22 +2326,22 @@ Write the script.`;
             {voteFlash.sweep ? (
               <>
                 <div style={{fontSize:"56px",animation:"strike 0.7s cubic-bezier(0.34,1.56,0.64,1), emberGlow 1.6s 0.7s ease-in-out infinite"}}>🔥</div>
-                <div style={{fontSize:"12px",letterSpacing:"0.45em",color:"#c8a96e",textTransform:"uppercase"}}>Full Sweep</div>
+                <div style={{fontSize:"13px",letterSpacing:"0.45em",color:"#c8a96e",textTransform:"uppercase"}}>Full Sweep</div>
                 <div style={{fontSize:"26px",fontWeight:"700",color:"#e8e4dc"}}>Every domain. One day.</div>
-                <div style={{fontSize:"13px",color:"#9a9aae"}}>{calcVoteScore(domainLogs)} votes today · This is what {userData?.identity?.label} looks like.</div>
+                <div style={{fontSize:"14px",color:"#b2b2c4"}}>{calcVoteScore(domainLogs)} votes today · This is what {userData?.identity?.label} looks like.</div>
               </>
             ) : voteFlash.milestone ? (
               <>
                 <div style={{fontSize:"52px",animation:"strike 0.7s cubic-bezier(0.34,1.56,0.64,1), emberGlow 1.6s 0.7s ease-in-out infinite"}}>⚒</div>
-                <div style={{fontSize:"12px",letterSpacing:"0.45em",color:"#c8a96e",textTransform:"uppercase"}}>Milestone</div>
+                <div style={{fontSize:"13px",letterSpacing:"0.45em",color:"#c8a96e",textTransform:"uppercase"}}>Milestone</div>
                 <div style={{fontSize:"30px",fontWeight:"700",color:"#e8e4dc"}}>{voteFlash.milestone.toLocaleString()}th vote cast</div>
-                <div style={{fontSize:"13px",color:"#9a9aae"}}>{voteFlash.milestone.toLocaleString()} pieces of evidence. The belief is earning itself.</div>
+                <div style={{fontSize:"14px",color:"#b2b2c4"}}>{voteFlash.milestone.toLocaleString()} pieces of evidence. The belief is earning itself.</div>
               </>
             ) : (
               <>
                 <div style={{fontSize:"44px",animation:"emberGlow 1.4s ease-in-out infinite"}}>⚒</div>
                 <div style={{fontSize:"30px",fontWeight:"700",color:accentOf(userData)}}>+{voteFlash.weight} {voteFlash.weight===1?"VOTE":"VOTES"}</div>
-                <div style={{fontSize:"11px",letterSpacing:"0.35em",color:"#9a9aae",textTransform:"uppercase"}}>{voteFlash.tier} tier · evidence logged</div>
+                <div style={{fontSize:"12px",letterSpacing:"0.35em",color:"#b2b2c4",textTransform:"uppercase"}}>{voteFlash.tier} tier · evidence logged</div>
               </>
             )}
           </div>
@@ -2379,14 +2362,14 @@ Write the script.`;
               {n:"5",t:"Become",d:"At day 30 the old self retires. Your identity evolves and the next chapter begins."},
             ].map((s,i)=>(
               <div key={i} style={{display:"flex",gap:"14px",alignItems:"flex-start"}}>
-                <div style={{width:"26px",height:"26px",borderRadius:"50%",border:"1px solid #c8a96e55",color:"#c8a96e",fontSize:"12px",fontWeight:"700",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{s.n}</div>
+                <div style={{width:"26px",height:"26px",borderRadius:"50%",border:"1px solid #c8a96e55",color:"#c8a96e",fontSize:"13px",fontWeight:"700",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{s.n}</div>
                 <div>
-                  <div style={{fontSize:"13px",fontWeight:"700",color:"#e8e4dc"}}>{s.t}</div>
-                  <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.6,marginTop:"2px"}}>{s.d}</div>
+                  <div style={{fontSize:"14px",fontWeight:"700",color:"#e8e4dc"}}>{s.t}</div>
+                  <div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.6,marginTop:"2px"}}>{s.d}</div>
                 </div>
               </div>
             ))}
-            <div style={{fontSize:"11px",color:"#3a3a5e",fontStyle:"italic",lineHeight:1.6}}>Belief follows evidence. FORGE is the bridge between the person you are and the one you declared — one vote at a time.</div>
+            <div style={{fontSize:"12px",color:"#5a5a76",fontStyle:"italic",lineHeight:1.6}}>Belief follows evidence. FORGE is the bridge between the person you are and the one you declared — one vote at a time.</div>
             <button style={S.btn} onClick={async()=>{await persist({...userData, methodSeen:true});}}>{currentDay() <= 1 ? "Cast My First Vote →" : "Back to the Work →"}</button>
           </div>
         </div>
@@ -2397,15 +2380,10 @@ Write the script.`;
           <div>
             <div style={S.eyebrow}>Day {currentDay()} — Mission Brief</div>
             <div style={{fontSize:"22px",fontWeight:"700",color:accentOf(userData),marginTop:"5px"}}>{userData?.identity?.label}</div>
-            {(userData?.foundations||[]).length>0 && (
-              <div style={{fontSize:"9px",color:"#7a6a4e",letterSpacing:"0.22em",textTransform:"uppercase",marginTop:"6px"}}>
-                {userData.foundations.map(k=>FOUNDATIONS.find(x=>x.key===k)?.label).filter(Boolean).join(" · ")}
-              </div>
-            )}
           </div>
           <div style={{textAlign:"right"}}>
             <div style={{fontSize:"28px",fontWeight:"700",color:pct===100?"#c8a96e":"#e8e4dc"}}>{pct}%</div>
-            <div style={{fontSize:"9px",color:"#3a3a5e",letterSpacing:"0.2em"}}>COMPLETE</div>
+            <div style={{fontSize:"9px",color:"#5a5a76",letterSpacing:"0.2em"}}>COMPLETE</div>
             {(()=>{
               const y = new Date(); y.setDate(y.getDate()-1);
               const yLog = userData?.dailyLogs?.[y.toISOString().split("T")[0]];
@@ -2419,12 +2397,12 @@ Write the script.`;
         {!userData?.reminderHandled && (
           <div style={{...S.disruptor,borderColor:"#c8a96e55"}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>⏰ The Cue</div>
-            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.65,marginBottom:"10px"}}>Habits need a trigger — willpower won't remember the debrief on a hard Tuesday. Pick your hour and add a nightly reminder to your phone in one tap.</div>
+            <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.65,marginBottom:"10px"}}>Habits need a trigger — willpower won't remember the debrief on a hard Tuesday. Pick your hour and add a nightly reminder to your phone in one tap.</div>
             <div style={{display:"flex",gap:"10px",alignItems:"center"}}>
               <input type="time" value={reminderTime} onChange={e=>setReminderTime(e.target.value)} style={{background:"#0a0a0f",border:"1px solid #2a2a3e",borderRadius:"8px",color:"#e8e4dc",fontSize:"16px",fontFamily:"'Georgia',serif",padding:"8px 10px",outline:"none"}}/>
               <button style={{...S.btn,flex:1,padding:"10px 0"}} onClick={async()=>{downloadReminder();await persist({...userData,reminderHandled:true});}}>Add Nightly Reminder</button>
             </div>
-            <button style={{background:"none",border:"none",color:"#3a3a5e",fontSize:"10px",cursor:"pointer",fontFamily:"'Georgia',serif",marginTop:"8px",padding:0}} onClick={async()=>{await persist({...userData,reminderHandled:true});}}>I'll set my own alarm</button>
+            <button style={{background:"none",border:"none",color:"#5a5a76",fontSize:"10px",cursor:"pointer",fontFamily:"'Georgia',serif",marginTop:"8px",padding:0}} onClick={async()=>{await persist({...userData,reminderHandled:true});}}>I'll set my own alarm</button>
           </div>
         )}
 
@@ -2432,7 +2410,7 @@ Write the script.`;
         {currentDay() >= 14 && !userData?.day14Seen && (
           <div style={{...S.disruptor,borderColor:"#c8a96e",cursor:"pointer"}} onClick={async()=>{await persist({...userData,day14Seen:true});}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>⚒ The Valley — read once</div>
-            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.7}}>Around now, effort starts outrunning visible results. That lag is not failure — it's how compounding works: the votes are accumulating beneath the surface before anything shows. This valley is where most people quit, two weeks before it pays. You have {journeyStats(userData).votes} votes banked. Keep casting. <span style={{color:"#4a4a6a"}}>(tap to close)</span></div>
+            <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.7}}>Around now, effort starts outrunning visible results. That lag is not failure — it's how compounding works: the votes are accumulating beneath the surface before anything shows. This valley is where most people quit, two weeks before it pays. You have {journeyStats(userData).votes} votes banked. Keep casting. <span style={{color:"#6e6e88"}}>(tap to close)</span></div>
           </div>
         )}
 
@@ -2440,25 +2418,25 @@ Write the script.`;
         {currentDay() >= 7 && !userData?.day7Seen && (
           <div style={{...S.disruptor,borderColor:"#c8a96e",cursor:"pointer",animation:"sweepGlow 1.4s ease both"}} onClick={async()=>{await persist({...userData,day7Seen:true});setScreen("mirror");}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>⚒ One Week of Evidence</div>
-            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.6}}>Seven days ago this was a declaration. Now it's a record. Your Forged Traits are live — see who the evidence says you are. →</div>
+            <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.6}}>Seven days ago this was a declaration. Now it's a record. Your Forged Traits are live — see who the evidence says you are. →</div>
           </div>
         )}
         {new Date().getDay()===0 && (
           <div style={{...S.disruptor, borderColor:"#c8a96e", cursor:"pointer"}} onClick={()=>{resetCeoForm();setScreen("ceoReview");}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>It's Sunday</div>
-            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.6}}>Run your Weekly Review — step out of the days and look at the whole week like an owner, not a passenger. Score it honestly, set three priorities. →</div>
+            <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.6}}>Run your Weekly Review — step out of the days and look at the whole week like an owner, not a passenger. Score it honestly, set three priorities. →</div>
           </div>
         )}
         <div style={{display:"flex",alignItems:"center",gap:"8px",padding:"10px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e"}}>
-          <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.25em",textTransform:"uppercase",marginRight:"4px"}}>7d</div>
+          <div style={{fontSize:"10px",color:"#6e6e88",letterSpacing:"0.25em",textTransform:"uppercase",marginRight:"4px"}}>7d</div>
           {getStreakDots().map((d,i)=><div key={i} style={S.streakDot(d.filled)}/>)}
           {saveStatus&&<div style={{fontSize:"10px",color:"#c8a96e",marginLeft:"auto",letterSpacing:"0.2em"}}>SAVED ✓</div>}
         </div>
 
         {/* ── Domain Mission Cards ── */}
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline"}}>
-          <div style={{fontSize:"10px",color:"#3a3a5e",letterSpacing:"0.22em",textTransform:"uppercase"}}>Today's Domains</div>
-          <div style={{fontSize:"10px",color:"#4a4a6a"}}>One action each · Good tier counts</div>
+          <div style={{fontSize:"10px",color:"#5a5a76",letterSpacing:"0.22em",textTransform:"uppercase"}}>Today's Domains</div>
+          <div style={{fontSize:"10px",color:"#6e6e88"}}>One action each · Good tier counts</div>
         </div>
         <WhyThis id="domains">Every completed action is a vote for the person you declared — and research on identity-framed habits shows framing actions as "who I am" instead of "what I want" raises follow-through by about a third. The Good/Better/Best tiers exist so hard days still count: the system bends, so you don't break.</WhyThis>
         {(userData?.domains || DOMAINS).map(domain => {
@@ -2476,13 +2454,13 @@ Write the script.`;
               <div style={{display:"flex",alignItems:"center",gap:"12px",padding:"14px 16px",cursor:"pointer"}} onClick={()=>setActiveDomain(isExpanded?null:domain.domain)}>
                 <span style={{fontSize:"20px"}}>{domain.emoji}</span>
                 <div style={{flex:1}}>
-                  <div style={{fontSize:"13px",fontWeight:"700",color:isCompleted?"#c8a96e":"#e8e4dc"}}>{domain.label}</div>
-                  <div style={{fontSize:"11px",color:"#4a4a6a",marginTop:"2px",fontStyle:"italic"}}>"{domain.identity_claim}"</div>
+                  <div style={{fontSize:"14px",fontWeight:"700",color:isCompleted?"#c8a96e":"#e8e4dc"}}>{domain.label}</div>
+                  <div style={{fontSize:"12px",color:"#6e6e88",marginTop:"2px",fontStyle:"italic"}}>"{domain.identity_claim}"</div>
                 </div>
                 {isCompleted ? (
                   <div style={{display:"flex",alignItems:"center",gap:"6px"}}>
                     <div style={{fontSize:"9px",color:"#4a8a4a",letterSpacing:"0.15em",textTransform:"uppercase"}}>{log.tier}</div>
-                    <div style={{width:"20px",height:"20px",borderRadius:"50%",background:"#c8a96e",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"11px",fontWeight:"700",color:"#0a0a0f"}}>✓</div>
+                    <div style={{width:"20px",height:"20px",borderRadius:"50%",background:"#c8a96e",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"12px",fontWeight:"700",color:"#0a0a0f"}}>✓</div>
                   </div>
                 ) : (
                   <div style={{fontSize:"18px",color:"#2a2a3e"}}>{isExpanded?"▲":"▽"}</div>
@@ -2492,7 +2470,7 @@ Write the script.`;
               {/* Behavior Scripts shortcut — visible when expanded, if scripts exist for this domain context */}
               {isExpanded && !isCompleted && userData?.behaviorScripts?.length > 0 && (
                 <div style={{borderTop:"1px solid #1a1a2e",padding:"8px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",cursor:"pointer"}} onClick={()=>setScreen("scripting")}>
-                  <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.15em"}}>📋 My behavior scripts</div>
+                  <div style={{fontSize:"10px",color:"#6e6e88",letterSpacing:"0.15em"}}>📋 My behavior scripts</div>
                   <div style={{fontSize:"10px",color:"#c8a96e"}}>{userData.behaviorScripts.length} saved →</div>
                 </div>
               )}
@@ -2503,12 +2481,12 @@ Write the script.`;
                   {/* Tier selector */}
                   <div style={{display:"flex",gap:"8px"}}>
                     {["good","better","best"].map(t=>(
-                      <button key={t} onClick={()=>setSelectedTier(p=>({...p,[domain.domain]:t}))} style={{flex:1,padding:"9px 0",borderRadius:"8px",border:`1px solid ${currentTier===t?accentOf(userData):"#1e1e2e"}`,background:currentTier===t?accentOf(userData):"#0a0a0f",color:currentTier===t?"#0a0a0f":"#5a5a6e",fontSize:"11px",fontWeight:currentTier===t?"700":"400",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>
+                      <button key={t} onClick={()=>setSelectedTier(p=>({...p,[domain.domain]:t}))} style={{flex:1,padding:"9px 0",borderRadius:"8px",border:`1px solid ${currentTier===t?accentOf(userData):"#1e1e2e"}`,background:currentTier===t?accentOf(userData):"#0a0a0f",color:currentTier===t?"#0a0a0f":"#8a8a9c",fontSize:"12px",fontWeight:currentTier===t?"700":"400",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>
                         {t==="good"?"Good ①":t==="better"?"Better ②":"Best ③"}
                       </button>
                     ))}
                   </div>
-                  <div style={{fontSize:"11px",color:"#3a3a5e"}}>Vote weight: {domain.tiers[currentTier].vote_weight}x · Pick one action below</div>
+                  <div style={{fontSize:"12px",color:"#5a5a76"}}>Vote weight: {domain.tiers[currentTier].vote_weight}x · Pick one action below</div>
 
                   {/* Future Self Flash — appears when Best tier is chosen */}
                   {currentTier === "best" && userData?.identity?.vision && (
@@ -2516,23 +2494,23 @@ Write the script.`;
                       <div style={{fontSize:"16px",flexShrink:0}}>🔭</div>
                       <div style={{display:"flex",flexDirection:"column",gap:"3px"}}>
                         <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.25em",textTransform:"uppercase"}}>Your future self</div>
-                        <div style={{fontSize:"12px",color:"#9a9aae",lineHeight:1.6,fontStyle:"italic"}}>"{userData.identity.vision}"</div>
-                        <div style={{fontSize:"10px",color:"#3a3a5e",marginTop:"2px"}}>This action is a vote for that person.</div>
+                        <div style={{fontSize:"13px",color:"#b2b2c4",lineHeight:1.6,fontStyle:"italic"}}>"{userData.identity.vision}"</div>
+                        <div style={{fontSize:"10px",color:"#5a5a76",marginTop:"2px"}}>This action is a vote for that person.</div>
                       </div>
                     </div>
                   )}
 
                   {/* Actions for selected tier */}
                   {tierActions.length === 0 ? (
-                    <div style={{fontSize:"12px",color:"#3a3a5e",fontStyle:"italic"}}>Rotate back in {domain.rotation_refresh_days} days for new actions at this tier.</div>
+                    <div style={{fontSize:"13px",color:"#5a5a76",fontStyle:"italic"}}>Rotate back in {domain.rotation_refresh_days} days for new actions at this tier.</div>
                   ) : tierActions.map(action => (
                     <div key={action.id} style={{padding:"14px",background:"#12121a",borderRadius:"10px",border:"1px solid #1e1e2e",display:"flex",flexDirection:"column",gap:"10px"}}>
-                      <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.6}}>{action.text}</div>
+                      <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.6}}>{action.text}</div>
 
                       {/* Coach Me button + brief */}
                       {!coachingBrief[action.id] && (
                         <button
-                          style={{background:"transparent",border:"1px solid #c8a96e33",borderRadius:"8px",padding:"9px 14px",fontSize:"11px",color:"#c8a96e",cursor:"pointer",fontFamily:"'Georgia',serif",textAlign:"left",letterSpacing:"0.05em"}}
+                          style={{background:"transparent",border:"1px solid #c8a96e33",borderRadius:"8px",padding:"9px 14px",fontSize:"12px",color:"#c8a96e",cursor:"pointer",fontFamily:"'Georgia',serif",textAlign:"left",letterSpacing:"0.05em"}}
                           onClick={()=>getCoachingBrief(domain, action, currentTier)}
                         >
                           ⚒ Coach me through this →
@@ -2541,13 +2519,13 @@ Write the script.`;
                       {coachingBrief[action.id]?.loading && (
                         <div style={{display:"flex",alignItems:"center",gap:"8px",padding:"8px 0"}}>
                           <div style={{display:"flex",gap:"4px"}}>{[0,1,2].map(i=><div key={i} style={{width:"5px",height:"5px",borderRadius:"50%",background:"#c8a96e",animation:`typingPulse 1.2s ${i*0.2}s infinite`}}/>)}</div>
-                          <div style={{fontSize:"11px",color:"#4a4a6a"}}>Coach is reading your history...</div>
+                          <div style={{fontSize:"12px",color:"#6e6e88"}}>Coach is reading your history...</div>
                         </div>
                       )}
                       {coachingBrief[action.id]?.text && !coachingBrief[action.id]?.loading && (
                         <div style={{background:"#0a0a0f",border:"1px solid #c8a96e22",borderLeft:"2px solid #c8a96e",borderRadius:"0 8px 8px 0",padding:"12px 14px"}}>
                           <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>Coach</div>
-                          <div style={{fontSize:"13px",color:"#d8d4cc",lineHeight:1.75}}>{coachingBrief[action.id].text}</div>
+                          <div style={{fontSize:"14px",color:"#d8d4cc",lineHeight:1.75}}>{coachingBrief[action.id].text}</div>
                         </div>
                       )}
 
@@ -2563,8 +2541,8 @@ Write the script.`;
 
                       {/* Implementation intention — mandatory: when does/did this happen */}
                       <div>
-                        <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:"3px"}}>When? <span style={{color:"#c8a96e"}}>*</span></div>
-                        <div style={{fontSize:"10px",color:"#3a3a5e",fontStyle:"italic",marginBottom:"6px"}}>Deciding when doubles the odds it happens — a plan beats willpower.</div>
+                        <div style={{fontSize:"10px",color:"#6e6e88",letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:"3px"}}>When? <span style={{color:"#c8a96e"}}>*</span></div>
+                        <div style={{fontSize:"10px",color:"#5a5a76",fontStyle:"italic",marginBottom:"6px"}}>Deciding when doubles the odds it happens — a plan beats willpower.</div>
                         <div style={{display:"flex",gap:"6px"}}>
                           {/* why: implementation intentions */}
                           {[["morning","Morning"],["midday","Midday"],["evening","Evening"],["done","Already done"]].map(([k,l])=>(
@@ -2574,7 +2552,7 @@ Write the script.`;
                       </div>
 
                       <button
-                        style={{background:"#c8a96e",color:"#0a0a0f",border:"none",borderRadius:"8px",padding:"11px",fontSize:"12px",fontWeight:"700",letterSpacing:"0.1em",textTransform:"uppercase",cursor:"pointer",opacity:((action.requires_metric&&!metricInput[action.id]?.trim())||!actionTiming[action.id])?0.4:1}}
+                        style={{background:"#c8a96e",color:"#0a0a0f",border:"none",borderRadius:"8px",padding:"11px",fontSize:"13px",fontWeight:"700",letterSpacing:"0.1em",textTransform:"uppercase",cursor:"pointer",opacity:((action.requires_metric&&!metricInput[action.id]?.trim())||!actionTiming[action.id])?0.4:1}}
                         disabled={(action.requires_metric&&!metricInput[action.id]?.trim())||!actionTiming[action.id]}
                         onClick={()=>completeAction(domain.domain, action, currentTier, domain.tiers[currentTier].vote_weight)}
                       >
@@ -2588,9 +2566,9 @@ Write the script.`;
               {/* Completed state — show what was done */}
               {isCompleted && isExpanded && (
                 <div style={{borderTop:"1px solid #1e1e2e",padding:"14px 16px",display:"flex",flexDirection:"column",gap:"8px"}}>
-                  <div style={{fontSize:"13px",color:"#5a5a6e",lineHeight:1.6}}>{log.actionText}</div>
-                  {log.metric && <div style={{fontSize:"12px",color:"#4a4a6a",fontStyle:"italic"}}>→ "{log.metric}"</div>}
-                  <button style={{background:"transparent",border:"1px solid #2a2a3e",borderRadius:"8px",padding:"9px",fontSize:"11px",color:"#5a5a6e",cursor:"pointer",fontFamily:"'Georgia',serif"}} onClick={()=>uncompleteAction(domain.domain)}>Undo</button>
+                  <div style={{fontSize:"14px",color:"#8a8a9c",lineHeight:1.6}}>{log.actionText}</div>
+                  {log.metric && <div style={{fontSize:"13px",color:"#6e6e88",fontStyle:"italic"}}>→ "{log.metric}"</div>}
+                  <button style={{background:"transparent",border:"1px solid #2a2a3e",borderRadius:"8px",padding:"9px",fontSize:"12px",color:"#8a8a9c",cursor:"pointer",fontFamily:"'Georgia',serif"}} onClick={()=>uncompleteAction(domain.domain)}>Undo</button>
                 </div>
               )}
             </div>
@@ -2600,22 +2578,22 @@ Write the script.`;
         {/* Vote score summary */}
         {Object.keys(domainLogs).length > 0 && (
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 16px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e"}}>
-            <div style={{fontSize:"11px",color:"#4a4a6a",letterSpacing:"0.2em",textTransform:"uppercase"}}>Today's Vote Score</div>
-            <div style={{fontSize:"20px",fontWeight:"700",color:accentOf(userData)}}>{calcVoteScore(domainLogs)}<span style={{fontSize:"11px",color:"#5a5a6e",marginLeft:"4px"}}>pts</span></div>
+            <div style={{fontSize:"12px",color:"#6e6e88",letterSpacing:"0.2em",textTransform:"uppercase"}}>Today's Vote Score</div>
+            <div style={{fontSize:"20px",fontWeight:"700",color:accentOf(userData)}}>{calcVoteScore(domainLogs)}<span style={{fontSize:"12px",color:"#8a8a9c",marginLeft:"4px"}}>pts</span></div>
           </div>
         )}
 
         {disruption&&(
           <div style={S.disruptor}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>Pattern Interrupt</div>
-            <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.65,fontStyle:"italic"}}>"{disruption}"</div>
+            <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.65,fontStyle:"italic"}}>"{disruption}"</div>
           </div>
         )}
         {/* Quick-access scripts from dashboard */}
         {userData?.behaviorScripts?.length>0 && (
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"11px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e",cursor:"pointer"}} onClick={()=>setScreen("scripting")}>
-            <div style={{fontSize:"12px",color:"#5a5a6e"}}>My Behavior Scripts</div>
-            <div style={{fontSize:"12px",color:"#c8a96e"}}>{userData.behaviorScripts.length} saved →</div>
+            <div style={{fontSize:"13px",color:"#8a8a9c"}}>My Behavior Scripts</div>
+            <div style={{fontSize:"13px",color:"#c8a96e"}}>{userData.behaviorScripts.length} saved →</div>
           </div>
         )}
 
@@ -2623,15 +2601,15 @@ Write the script.`;
         {shouldShowCeremony() && (
           <div style={{...S.disruptor,borderColor:"#c8a96e",cursor:"pointer",textAlign:"center"}} onClick={async()=>{await persist({...userData,ceremonySeen30:true});setScreen("ceremony");}}>
             <div style={{fontSize:"20px",marginBottom:"8px"}}>🔥</div>
-            <div style={{fontSize:"13px",color:"#c8a96e",fontWeight:"700",marginBottom:"4px"}}>Day 30 Reached</div>
-            <div style={{fontSize:"12px",color:"#e8e4dc"}}>Your old self has officially expired. Tap to claim your identity. →</div>
+            <div style={{fontSize:"14px",color:"#c8a96e",fontWeight:"700",marginBottom:"4px"}}>Day 30 Reached</div>
+            <div style={{fontSize:"13px",color:"#e8e4dc"}}>Your old self has officially expired. Tap to claim your identity. →</div>
           </div>
         )}
         {/* Store loyalty teaser */}
         {totalActiveDays()>=30 && (
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"11px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #c8a96e22",cursor:"pointer"}} onClick={()=>setScreen("store")}>
-            <div style={{fontSize:"12px",color:"#5a5a6e"}}>FORGE Store {loyaltyTier().emoji}</div>
-            <div style={{fontSize:"12px",color:"#c8a96e"}}>{loyaltyTier().label} unlocked →</div>
+            <div style={{fontSize:"13px",color:"#8a8a9c"}}>FORGE Store {loyaltyTier().emoji}</div>
+            <div style={{fontSize:"13px",color:"#c8a96e"}}>{loyaltyTier().label} unlocked →</div>
           </div>
         )}
         <div style={S.navBar}>
@@ -2647,27 +2625,27 @@ Write the script.`;
   if (screen==="ceremony") return (
     <div style={S.app}><style>{CSS}</style>
       {screen!=="loading"&&screen!=="splash"&&(<button onClick={()=>setFeedbackOpen(true)} style={{position:"fixed",bottom:"20px",right:"20px",zIndex:50,background:"#1a1a2a",border:"1px solid #2a2a3e",borderRadius:"50%",width:"44px",height:"44px",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:"16px",color:"#c8a96e",boxShadow:"0 4px 12px rgba(0,0,0,0.4)"}}>💬</button>)}
-      {feedbackOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>!feedbackSubmitting&&setFeedbackOpen(false)}><div style={{...S.card,maxWidth:"380px"}} onClick={e=>e.stopPropagation()}>{!feedbackSent?(<><div style={S.eyebrow}>Send Feedback</div><div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div><div style={{display:"flex",gap:"8px"}}>{["bug","confusing","idea","other"].map(c=>(<button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>))}</div><textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/><button style={{...S.btn,opacity:feedbackMessage.trim()&&!feedbackSubmitting?1:0.4}} disabled={!feedbackMessage.trim()||feedbackSubmitting} onClick={handleSubmitFeedback}>{feedbackSubmitting?"Sending...":"Send Feedback"}</button><button style={S.btnGhost} onClick={()=>setFeedbackOpen(false)}>Cancel</button></>):(<div style={{textAlign:"center",padding:"20px 0"}}><div style={{fontSize:"32px",marginBottom:"12px"}}>✓</div><div style={{fontSize:"14px",color:"#c8a96e"}}>Sent. Thank you.</div></div>)}</div></div>)}
+      {feedbackOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>!feedbackSubmitting&&setFeedbackOpen(false)}><div style={{...S.card,maxWidth:"380px"}} onClick={e=>e.stopPropagation()}>{!feedbackSent?(<><div style={S.eyebrow}>Send Feedback</div><div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div><div style={{display:"flex",gap:"8px"}}>{["bug","confusing","idea","other"].map(c=>(<button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>))}</div><textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/><button style={{...S.btn,opacity:feedbackMessage.trim()&&!feedbackSubmitting?1:0.4}} disabled={!feedbackMessage.trim()||feedbackSubmitting} onClick={handleSubmitFeedback}>{feedbackSubmitting?"Sending...":"Send Feedback"}</button><button style={S.btnGhost} onClick={()=>setFeedbackOpen(false)}>Cancel</button></>):(<div style={{textAlign:"center",padding:"20px 0"}}><div style={{fontSize:"32px",marginBottom:"12px"}}>✓</div><div style={{fontSize:"14px",color:"#c8a96e"}}>Sent. Thank you.</div></div>)}</div></div>)}
       {resetConfirmOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>setResetConfirmOpen(false)}><div style={{...S.card,maxWidth:"360px",border:"1px solid #4a2a2a"}} onClick={e=>e.stopPropagation()}><div style={{fontSize:"10px",letterSpacing:"0.3em",color:"#8a5a5a",textTransform:"uppercase"}}>This Cannot Be Undone</div><div style={{...S.h1,fontSize:"19px"}}>Reset your identity?</div><div style={S.sub}>Your identity, debrief history, scripts, and progress will be permanently erased. You'll start over from onboarding.</div><button style={{...S.btn,background:"#8a3a3a"}} onClick={resetApp}>Yes, Erase Everything</button><button style={S.btnGhost} onClick={()=>setResetConfirmOpen(false)}>Cancel</button></div></div>)}
       <div style={S.card}>
         <div style={{textAlign:"center",padding:"12px 0 4px"}}>
           <div style={{fontSize:"52px",marginBottom:"12px"}}>⚒</div>
-          <div style={{fontSize:"10px",letterSpacing:"0.4em",color:"#5a5a6e",textTransform:"uppercase",marginBottom:"8px"}}>Day 30</div>
+          <div style={{fontSize:"10px",letterSpacing:"0.4em",color:"#8a8a9c",textTransform:"uppercase",marginBottom:"8px"}}>Day 30</div>
           <div style={{fontSize:"28px",fontWeight:"700",color:"#c8a96e",letterSpacing:"-0.02em",lineHeight:1.2}}>The old version of you is officially retired.</div>
         </div>
         <div style={S.identityBadge}>
-          <div style={{fontSize:"10px",color:"#5a5a6e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>You became</div>
+          <div style={{fontSize:"10px",color:"#8a8a9c",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>You became</div>
           <div style={{fontSize:"26px",fontWeight:"700",color:accentOf(userData)}}>{userData?.identity?.label}</div>
-          <div style={{fontSize:"12px",color:"#9a9aae",marginTop:"10px",fontStyle:"italic",lineHeight:1.6}}>"{userData?.identity?.statement}"</div>
+          <div style={{fontSize:"13px",color:"#b2b2c4",marginTop:"10px",fontStyle:"italic",lineHeight:1.6}}>"{userData?.identity?.statement}"</div>
         </div>
-        <div style={{fontSize:"13px",color:"#5a5a6e",lineHeight:1.75,textAlign:"center"}}>
+        <div style={{fontSize:"14px",color:"#8a8a9c",lineHeight:1.75,textAlign:"center"}}>
           30 days of showing up. That's not motivation — that's identity. What you've built in the last 30 days is permanent. What you build next is up to you.
         </div>
         <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #c8a96e33",textAlign:"center"}}>
           <div style={{fontSize:"10px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"6px"}}>Loyalty Reward Unlocked</div>
           <div style={{fontSize:"22px",marginBottom:"4px"}}>🔗</div>
           <div style={{fontSize:"14px",color:"#e8e4dc",fontWeight:"700"}}>FORGE Wristband</div>
-          <div style={{fontSize:"11px",color:"#5a5a6e",marginTop:"4px"}}>Claim it in the FORGE Store</div>
+          <div style={{fontSize:"12px",color:"#8a8a9c",marginTop:"4px"}}>Claim it in the FORGE Store</div>
         </div>
         {/* Identity Evolution — has the identity been earned, and who's next */}
         {!evolutionText && !evolutionLoading && (
@@ -2678,13 +2656,13 @@ Write the script.`;
         {evolutionLoading && (
           <div style={{display:"flex",alignItems:"center",gap:"10px",padding:"14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e"}}>
             <div style={{display:"flex",gap:"4px"}}>{[0,1,2].map(i=><div key={i} style={{width:"5px",height:"5px",borderRadius:"50%",background:"#c8a96e",animation:`typingPulse 1.2s ${i*0.2}s infinite`}}/>)}</div>
-            <div style={{fontSize:"12px",color:"#4a4a6a"}}>Reading 30 days of evidence...</div>
+            <div style={{fontSize:"13px",color:"#6e6e88"}}>Reading 30 days of evidence...</div>
           </div>
         )}
         {evolutionText && (
           <div style={{background:"#0a0a0f",border:"1px solid #c8a96e22",borderLeft:"2px solid #c8a96e",borderRadius:"0 10px 10px 0",padding:"16px 18px"}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>The Verdict</div>
-            <div style={{fontSize:"13px",color:"#d8d4cc",lineHeight:1.8,whiteSpace:"pre-line"}}>{evolutionText}</div>
+            <div style={{fontSize:"14px",color:"#d8d4cc",lineHeight:1.8,whiteSpace:"pre-line"}}>{evolutionText}</div>
           </div>
         )}
 
@@ -2697,7 +2675,7 @@ Write the script.`;
   if (screen==="store") return (
     <div style={S.app}><style>{CSS}</style>
       {screen!=="loading"&&screen!=="splash"&&(<button onClick={()=>setFeedbackOpen(true)} style={{position:"fixed",bottom:"20px",right:"20px",zIndex:50,background:"#1a1a2a",border:"1px solid #2a2a3e",borderRadius:"50%",width:"44px",height:"44px",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:"16px",color:"#c8a96e",boxShadow:"0 4px 12px rgba(0,0,0,0.4)"}}>💬</button>)}
-      {feedbackOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>!feedbackSubmitting&&setFeedbackOpen(false)}><div style={{...S.card,maxWidth:"380px"}} onClick={e=>e.stopPropagation()}>{!feedbackSent?(<><div style={S.eyebrow}>Send Feedback</div><div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div><div style={{display:"flex",gap:"8px"}}>{["bug","confusing","idea","other"].map(c=>(<button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>))}</div><textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/><button style={{...S.btn,opacity:feedbackMessage.trim()&&!feedbackSubmitting?1:0.4}} disabled={!feedbackMessage.trim()||feedbackSubmitting} onClick={handleSubmitFeedback}>{feedbackSubmitting?"Sending...":"Send Feedback"}</button><button style={S.btnGhost} onClick={()=>setFeedbackOpen(false)}>Cancel</button></>):(<div style={{textAlign:"center",padding:"20px 0"}}><div style={{fontSize:"32px",marginBottom:"12px"}}>✓</div><div style={{fontSize:"14px",color:"#c8a96e"}}>Sent. Thank you.</div></div>)}</div></div>)}
+      {feedbackOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>!feedbackSubmitting&&setFeedbackOpen(false)}><div style={{...S.card,maxWidth:"380px"}} onClick={e=>e.stopPropagation()}>{!feedbackSent?(<><div style={S.eyebrow}>Send Feedback</div><div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div><div style={{display:"flex",gap:"8px"}}>{["bug","confusing","idea","other"].map(c=>(<button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>))}</div><textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/><button style={{...S.btn,opacity:feedbackMessage.trim()&&!feedbackSubmitting?1:0.4}} disabled={!feedbackMessage.trim()||feedbackSubmitting} onClick={handleSubmitFeedback}>{feedbackSubmitting?"Sending...":"Send Feedback"}</button><button style={S.btnGhost} onClick={()=>setFeedbackOpen(false)}>Cancel</button></>):(<div style={{textAlign:"center",padding:"20px 0"}}><div style={{fontSize:"32px",marginBottom:"12px"}}>✓</div><div style={{fontSize:"14px",color:"#c8a96e"}}>Sent. Thank you.</div></div>)}</div></div>)}
       {resetConfirmOpen && (<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:60,display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}} onClick={()=>setResetConfirmOpen(false)}><div style={{...S.card,maxWidth:"360px",border:"1px solid #4a2a2a"}} onClick={e=>e.stopPropagation()}><div style={{fontSize:"10px",letterSpacing:"0.3em",color:"#8a5a5a",textTransform:"uppercase"}}>This Cannot Be Undone</div><div style={{...S.h1,fontSize:"19px"}}>Reset your identity?</div><div style={S.sub}>Your identity, debrief history, scripts, and progress will be permanently erased. You'll start over from onboarding.</div><button style={{...S.btn,background:"#8a3a3a"}} onClick={resetApp}>Yes, Erase Everything</button><button style={S.btnGhost} onClick={()=>setResetConfirmOpen(false)}>Cancel</button></div></div>)}
       <div style={S.card}>
         <div style={S.eyebrow}>FORGE Store</div>
@@ -2707,13 +2685,13 @@ Write the script.`;
 
         {/* Loyalty status */}
         <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #c8a96e22"}}>
-          <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"6px"}}>Your Status</div>
+          <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"6px"}}>Your Status</div>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <div style={{fontSize:"15px",fontWeight:"700",color:"#c8a96e"}}>{loyaltyTier().emoji} {loyaltyTier().label}</div>
-            <div style={{fontSize:"12px",color:"#5a5a6e"}}>{totalActiveDays()} active days</div>
+            <div style={{fontSize:"13px",color:"#8a8a9c"}}>{totalActiveDays()} active days</div>
           </div>
           {!loyaltyTier().unlocked && (
-            <div style={{fontSize:"11px",color:"#3a3a5e",marginTop:"6px"}}>{loyaltyTier().daysLeft} more active days to unlock your first reward</div>
+            <div style={{fontSize:"12px",color:"#5a5a76",marginTop:"6px"}}>{loyaltyTier().daysLeft} more active days to unlock your first reward</div>
           )}
         </div>
 
@@ -2729,18 +2707,18 @@ Write the script.`;
                 <span style={{fontSize:"22px"}}>{item.emoji}</span>
                 <div style={{fontSize:"14px",fontWeight:"700",color: item.unlocked?"#e8e4dc":"#5a5a6e"}}>{item.label}</div>
               </div>
-              <div style={{fontSize:"10px",color:item.unlocked?"#4a8a4a":"#3a3a5e",letterSpacing:"0.15em",textTransform:"uppercase"}}>{item.unlocked?"Unlocked":"Day "+item.days}</div>
+              <div style={{fontSize:"10px",color:item.unlocked?"#4a8a4a":"#5a5a76",letterSpacing:"0.15em",textTransform:"uppercase"}}>{item.unlocked?"Unlocked":"Day "+item.days}</div>
             </div>
-            <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.5}}>{item.desc}</div>
+            <div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.5}}>{item.desc}</div>
             {item.unlocked && (
-              <a href="https://forgeshop.myshopify.com" target="_blank" rel="noopener noreferrer" style={{...S.btn,textDecoration:"none",textAlign:"center",display:"block",padding:"13px 0",fontSize:"12px"}}>
+              <a href="https://forgeshop.myshopify.com" target="_blank" rel="noopener noreferrer" style={{...S.btn,textDecoration:"none",textAlign:"center",display:"block",padding:"13px 0",fontSize:"13px"}}>
                 Claim in FORGE Store →
               </a>
             )}
           </div>
         ))}
 
-        <div style={{fontSize:"11px",color:"#4a4a6a",textAlign:"center",lineHeight:1.6}}>
+        <div style={{fontSize:"12px",color:"#6e6e88",textAlign:"center",lineHeight:1.6}}>
           Store opens in a new tab · Rewards verified by active day count · Worn only by Forgers
         </div>
 
@@ -2766,7 +2744,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -2805,14 +2783,14 @@ Write the script.`;
           <button style={{...S.btnGhost,width:"auto",padding:"8px 14px",fontSize:"10px"}} onClick={refreshCohort}>↻ Refresh</button>
         </div>
 
-        <div style={{fontSize:"12px",color:"#3a3a5e",lineHeight:1.6}}>
+        <div style={{fontSize:"13px",color:"#5a5a76",lineHeight:1.6}}>
           You're not a customer here. You're a Forger — one of the people doing the work. Anonymous callsigns, no feeds, no noise. Just who showed up.
         </div>
 
         {/* Your position */}
         <div style={{padding:"12px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #c8a96e22"}}>
           <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"4px"}}>You — {myCallsign}</div>
-          <div style={{fontSize:"12px",color:"#9a9aae"}}>{userData?.identity?.label} · Day {currentDay()} · {pct}% today</div>
+          <div style={{fontSize:"13px",color:"#b2b2c4"}}>{userData?.identity?.label} · Day {currentDay()} · {pct}% today</div>
         </div>
 
         {cohortLoading && (
@@ -2822,10 +2800,10 @@ Write the script.`;
         )}
 
         {!cohortLoading && cohortMembers.length === 0 && (
-          <div style={{fontSize:"13px",color:"#3a3a5e",textAlign:"center",padding:"20px 0",lineHeight:1.7}}>
+          <div style={{fontSize:"14px",color:"#5a5a76",textAlign:"center",padding:"20px 0",lineHeight:1.7}}>
             No active members yet.<br/>
             Complete your first task to appear on the board.<br/>
-            <span style={{fontSize:"11px",color:"#4a4a6a"}}>Others using FORGE will show here as they log in.</span>
+            <span style={{fontSize:"12px",color:"#6e6e88"}}>Others using FORGE will show here as they log in.</span>
           </div>
         )}
 
@@ -2840,13 +2818,13 @@ Write the script.`;
                   <div style={S.cohortBadge(isActiveToday)}/>
                   <div style={{flex:1,minWidth:0}}>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:"6px"}}>
-                      <div style={{fontSize:"13px",fontWeight:"700",color:isMe?"#c8a96e":"#e8e4dc"}}>{m.callsign}{isMe?" (you)":""}</div>
-                      <div style={{fontSize:"12px",color:"#5a5a6e"}}>{m.todayPct}%</div>
+                      <div style={{fontSize:"14px",fontWeight:"700",color:isMe?"#c8a96e":"#e8e4dc"}}>{m.callsign}{isMe?" (you)":""}</div>
+                      <div style={{fontSize:"13px",color:"#8a8a9c"}}>{m.todayPct}%</div>
                     </div>
                     <div style={S.cohortBar}><div style={S.cohortFill(m.todayPct, isMe)}/></div>
                     <div style={{display:"flex",justifyContent:"space-between",marginTop:"5px"}}>
-                      <div style={{fontSize:"10px",color:"#3a3a5e"}}>{m.label}</div>
-                      <div style={{fontSize:"10px",color:"#3a3a5e"}}>Day {m.dayCount} · avg {m.avgScore||"—"}</div>
+                      <div style={{fontSize:"10px",color:"#5a5a76"}}>{m.label}</div>
+                      <div style={{fontSize:"10px",color:"#5a5a76"}}>Day {m.dayCount} · avg {m.avgScore||"—"}</div>
                     </div>
                   </div>
                 </div>
@@ -2855,7 +2833,7 @@ Write the script.`;
           </div>
         )}
 
-        <div style={{fontSize:"11px",color:"#4a4a6a",textAlign:"center",lineHeight:1.6}}>
+        <div style={{fontSize:"12px",color:"#6e6e88",textAlign:"center",lineHeight:1.6}}>
           Sorted by today's completion · Updated when members log tasks or debriefs
         </div>
 
@@ -2883,7 +2861,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -2925,7 +2903,7 @@ Write the script.`;
         {triggersLoading && (
           <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:"14px",padding:"20px 0"}}>
             <div style={{display:"flex",gap:"6px"}}>{[0,1,2].map(i=><div key={i} style={S.typingDot(i)}/>)}</div>
-            <div style={{fontSize:"12px",color:"#3a3a5e"}}>Analyzing your highest-risk moments...</div>
+            <div style={{fontSize:"13px",color:"#5a5a76"}}>Analyzing your highest-risk moments...</div>
           </div>
         )}
 
@@ -2939,7 +2917,7 @@ Write the script.`;
                     <div style={{fontSize:"14px",fontWeight:"700",color:"#e8e4dc"}}>{t.situation}</div>
                     {saved && <div style={{fontSize:"9px",color:"#4a8a4a",letterSpacing:"0.15em",textTransform:"uppercase"}}>Scripted ✓</div>}
                   </div>
-                  <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.5}}>{t.context}</div>
+                  <div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.5}}>{t.context}</div>
                 </div>
               );
             })}
@@ -2949,7 +2927,7 @@ Write the script.`;
         {triggers && activeTriggerIdx!==null && (
           <div style={{display:"flex",flexDirection:"column",gap:"14px"}}>
             <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
-              <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:"6px"}}>Trigger</div>
+              <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:"6px"}}>Trigger</div>
               <div style={{fontSize:"15px",fontWeight:"700",color:"#e8e4dc"}}>{triggers[activeTriggerIdx].situation}</div>
             </div>
 
@@ -3003,7 +2981,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -3047,7 +3025,7 @@ Write the script.`;
               { key:"health", label:"Health / Body" },
             ].map(domain=>(
               <div key={domain.key} style={{display:"flex",flexDirection:"column",gap:"8px"}}>
-                <div style={{fontSize:"12px",color:"#9a9aae"}}>{domain.label}</div>
+                <div style={{fontSize:"13px",color:"#b2b2c4"}}>{domain.label}</div>
                 <div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:"6px"}}>
                   {[1,2,3,4,5,6,7,8,9,10].map(n=>(
                     <button key={n} style={S.scoreBtn(ceoScores[domain.key]===n)} onClick={()=>setCeoScores(p=>({...p,[domain.key]:n}))}>{n}</button>
@@ -3058,7 +3036,7 @@ Write the script.`;
 
             <textarea style={{...S.textarea,minHeight:"70px"}} placeholder="What did you miss this week? Be honest." value={ceoMissed} onChange={e=>setCeoMissed(e.target.value)} rows={3}/>
 
-            <div style={{fontSize:"10px",color:"#3a3a5e",letterSpacing:"0.2em",textTransform:"uppercase"}}>Next Week's Three Non-Negotiables</div>
+            <div style={{fontSize:"10px",color:"#5a5a76",letterSpacing:"0.2em",textTransform:"uppercase"}}>Next Week's Three Non-Negotiables</div>
             {[0,1,2].map(i=>(
               <input key={i} style={{...S.textarea,minHeight:"unset",padding:"12px 14px"}} placeholder={`Priority ${i+1}`} value={ceoPriorities[i]} onChange={e=>setCeoPriorities(p=>{const n=[...p];n[i]=e.target.value;return n;})}/>
             ))}
@@ -3081,7 +3059,7 @@ Write the script.`;
               <div style={{fontSize:"9px",color:ceoCrisisFlag?"#8aaaba":"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>
                 {ceoCrisisFlag ? "Before Anything Else" : "Your CEO Review"}
               </div>
-              <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.75}}>{ceoResponse}</div>
+              <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.75}}>{ceoResponse}</div>
             </div>
             <button style={S.btn} onClick={()=>setScreen("dashboard")}>Close Review</button>
           </>
@@ -3108,10 +3086,10 @@ Write the script.`;
             <div style={{width:"100%",background:"linear-gradient(160deg,#12121c 0%,#0a0a0f 55%,#141018 100%)",border:`1px solid ${accentOf(userData)}55`,borderRadius:"20px",padding:"36px 30px",display:"flex",flexDirection:"column",alignItems:"center",gap:"18px",textAlign:"center",boxShadow:"0 0 50px rgba(200,169,110,0.12)"}}>
               <div style={{fontSize:"34px",animation:"emberGlow 2.4s ease-in-out infinite"}}>⚒</div>
               <div>
-                <div style={{fontSize:"9px",letterSpacing:"0.5em",color:"#5a5a6e",textTransform:"uppercase",marginBottom:"10px"}}>Forged Identity</div>
+                <div style={{fontSize:"9px",letterSpacing:"0.5em",color:"#8a8a9c",textTransform:"uppercase",marginBottom:"10px"}}>Forged Identity</div>
                 <div style={{fontSize:"27px",fontWeight:"700",color:accentOf(userData),letterSpacing:"-0.01em",lineHeight:1.2}}>{userData?.identity?.label}</div>
                 {(userData?.foundations||[]).length>0 && (
-                  <div style={{fontSize:"11px",color:"#7a6a4e",letterSpacing:"0.15em",textTransform:"uppercase",marginTop:"8px"}}>
+                  <div style={{fontSize:"12px",color:"#7a6a4e",letterSpacing:"0.15em",textTransform:"uppercase",marginTop:"8px"}}>
                     {userData.foundations.map(k=>FOUNDATIONS.find(x=>x.key===k)?.label).filter(Boolean).join("  ·  ")}
                   </div>
                 )}
@@ -3126,12 +3104,12 @@ Write the script.`;
                 ].map((s,i)=>(
                   <div key={i}>
                     <div style={{fontSize:"19px",fontWeight:"700",color:"#e8e4dc"}}>{s.v}</div>
-                    <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.18em",textTransform:"uppercase",marginTop:"3px"}}>{s.l}</div>
+                    <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.18em",textTransform:"uppercase",marginTop:"3px"}}>{s.l}</div>
                   </div>
                 ))}
               </div>
               <div style={{width:"46px",height:"1px",background:"#c8a96e44"}}/>
-              <div style={{fontSize:"11px",color:"#5a5a6e",fontStyle:"italic",lineHeight:1.6}}>"Evidence, not intention."</div>
+              <div style={{fontSize:"12px",color:"#8a8a9c",fontStyle:"italic",lineHeight:1.6}}>"Evidence, not intention."</div>
               {userData?.oathSwornAt && (
                 <div style={{fontSize:"9px",color:"#7a6a4e",letterSpacing:"0.25em",textTransform:"uppercase"}}>Oath sworn {new Date(userData.oathSwornAt).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</div>
               )}
@@ -3139,7 +3117,7 @@ Write the script.`;
             </div>
           );
         })()}
-        <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center",lineHeight:1.6}}>Screenshot this card to share your progress.</div>
+        <div style={{fontSize:"12px",color:"#5a5a76",textAlign:"center",lineHeight:1.6}}>Screenshot this card to share your progress.</div>
         <button style={S.btnGhost} onClick={()=>setScreen("mirror")}>← Back to Profile</button>
       </div>
     </div>
@@ -3159,7 +3137,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -3192,9 +3170,9 @@ Write the script.`;
         <div style={S.eyebrow}>The Mirror · who the evidence says you are — Day {currentDay()}</div>
         <div style={S.h1}>Who your actions say you are</div>
         <div style={S.identityBadge}>
-          <div style={{fontSize:"10px",color:"#5a5a6e",letterSpacing:"0.3em",marginBottom:"8px",textTransform:"uppercase"}}>Declared Identity</div>
+          <div style={{fontSize:"10px",color:"#8a8a9c",letterSpacing:"0.3em",marginBottom:"8px",textTransform:"uppercase"}}>Declared Identity</div>
           <div style={{fontSize:"22px",fontWeight:"700",color:accentOf(userData)}}>{userData?.identity?.label}</div>
-          <div style={{fontSize:"12px",color:"#5a5a6e",marginTop:"8px",fontStyle:"italic"}}>"{userData?.identity?.statement}"</div>
+          <div style={{fontSize:"13px",color:"#8a8a9c",marginTop:"8px",fontStyle:"italic"}}>"{userData?.identity?.statement}"</div>
         </div>
 
         {/* The Journey — distance traveled */}
@@ -3223,7 +3201,7 @@ Write the script.`;
                 ].map((s,i)=>(
                   <div key={i} style={{textAlign:"center"}}>
                     <div style={{fontSize:"20px",fontWeight:"700",color:accentOf(userData)}}>{s.v}</div>
-                    <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.1em",textTransform:"uppercase",marginTop:"2px"}}>{s.l}</div>
+                    <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.1em",textTransform:"uppercase",marginTop:"2px"}}>{s.l}</div>
                   </div>
                 ))}
               </div>
@@ -3234,7 +3212,7 @@ Write the script.`;
                     <div key={i} title={c.key} style={{aspectRatio:"1",borderRadius:"3px",background:c.v>0?`rgba(200,169,110,${0.25+0.75*(c.v/maxV)})`:c.active?"#2a2a3e":"#16161f",border:"1px solid #1a1a26"}}/>
                   ))}
                 </div>
-                <div style={{fontSize:"9px",color:"#3a3a5e",marginTop:"6px",textAlign:"right"}}>Last 5 weeks · brighter = more votes</div>
+                <div style={{fontSize:"9px",color:"#5a5a76",marginTop:"6px",textAlign:"right"}}>Last 5 weeks · brighter = more votes</div>
               </div>
             </div>
           );
@@ -3245,8 +3223,8 @@ Write the script.`;
           const t = computeTraits(userData);
           if (!t) return (
             <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
-              <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"6px"}}>Forged Traits</div>
-              <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.6}}>Your traits are computed from behavioral evidence, not self-report. Come back after 3 days of activity — the evidence will start speaking.</div>
+              <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"6px"}}>Forged Traits</div>
+              <div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.6}}>Your traits are computed from behavioral evidence, not self-report. Come back after 3 days of activity — the evidence will start speaking.</div>
             </div>
           );
           const rows = [
@@ -3268,16 +3246,16 @@ Write the script.`;
               {rows.map((r,i)=>(
                 <div key={i}>
                   <div style={{display:"flex",justifyContent:"space-between",marginBottom:"4px"}}>
-                    <div style={{fontSize:"11px",color:"#9a9aae"}}>{r.label}</div>
-                    <div style={{fontSize:"11px",color:r.value===null?"#3a3a5e":"#c8a96e",fontWeight:"700"}}>{r.value===null?"—":r.value}</div>
+                    <div style={{fontSize:"12px",color:"#b2b2c4"}}>{r.label}</div>
+                    <div style={{fontSize:"12px",color:r.value===null?"#5a5a76":"#c8a96e",fontWeight:"700"}}>{r.value===null?"—":r.value}</div>
                   </div>
                   <div style={{height:"3px",background:"#1a1a2a",borderRadius:"2px",overflow:"hidden"}}>
                     <div style={{height:"100%",width:`${r.value||0}%`,background:"#c8a96e",borderRadius:"2px",transition:"width 0.6s ease"}}/>
                   </div>
-                  <div style={{fontSize:"9px",color:"#3a3a5e",marginTop:"3px"}}>{r.hint}</div>
+                  <div style={{fontSize:"9px",color:"#5a5a76",marginTop:"3px"}}>{r.hint}</div>
                 </div>
               ))}
-              <div style={{fontSize:"10px",color:"#3a3a5e",lineHeight:1.5,fontStyle:"italic"}}>Computed from your logged behavior — not self-report. Your coach reads these.</div>
+              <div style={{fontSize:"10px",color:"#5a5a76",lineHeight:1.5,fontStyle:"italic"}}>Computed from your logged behavior — not self-report. Your coach reads these.</div>
             </div>
           );
         })()}
@@ -3291,7 +3269,7 @@ Write the script.`;
           {label:"Cohort Callsign",value:myCallsign},
         ].map((s,i)=>(
           <div key={i} style={S.stat}>
-            <div style={{fontSize:"12px",color:"#5a5a6e"}}>{s.label}</div>
+            <div style={{fontSize:"13px",color:"#8a8a9c"}}>{s.label}</div>
             <div style={{fontSize:"18px",fontWeight:"700",color:"#c8a96e"}}>{s.value}</div>
           </div>
         ))}
@@ -3304,13 +3282,13 @@ Write the script.`;
 
         {/* Private by Design */}
         <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
-          <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>🔒 Private by Design</div>
-          <div style={{fontSize:"11px",color:"#5a5a6e",lineHeight:1.7}}>Your identity, debriefs, misses, and inner voice live in your device's storage — there is no account and no server database of your entries. No human reads what you write. Your words are sent securely to the AI coach only to generate its response, and are never sold or used to advertise to you. The cohort sees only an anonymous callsign. Deleting the app, or Start Over, erases your record.</div>
+          <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>🔒 Private by Design</div>
+          <div style={{fontSize:"12px",color:"#8a8a9c",lineHeight:1.7}}>Your identity, debriefs, misses, and inner voice live in your device's storage — there is no account and no server database of your entries. No human reads what you write. Your words are sent securely to the AI coach only to generate its response, and are never sold or used to advertise to you. The cohort sees only an anonymous callsign. Deleting the app, or Start Over, erases your record.</div>
         </div>
 
         {/* Identity accent — curated palette, AI-assigned, user-overridable */}
         <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
-          <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>Identity Accent · {(ACCENTS[userData?.accent]||ACCENTS.gold).name}</div>
+          <div style={{fontSize:"9px",color:"#6e6e88",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>Identity Accent · {(ACCENTS[userData?.accent]||ACCENTS.gold).name}</div>
           <div style={{display:"flex",gap:"10px",justifyContent:"space-between"}}>
             {Object.entries(ACCENTS).map(([key,a])=>(
               <div key={key} onClick={async()=>{await persist({...userData, accent:key});}} style={{width:"30px",height:"30px",borderRadius:"50%",background:a.hex,cursor:"pointer",border:(userData?.accent||"gold")===key?"2px solid #e8e4dc":"2px solid transparent",boxShadow:(userData?.accent||"gold")===key?`0 0 12px ${a.hex}88`:"none",transition:"all 0.2s ease"}}/>
@@ -3323,17 +3301,17 @@ Write the script.`;
           <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>Inner Voice</div>
           {userData?.innerVoice?.script && !innerVoiceLoading ? (
             <>
-              <div style={{fontSize:"13px",color:"#d8d4cc",lineHeight:1.75,whiteSpace:"pre-wrap"}}>{userData.innerVoice.script}</div>
-              <button style={{background:"transparent",border:"none",color:"#4a4a6a",fontSize:"11px",cursor:"pointer",textAlign:"left",padding:0,fontFamily:"'Georgia',serif"}} onClick={async()=>{await persist({...userData, innerVoice:null});}}>Rewrite it ↺</button>
+              <div style={{fontSize:"14px",color:"#d8d4cc",lineHeight:1.75,whiteSpace:"pre-wrap"}}>{userData.innerVoice.script}</div>
+              <button style={{background:"transparent",border:"none",color:"#6e6e88",fontSize:"12px",cursor:"pointer",textAlign:"left",padding:0,fontFamily:"'Georgia',serif"}} onClick={async()=>{await persist({...userData, innerVoice:null});}}>Rewrite it ↺</button>
             </>
           ) : innerVoiceLoading ? (
             <div style={{display:"flex",alignItems:"center",gap:"10px",padding:"6px 0"}}>
               <div style={{display:"flex",gap:"4px"}}>{[0,1,2].map(i=><div key={i} style={{width:"5px",height:"5px",borderRadius:"50%",background:"#c8a96e",animation:`typingPulse 1.2s ${i*0.2}s infinite`}}/>)}</div>
-              <div style={{fontSize:"11px",color:"#4a4a6a"}}>Rebuilding your inner voice...</div>
+              <div style={{fontSize:"12px",color:"#6e6e88"}}>Rebuilding your inner voice...</div>
             </div>
           ) : (
             <>
-              <div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.65}}>The voice in your head after a failure decides what happens next — it builds or it destroys. Write down what you actually say to yourself when you fail. Your coach will rebuild it into something demanding and clean.</div>
+              <div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.65}}>The voice in your head after a failure decides what happens next — it builds or it destroys. Write down what you actually say to yourself when you fail. Your coach will rebuild it into something demanding and clean.</div>
               <textarea style={{...S.textarea,minHeight:"56px",fontSize:"16px"}} placeholder={'"I always do this. I\'m never going to change..."'} value={innerVoiceInput} onChange={e=>setInnerVoiceInput(e.target.value)} rows={2}/>
               <button style={{...S.btn,opacity:innerVoiceInput.trim()?1:0.4}} disabled={!innerVoiceInput.trim()} onClick={rewriteInnerVoice}>Rebuild My Inner Voice</button>
             </>
@@ -3348,7 +3326,7 @@ Write the script.`;
               const cur = userData?.foundations||[];
               const on = cur.includes(f.key);
               return (
-                <button key={f.key} onClick={async()=>{const next = on?cur.filter(k=>k!==f.key):(cur.length<3?[...cur,f.key]:cur);await persist({...userData, foundations:next});}} style={{display:"flex",alignItems:"center",gap:"6px",padding:"7px 11px",borderRadius:"18px",border:`1px solid ${on?"#c8a96e":"#1e1e2e"}`,background:on?"#c8a96e18":"#0a0a0f",color:on?"#c8a96e":"#5a5a6e",fontSize:"11px",cursor:"pointer",fontFamily:"'Georgia',serif"}}>
+                <button key={f.key} onClick={async()=>{const next = on?cur.filter(k=>k!==f.key):(cur.length<3?[...cur,f.key]:cur);await persist({...userData, foundations:next});}} style={{display:"flex",alignItems:"center",gap:"6px",padding:"7px 11px",borderRadius:"18px",border:`1px solid ${on?"#c8a96e":"#1e1e2e"}`,background:on?"#c8a96e18":"#0a0a0f",color:on?"#c8a96e":"#8a8a9c",fontSize:"12px",cursor:"pointer",fontFamily:"'Georgia',serif"}}>
                   <span>{f.emoji}</span>{f.label}
                 </button>
               );
@@ -3367,20 +3345,20 @@ Write the script.`;
             {patternLoading && (
               <div style={{display:"flex",alignItems:"center",gap:"10px",padding:"14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e"}}>
                 <div style={{display:"flex",gap:"4px"}}>{[0,1,2].map(i=><div key={i} style={{width:"5px",height:"5px",borderRadius:"50%",background:"#c8a96e",animation:`typingPulse 1.2s ${i*0.2}s infinite`}}/>)}</div>
-                <div style={{fontSize:"12px",color:"#4a4a6a"}}>Reading your last 14 days...</div>
+                <div style={{fontSize:"13px",color:"#6e6e88"}}>Reading your last 14 days...</div>
               </div>
             )}
             {patternInsight && (
               <div style={{background:"#0a0a0f",border:"1px solid #c8a96e22",borderLeft:"2px solid #c8a96e",borderRadius:"0 10px 10px 0",padding:"16px 18px",display:"flex",flexDirection:"column",gap:"10px"}}>
                 <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>Pattern Analysis</div>
-                <div style={{fontSize:"13px",color:"#d8d4cc",lineHeight:1.75}}>{patternInsight}</div>
-                <button style={{background:"transparent",border:"none",color:"#4a4a6a",fontSize:"11px",cursor:"pointer",textAlign:"left",padding:0,fontFamily:"'Georgia',serif"}} onClick={()=>setPatternInsight(null)}>Refresh ↺</button>
+                <div style={{fontSize:"14px",color:"#d8d4cc",lineHeight:1.75}}>{patternInsight}</div>
+                <button style={{background:"transparent",border:"none",color:"#6e6e88",fontSize:"12px",cursor:"pointer",textAlign:"left",padding:0,fontFamily:"'Georgia',serif"}} onClick={()=>setPatternInsight(null)}>Refresh ↺</button>
               </div>
             )}
           </div>
         )}
 
-        <div style={{fontSize:"13px",color:"#5a5a6e",lineHeight:1.7,fontStyle:"italic",borderLeft:"2px solid #c8a96e33",paddingLeft:"14px"}}>
+        <div style={{fontSize:"14px",color:"#8a8a9c",lineHeight:1.7,fontStyle:"italic",borderLeft:"2px solid #c8a96e33",paddingLeft:"14px"}}>
           "{userData?.identity?.label} would've already done this."
         </div>
         <button style={S.btnDanger} onClick={()=>setResetConfirmOpen(true)}>Reset Identity</button>
@@ -3408,7 +3386,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -3451,7 +3429,7 @@ Write the script.`;
                 {entry?.response && (
                   <div style={S.disruptor}>
                     <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>FORGE Responded</div>
-                    <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.7}}>{entry.response}</div>
+                    <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.7}}>{entry.response}</div>
                   </div>
                 )}
               </>
@@ -3474,7 +3452,7 @@ Write the script.`;
             ))}
           </div>
           {/* Anchored meaning — the number is a judgment against a standard, not a mood */}
-          <div style={{fontSize:"11px",color:debriefScore?"#c8a96e":"#3a3a5e",textAlign:"center",minHeight:"16px",letterSpacing:"0.08em",transition:"color 0.2s ease"}}>
+          <div style={{fontSize:"12px",color:debriefScore?"#c8a96e":"#5a5a76",textAlign:"center",minHeight:"16px",letterSpacing:"0.08em",transition:"color 0.2s ease"}}>
             {debriefScore==null ? "Only the score is required — everything below it sharpens the coaching" :
              debriefScore<=2 ? "Didn't show up. The day happened to you." :
              debriefScore<=4 ? "Below your standard — you know where it slipped." :
@@ -3491,8 +3469,8 @@ Write the script.`;
             <div style={{fontSize:"18px",flexShrink:0}}>🔭</div>
             <div>
               <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.25em",textTransform:"uppercase",marginBottom:"6px"}}>Remember why this matters</div>
-              <div style={{fontSize:"13px",color:"#9a9aae",lineHeight:1.7,fontStyle:"italic"}}>"{userData.identity.vision}"</div>
-              <div style={{fontSize:"11px",color:"#3a3a5e",marginTop:"6px"}}>One day doesn't define {userData.identity.label}. Tomorrow does.</div>
+              <div style={{fontSize:"14px",color:"#b2b2c4",lineHeight:1.7,fontStyle:"italic"}}>"{userData.identity.vision}"</div>
+              <div style={{fontSize:"12px",color:"#5a5a76",marginTop:"6px"}}>One day doesn't define {userData.identity.label}. Tomorrow does.</div>
             </div>
           </div>
         )}
@@ -3502,26 +3480,26 @@ Write the script.`;
           <div style={{position:"relative"}}>
             <textarea style={{...S.textarea,minHeight:"70px",paddingRight:speechSupported?"52px":"14px"}} placeholder={dictating?"Listening — speak your debrief...":"What happened today worth remembering?"} value={debriefNote} onChange={e=>setDebriefNote(e.target.value)} rows={3}/>
             {speechSupported && (
-              <button onClick={toggleDictation} style={{position:"absolute",right:"10px",top:"10px",width:"36px",height:"36px",borderRadius:"50%",border:`1px solid ${dictating?"#c8a96e":"#2a2a3e"}`,background:dictating?"#c8a96e22":"#0a0a0f",color:dictating?"#c8a96e":"#5a5a6e",fontSize:"16px",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",animation:dictating?"pulse 1.2s infinite":"none"}}>
+              <button onClick={toggleDictation} style={{position:"absolute",right:"10px",top:"10px",width:"36px",height:"36px",borderRadius:"50%",border:`1px solid ${dictating?"#c8a96e":"#2a2a3e"}`,background:dictating?"#c8a96e22":"#0a0a0f",color:dictating?"#c8a96e":"#8a8a9c",fontSize:"16px",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",animation:dictating?"pulse 1.2s infinite":"none"}}>
                 {dictating?"■":"🎙"}
               </button>
             )}
           </div>
-          <div style={{fontSize:"10px",color:"#4a4a6a",lineHeight:1.5,fontStyle:"italic"}}>
+          <div style={{fontSize:"10px",color:"#6e6e88",lineHeight:1.5,fontStyle:"italic"}}>
             Speak it if you can — verbalizing the day encodes it deeper than thinking it. Your coach reads every word.
           </div>
 
           {/* The Miss — integrity confession */}
           <div style={{padding:"12px 14px",background:"#0f0d0a",border:"1px solid #3a2e1e",borderRadius:"10px",display:"flex",flexDirection:"column",gap:"8px"}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>The Miss · Integrity Check</div>
-            <div style={{fontSize:"11px",color:"#5a5a6e",lineHeight:1.6}}>What did you dodge, soften, or lie to yourself about today? Owning it out loud is rarer than doing everything right — and your coach respects it more. No human ever reads this — it lives on your device and goes only to the AI that writes your response.</div>
+            <div style={{fontSize:"12px",color:"#8a8a9c",lineHeight:1.6}}>What did you dodge, soften, or lie to yourself about today? Owning it out loud is rarer than doing everything right — and your coach respects it more. No human ever reads this — it lives on your device and goes only to the AI that writes your response.</div>
             <textarea style={{...S.textarea,minHeight:"56px",fontSize:"16px",background:"#0a0a0f"}} placeholder="No one sees this but you and your coach." value={debriefMiss} onChange={e=>setDebriefMiss(e.target.value)} rows={2}/>
           </div>
 
           {/* Voice Check — track victories over the old voice, not the thoughts themselves */}
           <div style={{padding:"12px 14px",background:"#0a0a12",border:"1px solid #1e1e2e",borderRadius:"10px",display:"flex",flexDirection:"column",gap:"8px"}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>Voice Check · optional</div>
-            <div style={{fontSize:"11px",color:"#5a5a6e",lineHeight:1.6}}>Did the old voice show up today — the one that says you can't? Acting with the thought still present is the rep that rewires it.</div>
+            <div style={{fontSize:"12px",color:"#8a8a9c",lineHeight:1.6}}>Did the old voice show up today — the one that says you can't? Acting with the thought still present is the rep that rewires it.</div>
             <div style={{display:"flex",gap:"6px"}}>
               {[["none","Didn't show"],["won","It won today"],["overrode","I overrode it ⚒"]].map(([k,l])=>(
                 <button key={k} onClick={()=>setDebriefVoice(debriefVoice===k?null:k)} style={{flex:1,padding:"9px 4px",borderRadius:"8px",border:`1px solid ${debriefVoice===k?(k==="overrode"?"#c8a96e":"#5a5a6e"):"#1e1e2e"}`,background:debriefVoice===k?(k==="overrode"?"#c8a96e22":"#1a1a24"):"transparent",color:debriefVoice===k?(k==="overrode"?"#c8a96e":"#9a9aae"):"#5a5a6e",fontSize:"10px",cursor:"pointer",fontFamily:"'Georgia',serif",lineHeight:1.3}}>{l}</button>
@@ -3541,9 +3519,9 @@ Write the script.`;
             {(()=>{ const acked = (userData?.debriefHistory||[]).slice(-1)[0]?.acknowledged; return (
             <div style={{...S.disruptor, border:acked?"1px solid #c8a96e88":S.disruptor.border, borderLeft:acked?"4px solid #c8a96e":S.disruptor.borderLeft}}>
               <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>FORGE Responds{acked?" · Acknowledged ✓":""}</div>
-              <div style={{fontSize:"13px",color:"#e8e4dc",lineHeight:1.7,fontWeight:acked?"700":"400"}}>{debriefResponse}</div>
+              <div style={{fontSize:"14px",color:"#e8e4dc",lineHeight:1.7,fontWeight:acked?"700":"400"}}>{debriefResponse}</div>
               {!acked && !detectCrisisLanguage(debriefNote) && !detectCrisisLanguage(debriefMiss) && (
-                <button style={{marginTop:"12px",background:"transparent",border:"1px solid #c8a96e55",borderRadius:"8px",padding:"10px 16px",fontSize:"11px",color:"#c8a96e",cursor:"pointer",fontFamily:"'Georgia',serif",letterSpacing:"0.1em",width:"100%"}} onClick={async()=>{
+                <button style={{marginTop:"12px",background:"transparent",border:"1px solid #c8a96e55",borderRadius:"8px",padding:"10px 16px",fontSize:"12px",color:"#c8a96e",cursor:"pointer",fontFamily:"'Georgia',serif",letterSpacing:"0.1em",width:"100%"}} onClick={async()=>{
                   const hist=[...(userData?.debriefHistory||[])];
                   if(hist.length){hist[hist.length-1]={...hist[hist.length-1],acknowledged:true};await persist({...userData,debriefHistory:hist});}
                 }}>⚒ Acknowledged — hold me to it</button>
@@ -3577,7 +3555,7 @@ Write the script.`;
                 <div style={{...S.h1,fontSize:"18px"}}>Something broken? Confusing? Tell us.</div>
                 <div style={{display:"flex",gap:"8px"}}>
                   {["bug","confusing","idea","other"].map(c=>(
-                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#5a5a6e",fontSize:"11px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
+                    <button key={c} onClick={()=>setFeedbackCategory(c)} style={{flex:1,padding:"8px 0",borderRadius:"8px",border:`1px solid ${feedbackCategory===c?"#c8a96e":"#1e1e2e"}`,background:feedbackCategory===c?"#c8a96e":"#0a0a0f",color:feedbackCategory===c?"#0a0a0f":"#8a8a9c",fontSize:"12px",textTransform:"capitalize",cursor:"pointer",fontFamily:"'Georgia',serif"}}>{c}</button>
                   ))}
                 </div>
                 <textarea style={{...S.textarea,minHeight:"90px"}} placeholder="What happened? Be specific if it's a bug — what were you doing when it broke?" value={feedbackMessage} onChange={e=>setFeedbackMessage(e.target.value)} rows={4}/>
@@ -3610,10 +3588,10 @@ Write the script.`;
         <div style={S.eyebrow}>Activity Log</div>
         <div style={S.h1}>Your record.</div>
         <div style={{display:"flex",alignItems:"center",gap:"8px",padding:"10px 14px",background:"#0a0a0f",borderRadius:"8px",border:"1px solid #1e1e2e"}}>
-          <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.25em",textTransform:"uppercase",marginRight:"4px"}}>7 days</div>
+          <div style={{fontSize:"10px",color:"#6e6e88",letterSpacing:"0.25em",textTransform:"uppercase",marginRight:"4px"}}>7 days</div>
           {getStreakDots().map((d,i)=><div key={i} style={S.streakDot(d.filled)}/>)}
         </div>
-        {!userData?.debriefHistory?.length&&<div style={{fontSize:"13px",color:"#3a3a5e",textAlign:"center",padding:"20px 0"}}>No debriefs yet. Complete your first tonight.</div>}
+        {!userData?.debriefHistory?.length&&<div style={{fontSize:"14px",color:"#5a5a76",textAlign:"center",padding:"20px 0"}}>No debriefs yet. Complete your first tonight.</div>}
         <div style={{display:"flex",flexDirection:"column",gap:"10px",maxHeight:"320px",overflowY:"auto"}}>
           {[...(userData?.debriefHistory||[])].reverse().map((e,i)=>{
             const dayLog = userData?.dailyLogs?.[e.date];
@@ -3621,15 +3599,15 @@ Write the script.`;
             return (
             <div key={i} style={{...S.historyItem, borderLeft:e.acknowledged?"3px solid #c8a96e":S.historyItem.borderLeft}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <div style={{fontSize:"10px",color:"#4a4a6a",letterSpacing:"0.2em",textTransform:"uppercase"}}>Day {e.dayCount} — {e.date}{e.acknowledged?" · ⚒ acknowledged":""}</div>
+                <div style={{fontSize:"10px",color:"#6e6e88",letterSpacing:"0.2em",textTransform:"uppercase"}}>Day {e.dayCount} — {e.date}{e.acknowledged?" · ⚒ acknowledged":""}</div>
                 <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
                   {dayVotes>0 && <div style={{fontSize:"10px",color:"#7a6a4e",letterSpacing:"0.1em"}}>{dayVotes} VOTES</div>}
                   <div style={{fontSize:"18px",fontWeight:"700",color:e.score>=8?"#c8a96e":e.score>=5?"#9a9aae":"#6a4a4a"}}>{e.score}/10</div>
                 </div>
               </div>
-              {e.note&&<div style={{fontSize:"12px",color:"#5a5a6e",lineHeight:1.5,fontStyle:"italic"}}>"{e.note}"</div>}
-              {e.miss&&<div style={{fontSize:"11px",color:"#8a6a5a",lineHeight:1.5,padding:"6px 10px",background:"#0f0d0a",borderRadius:"6px",border:"1px solid #3a2e1e"}}>The Miss: "{e.miss}"</div>}
-              <div style={{fontSize:"12px",color:"#4a4a6a",lineHeight:1.5}}>{e.response}</div>
+              {e.note&&<div style={{fontSize:"13px",color:"#8a8a9c",lineHeight:1.5,fontStyle:"italic"}}>"{e.note}"</div>}
+              {e.miss&&<div style={{fontSize:"12px",color:"#8a6a5a",lineHeight:1.5,padding:"6px 10px",background:"#0f0d0a",borderRadius:"6px",border:"1px solid #3a2e1e"}}>The Miss: "{e.miss}"</div>}
+              <div style={{fontSize:"13px",color:"#6e6e88",lineHeight:1.5}}>{e.response}</div>
             </div>
           );})}
         </div>
@@ -3656,10 +3634,10 @@ class ForgeErrorBoundary extends Component {
         <div style={{minHeight:"100vh",background:"#0a0a0f",color:"#e8e4dc",fontFamily:"'Georgia',serif",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"32px",gap:"16px"}}>
           <div style={{fontSize:"32px"}}>⚒</div>
           <div style={{fontSize:"18px",fontWeight:"700",color:"#c8a96e"}}>FORGE hit an error</div>
-          <div style={{fontSize:"12px",color:"#5a5a6e",maxWidth:"320px",textAlign:"center",lineHeight:1.7}}>
+          <div style={{fontSize:"13px",color:"#8a8a9c",maxWidth:"320px",textAlign:"center",lineHeight:1.7}}>
             {this.state.error?.message || "Unknown error"}
           </div>
-          <button onClick={()=>this.setState({error:null})} style={{background:"#c8a96e",color:"#0a0a0f",border:"none",borderRadius:"10px",padding:"14px 28px",fontSize:"13px",fontWeight:"700",cursor:"pointer",marginTop:"8px"}}>
+          <button onClick={()=>this.setState({error:null})} style={{background:"#c8a96e",color:"#0a0a0f",border:"none",borderRadius:"10px",padding:"14px 28px",fontSize:"14px",fontWeight:"700",cursor:"pointer",marginTop:"8px"}}>
             Try Again
           </button>
         </div>
