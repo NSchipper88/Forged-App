@@ -243,7 +243,8 @@ function journeyStats(userData) {
     if (dl.length >= domainCount && domainCount > 0) sweeps++;
     if (dayVotes > bestDay) bestDay = dayVotes;
   });
-  return { votes, actions, sweeps, bestDay, debriefs: (userData?.debriefHistory||[]).length };
+  const overrides = (userData?.debriefHistory||[]).filter(e=>e.voiceCheck==="overrode").length;
+  return { votes, actions, sweeps, bestDay, overrides, debriefs: (userData?.debriefHistory||[]).length };
 }
 const VOTE_MILESTONES = [25, 50, 100, 250, 500, 1000, 2500, 5000];
 
@@ -799,6 +800,7 @@ function Forge() {
   const [hookSlide, setHookSlide] = useState(0);
   const [splashDest, setSplashDest] = useState("hook"); // where splash routes: hook (new) | dashboard | drift
   const [reminderTime, setReminderTime] = useState("21:00");
+  const [debriefVoice, setDebriefVoice] = useState(null); // null | "none" | "won" | "overrode"
   const [voteFlash, setVoteFlash] = useState(null); // { weight, tier, sweep } transient celebration
   const [sealDone, setSealDone] = useState(false);
   const [pickedFoundations, setPickedFoundations] = useState([]);
@@ -1346,13 +1348,14 @@ Rewrite their inner voice.`;
     setAiTyping(true);
     const prompt = `Identity: ${userData?.identity?.label}. Score: ${debriefScore}/10. Note: "${debriefNote||"None."}"
 THE MISS (integrity confession): "${debriefMiss||"Nothing confessed."}"
+VOICE CHECK: ${debriefVoice==="overrode"?"The old inner voice showed up today and they ACTED ANYWAY — honor this explicitly; acting with the thought present is one of the heaviest votes there is.":debriefVoice==="won"?"The old inner voice showed up and won today. Treat this as reconnaissance, never shame — now they know the trigger. One line on what the override looks like next time.":debriefVoice==="none"?"The old voice didn't show up today.":"Not reported."}
 ${(()=>{const prev=(userData?.debriefHistory||[]).slice(-1)[0];return prev?.acknowledged&&prev?.response?`YESTERDAY'S ORDER — THEY TAPPED "HOLD ME TO IT" ON THIS (check whether they executed; if they did, mark it; if they didn't, that's the gap tonight): "${prev.response.slice(0,300)}"`:"";})()}
 ${userData?.innerVoice?.script && !userData?.innerVoice?.flagged ? `THEIR REBUILT INNER-VOICE SCRIPT (reinforce it if their self-talk slips): ${userData.innerVoice.script.slice(0,400)}` : ""}
 
 ${traitsPromptBlock(userData)}`;
     const response = await askClaude([{role:"user",content:prompt}], DEBRIEF_SYSTEM);
     setDebriefResponse(response); setAiTyping(false);
-    const entry = { date:today, score:debriefScore, note:debriefNote, miss:debriefMiss, response, dayCount:currentDay() };
+    const entry = { date:today, score:debriefScore, note:debriefNote, miss:debriefMiss, voiceCheck:debriefVoice, response, dayCount:currentDay() };
     const updated = {
       ...userData,
       debriefHistory: [...(userData?.debriefHistory||[]), entry],
@@ -1897,6 +1900,7 @@ Write the script.`;
           <button style={{...S.btn,width:"auto",padding:"0 20px",opacity:userInput.trim()&&!aiTyping?1:0.4}} onClick={sendMessage} disabled={!userInput.trim()||aiTyping}>→</button>
         </div>
         <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>Specific and honest beats polished — FORGE may ask you to sharpen an answer, because the system gets built from this</div>
+        <div style={{fontSize:"10px",color:"#4a4a6a",textAlign:"center",lineHeight:1.5}}>🔒 No human reads this. Your record lives on your device — your words go only to the AI coach, encrypted, never sold.</div>
         <div style={{fontSize:"11px",color:"#3a3a5e",textAlign:"center"}}>{Object.values(pillarStatus).filter(Boolean).length} of {PILLARS.length} pillars locked in</div>
       </div>
     </div>
@@ -2054,7 +2058,7 @@ Write the script.`;
               <button style={{...S.btn,background:"#c8a96e"}} onClick={()=>{setReforgeStep(2);startReforge();}} disabled={driftAlert?.loading}>
                 I acknowledge what happened. I'm back.
               </button>
-              <button style={S.btnGhost} onClick={()=>{setDriftAlert(null);setScreen("debrief");setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");}} disabled={driftAlert?.loading}>
+              <button style={S.btnGhost} onClick={()=>{setDriftAlert(null);setScreen("debrief");setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);}} disabled={driftAlert?.loading}>
                 Let me be honest in a debrief first
               </button>
             </div>
@@ -2623,7 +2627,7 @@ Write the script.`;
         )}
         <div style={S.navBar}>
           <button style={S.navBtn(true)}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2733,7 +2737,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2848,7 +2852,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
           <button style={S.navBtn(true)}><span>👥</span>Cohort</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -2968,7 +2972,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3076,7 +3080,7 @@ Write the script.`;
 
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
@@ -3206,6 +3210,7 @@ Write the script.`;
                   {v:j.actions.toLocaleString(), l:"Actions done"},
                   {v:j.sweeps, l:"Full sweeps"},
                   {v:j.bestDay, l:"Best day"},
+                  ...(j.overrides>0?[{v:j.overrides, l:"Voice overrides"}]:[]),
                 ].map((s,i)=>(
                   <div key={i} style={{textAlign:"center"}}>
                     <div style={{fontSize:"20px",fontWeight:"700",color:accentOf(userData)}}>{s.v}</div>
@@ -3288,6 +3293,12 @@ Write the script.`;
         <button style={S.btnGhost} onClick={async()=>{await persist({...userData,methodSeen:false});setScreen("dashboard");}}>The Method — how change works</button>
         <button style={{...S.btnGhost,borderColor:"#c8a96e33",color:"#c8a96e"}} onClick={()=>setScreen("forgecard")}>⚒ My Forge Card</button>
 
+        {/* Private by Design */}
+        <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
+          <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"8px"}}>🔒 Private by Design</div>
+          <div style={{fontSize:"11px",color:"#5a5a6e",lineHeight:1.7}}>Your identity, debriefs, misses, and inner voice live in your device's storage — there is no account and no server database of your entries. No human reads what you write. Your words are sent securely to the AI coach only to generate its response, and are never sold or used to advertise to you. The cohort sees only an anonymous callsign. Deleting the app, or Start Over, erases your record.</div>
+        </div>
+
         {/* Identity accent — curated palette, AI-assigned, user-overridable */}
         <div style={{padding:"14px 16px",background:"#0a0a0f",borderRadius:"10px",border:"1px solid #1e1e2e"}}>
           <div style={{fontSize:"9px",color:"#4a4a6a",letterSpacing:"0.3em",textTransform:"uppercase",marginBottom:"10px"}}>Identity Accent · {(ACCENTS[userData?.accent]||ACCENTS.gold).name}</div>
@@ -3366,7 +3377,7 @@ Write the script.`;
         <button style={S.btnDanger} onClick={()=>setResetConfirmOpen(true)}>Reset Identity</button>
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)}><span>◈</span>Profile</button>
         </div>
@@ -3494,8 +3505,19 @@ Write the script.`;
           {/* The Miss — integrity confession */}
           <div style={{padding:"12px 14px",background:"#0f0d0a",border:"1px solid #3a2e1e",borderRadius:"10px",display:"flex",flexDirection:"column",gap:"8px"}}>
             <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>The Miss · Integrity Check</div>
-            <div style={{fontSize:"11px",color:"#5a5a6e",lineHeight:1.6}}>What did you dodge, soften, or lie to yourself about today? Owning it out loud is rarer than doing everything right — and your coach respects it more.</div>
+            <div style={{fontSize:"11px",color:"#5a5a6e",lineHeight:1.6}}>What did you dodge, soften, or lie to yourself about today? Owning it out loud is rarer than doing everything right — and your coach respects it more. No human ever reads this — it lives on your device and goes only to the AI that writes your response.</div>
             <textarea style={{...S.textarea,minHeight:"56px",fontSize:"16px",background:"#0a0a0f"}} placeholder="No one sees this but you and your coach." value={debriefMiss} onChange={e=>setDebriefMiss(e.target.value)} rows={2}/>
+          </div>
+
+          {/* Voice Check — track victories over the old voice, not the thoughts themselves */}
+          <div style={{padding:"12px 14px",background:"#0a0a12",border:"1px solid #1e1e2e",borderRadius:"10px",display:"flex",flexDirection:"column",gap:"8px"}}>
+            <div style={{fontSize:"9px",color:"#c8a96e",letterSpacing:"0.3em",textTransform:"uppercase"}}>Voice Check · optional</div>
+            <div style={{fontSize:"11px",color:"#5a5a6e",lineHeight:1.6}}>Did the old voice show up today — the one that says you can't? Acting with the thought still present is the rep that rewires it.</div>
+            <div style={{display:"flex",gap:"6px"}}>
+              {[["none","Didn't show"],["won","It won today"],["overrode","I overrode it ⚒"]].map(([k,l])=>(
+                <button key={k} onClick={()=>setDebriefVoice(debriefVoice===k?null:k)} style={{flex:1,padding:"9px 4px",borderRadius:"8px",border:`1px solid ${debriefVoice===k?(k==="overrode"?"#c8a96e":"#5a5a6e"):"#1e1e2e"}`,background:debriefVoice===k?(k==="overrode"?"#c8a96e22":"#1a1a24"):"transparent",color:debriefVoice===k?(k==="overrode"?"#c8a96e":"#9a9aae"):"#5a5a6e",fontSize:"10px",cursor:"pointer",fontFamily:"'Georgia',serif",lineHeight:1.3}}>{l}</button>
+              ))}
+            </div>
           </div>
         </div>
         )}
@@ -3604,7 +3626,7 @@ Write the script.`;
         </div>
         <div style={S.navBar}>
           <button style={S.navBtn(false)} onClick={()=>setScreen("dashboard")}><span>⚡</span>Mission</button>
-          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setScreen("debrief");}}><span>🌙</span>Debrief</button>
+          <button style={S.navBtn(false)} onClick={()=>{setDebriefScore(null);setDebriefResponse("");setDebriefNote("");setDebriefMiss("");setDebriefVoice(null);setScreen("debrief");}}><span>🌙</span>Debrief</button>
           <button style={S.navBtn(false)} onClick={()=>setScreen("cohort")}><span>👥</span>Cohort</button>
           <button style={S.navBtn(true)} onClick={()=>setScreen("mirror")}><span>◈</span>Profile</button>
         </div>
